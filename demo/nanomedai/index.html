@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NanoMedAI — Computational Nanomedicine Research Platform</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="data/demoState.js"></script>
+  <script src="data/demoParticles.js"></script>
+  <script src="data/demoTrajectories.js"></script>
+  <script src="app.js"></script>
+</head>
+<body>
+
+  <!-- Demo Notice Banner -->
+  <div class="demo-banner">
+    <div>
+      <span class="demo-banner-tag">FRONTEND DEMONSTRATION ONLY</span>
+      <span style="margin-left:8px;">VALUES ARE DEMONSTRATION DATA — NOT CONNECTED TO BACKEND MODEL ENGINE</span>
+    </div>
+    <div style="font-size:10px; opacity:0.8;">NanoMedAI Platform Architecture Blueprint v1.0</div>
+  </div>
+
+  <!-- Main App Header Navbar -->
+  <header class="app-header">
+    <div class="brand-section">
+      <div class="brand-icon">N</div>
+      <div>
+        <div class="brand-title">NanoMedAI</div>
+        <div class="brand-subtitle">COMPUTATIONAL NANOMEDICINE RESEARCH WORKSTATION</div>
+      </div>
+    </div>
+
+    <div class="header-status-group">
+      <div class="header-status-item">
+        <span class="status-dot"></span>
+        <span>MODELS: <strong>2 VERIFIED</strong></span>
+      </div>
+      <div class="header-status-item">
+        <span>DATASET: <strong style="color:var(--accent-blue);">DS-NANO-ZETA-288</strong></span>
+      </div>
+      <div class="header-status-item">
+        <span>SIM ENGINE: <strong style="color:var(--accent-purple);">Korsmeyer-Peppas v1.2</strong></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Layout Workspace -->
+  <div class="app-container">
+
+    <!-- Left Sidebar Navigation -->
+    <nav class="app-sidebar">
+      <div class="nav-group-title">RESEARCH WORKFLOW</div>
+      <div class="nav-item active" data-view="overview">
+        <span class="nav-icon">📊</span>
+        <span>Research Overview</span>
+      </div>
+      <div class="nav-item" data-view="builder">
+        <span class="nav-icon">🧪</span>
+        <span>Nanoparticle Builder</span>
+        <span class="nav-badge supported">CONCEPTUAL</span>
+      </div>
+      <div class="nav-item" data-view="environment">
+        <span class="nav-icon">🌡️</span>
+        <span>Environment Builder</span>
+        <span class="nav-badge limited">PARTIAL</span>
+      </div>
+
+      <div class="nav-group-title">PREDICTION & SIMULATION</div>
+      <div class="nav-item" data-view="prediction">
+        <span class="nav-icon">🎯</span>
+        <span>Prediction Workspace</span>
+        <span class="nav-badge supported">VALIDATED</span>
+      </div>
+      <div class="nav-item" data-view="simulation">
+        <span class="nav-icon">🔬</span>
+        <span>Simulation Lab</span>
+        <span class="nav-badge supported">LIVE SIM</span>
+      </div>
+      <div class="nav-item" data-view="release">
+        <span class="nav-icon">📈</span>
+        <span>Drug Release Panel</span>
+        <span class="nav-badge supported">VALIDATED</span>
+      </div>
+      <div class="nav-item" data-view="stability">
+        <span class="nav-icon">⚡</span>
+        <span>Particle Stability</span>
+        <span class="nav-badge limited">PARTIAL</span>
+      </div>
+
+      <div class="nav-group-title">TRANSPARENCY & DATA</div>
+      <div class="nav-item" data-view="transparency">
+        <span class="nav-icon">🔍</span>
+        <span>Model Transparency</span>
+        <span class="nav-badge supported">PROVENANCE</span>
+      </div>
+      <div class="nav-item" data-view="datasets">
+        <span class="nav-icon">📂</span>
+        <span>Dataset Explorer</span>
+        <span class="nav-badge supported">OPEN DATA</span>
+      </div>
+
+      <div class="nav-group-title">TRANSLATIONAL SCREENING</div>
+      <div class="nav-item" data-view="screening">
+        <span class="nav-icon">🔻</span>
+        <span>Candidate Screening</span>
+        <span class="nav-badge supported">FUNNEL</span>
+      </div>
+      <div class="nav-item" data-view="comparison">
+        <span class="nav-icon">⚖️</span>
+        <span>Candidate Comparison</span>
+        <span class="nav-badge supported">MULTI-NP</span>
+      </div>
+      <div class="nav-item" data-view="report">
+        <span class="nav-icon">📝</span>
+        <span>Research Report</span>
+        <span class="nav-badge supported">EXPORT</span>
+      </div>
+    </nav>
+
+    <!-- Main Content Workspace Area -->
+    <main class="app-content">
+
+      <!-- ===================================================================
+           1. RESEARCH OVERVIEW SECTION
+           =================================================================== -->
+      <section id="view-overview" class="view-section active">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">
+              NanoMedAI Research Workstation Overview
+              <span class="badge badge-blue">DEMO BLUEPRINT</span>
+            </h1>
+            <p class="page-description">
+              Integrated machine learning & biophysical simulation environment for nanomedicine design.
+            </p>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <select id="activeParticleSelect" class="form-control" style="width:240px; font-weight:600;">
+              <option value="NP-AG-04">PLGA-PEG Doxorubicin (NP-AG-04)</option>
+              <option value="NP-AG-09">AuNP-Citrate (NP-AG-09)</option>
+              <option value="NP-AG-14">CuO-Pristine (NP-AG-14)</option>
+              <option value="NP-AG-22">CS-TPP/Insulin (NP-AG-22)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-4">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">ZETA POTENTIAL MODEL</span>
+              <span class="badge badge-green">VERIFIED</span>
+            </div>
+            <div style="font-size:20px; font-weight:800; color:var(--accent-green);">-24.8 mV</div>
+            <div style="font-size:11px; color:var(--text-muted);">Ridge Regressor + SMILES | RMSE = 4.1 mV</div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">CYTOTOXICITY MODEL</span>
+              <span class="badge badge-green">VERIFIED</span>
+            </div>
+            <div style="font-size:20px; font-weight:800; color:var(--accent-green);">NONTOXIC</div>
+            <div style="font-size:11px; color:var(--text-muted);">Random Forest | Cell Model: A549</div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">SIMULATION ENGINE</span>
+              <span class="badge badge-purple">ACTIVE</span>
+            </div>
+            <div style="font-size:20px; font-weight:800; color:var(--accent-purple);">Korsmeyer-Peppas</div>
+            <div style="font-size:11px; color:var(--text-muted);">Diffusion exponent n = 0.45 (Sphere)</div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">CANDIDATE SHORTLIST</span>
+              <span class="badge badge-blue">SCREENING</span>
+            </div>
+            <div style="font-size:20px; font-weight:800; color:var(--accent-blue);">10 / 100</div>
+            <div style="font-size:11px; color:var(--text-muted);">Candidates selected for experimental review</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">CONCEPTUAL PARTICLE PREVIEW</span>
+              <span class="badge badge-green">CONCEPTUAL VIEW</span>
+            </div>
+            <div style="display:flex; justify-content:center; padding:10px;">
+              <canvas id="particleCanvas" width="360" height="240"></canvas>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">SCIENTIFIC CAPABILITY MATRIX</span>
+              <span class="badge badge-amber">LIMITATIONS EXPLICIT</span>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Capability</th>
+                    <th>Status</th>
+                    <th>Scientific Scope</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Zeta Potential Prediction</td>
+                    <td><span class="badge badge-green">SUPPORTED</span></td>
+                    <td>288 Harmonized Nanoparticles</td>
+                  </tr>
+                  <tr>
+                    <td>Cytotoxicity Endpoint</td>
+                    <td><span class="badge badge-green">SUPPORTED</span></td>
+                    <td>1,420 Nano-Assay Records</td>
+                  </tr>
+                  <tr>
+                    <td>Drug Release Kinetics</td>
+                    <td><span class="badge badge-green">SUPPORTED</span></td>
+                    <td>PLGA / Polymeric Hydrogel Domain</td>
+                  </tr>
+                  <tr>
+                    <td>Causal pH Release Shift</td>
+                    <td><span class="badge badge-red">NOT SUPPORTED</span></td>
+                    <td>DATA REQUIRED (Static Model Only)</td>
+                  </tr>
+                  <tr>
+                    <td>Aggregation Dynamics</td>
+                    <td><span class="badge badge-red">NOT IMPLEMENTED</span></td>
+                    <td>Planned v2.0 Module</td>
+                  </tr>
+                  <tr>
+                    <td>Protein Corona Formation</td>
+                    <td><span class="badge badge-red">NOT IMPLEMENTED</span></td>
+                    <td>Future Research Roadmap</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           2. NANOPARTICLE BUILDER WORKSPACE
+           =================================================================== -->
+      <section id="view-builder" class="view-section">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Nanoparticle Builder Workspace</h1>
+            <p class="page-description">Define physical, chemical, and formulation properties of the virtual nanoparticle.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">PARTICLE IDENTITY & COMPOSITION</span>
+              <span class="badge badge-blue">INPUT FORM</span>
+            </div>
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label">Core Material</label>
+                <input type="text" class="form-control" value="PLGA 50:50">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Coating / Shell</label>
+                <input type="text" class="form-control" value="PEG 2000 Da">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Ligand SMILES</label>
+                <input type="text" class="form-control mono-cell" value="C1=CC(=CC=C1C(=O)NC(CCC(=O)O)C(=O)O)NCC2=CN=C3C(=N2)C(=O)NC(=N3)N">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Encapsulated Drug</label>
+                <input type="text" class="form-control" value="Doxorubicin HCl">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Core Size <span class="unit-tag">(nm)</span></label>
+                <input type="number" class="form-control" value="45.0">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Hydrodynamic Size <span class="unit-tag">(nm)</span></label>
+                <input type="number" class="form-control" value="68.5">
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">CONCEPTUAL PARTICLE STRUCTURE VIEW</span>
+              <span class="badge badge-green">NOT ATOMICALLY ACCURATE</span>
+            </div>
+            <div style="display:flex; justify-content:center; padding:10px;">
+              <canvas id="builderParticleCanvas" width="360" height="260"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           3. ENVIRONMENT BUILDER WORKSPACE
+           =================================================================== -->
+      <section id="view-environment" class="view-section">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Surrounding Environment Builder</h1>
+            <p class="page-description">Configure physical, chemical, and biological medium parameters.</p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">PHYSICAL PARAMETERS</span>
+              <span class="badge badge-green">SUPPORTED</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Temperature <span class="unit-tag">(°C)</span></label>
+              <input id="envTempInput" type="number" class="form-control" value="37.0" step="0.5">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Pressure <span class="unit-tag">(atm)</span></label>
+              <input type="number" class="form-control disabled" value="1.0" disabled>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">CHEMICAL PARAMETERS</span>
+              <span class="badge badge-amber">STATE ONLY</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">pH Level</label>
+              <input id="envPhInput" type="number" class="form-control" value="7.40" step="0.1">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Ionic Strength <span class="unit-tag">(M)</span></label>
+              <input type="number" class="form-control" value="0.15">
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">BIOLOGICAL MEDIUM</span>
+              <span class="badge badge-red">UNSUPPORTED</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Serum Concentration <span class="unit-tag">(%)</span></label>
+              <input type="number" class="form-control disabled" value="10.0" disabled>
+              <div style="font-size:10px; color:var(--accent-red); margin-top:4px;">Protein Corona Model Required</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           4. PREDICTION WORKSPACE
+           =================================================================== -->
+      <section id="view-prediction" class="view-section">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Machine Learning Prediction Workspace</h1>
+            <p class="page-description">Static endpoint models for Zeta Potential stability and Cytotoxicity risk assessment.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Zeta Potential Card -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">ZETA POTENTIAL PREDICTION</span>
+              <span class="badge badge-green">RDKit + RIDGE</span>
+            </div>
+            <div style="display:flex; align-items:baseline; gap:12px;">
+              <div id="predZetaVal" style="font-size:36px; font-weight:800; color:var(--accent-green);">-24.8 mV</div>
+              <div class="badge badge-green">MODERATELY STABLE</div>
+            </div>
+            <div class="callout callout-blue">
+              <span><strong>Model Uncertainty:</strong> ± 2.1 mV (95% Confidence Interval)</span>
+            </div>
+            <div style="font-size:11px; color:var(--text-secondary);">
+              <strong>Input Coverage:</strong> 94.2% inside training domain (288 harmonized nanoparticles, GroupKFold by DOI).
+            </div>
+          </div>
+
+          <!-- Cytotoxicity Card -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">CYTOTOXICITY RISK PREDICTION</span>
+              <span class="badge badge-green">RANDOM FOREST</span>
+            </div>
+            <div style="display:flex; align-items:baseline; gap:12px;">
+              <div id="predCytoVal" style="font-size:36px; font-weight:800; color:var(--accent-green);">NONTOXIC</div>
+              <div class="badge badge-blue">LOW RISK (14% PROBABILITY)</div>
+            </div>
+            <div class="callout callout-blue">
+              <span><strong>Endpoint Conditions:</strong> MTT Assay on A549 Cell Line at 50 µg/mL dose over 24h exposure.</span>
+            </div>
+            <div style="font-size:11px; color:var(--text-secondary);">
+              <strong>Static Endpoint Warning:</strong> This is a static classification prediction, NOT a dynamic biological uptake simulation.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           5. SIMULATION LAB (Central Research Workspace)
+           =================================================================== -->
+      <section id="view-simulation" class="view-section">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Central Simulation Lab Workspace</h1>
+            <p class="page-description">Time-dependent Korsmeyer-Peppas biophysical drug release simulation.</p>
+          </div>
+        </div>
+
+        <div class="sim-layout">
+          <!-- LEFT: Particle Config Summary -->
+          <div class="card" style="grid-column:1; grid-row:1;">
+            <div class="card-header">
+              <span class="card-title">FORMULATION</span>
+            </div>
+            <div style="font-size:12px; font-weight:700; color:var(--accent-blue);">PLGA-PEG Doxorubicin</div>
+            <div style="font-size:11px; color:var(--text-muted);">
+              Core: 45 nm<br>
+              Hydro: 68.5 nm<br>
+              Drug Loading: 8.5%<br>
+              Mechanism: Spherical Diffusion
+            </div>
+          </div>
+
+          <!-- CENTER: Live Simulation Canvas -->
+          <div class="sim-visualization-card">
+            <div class="sim-canvas-header">
+              <div class="sim-timer-display" id="simTimerDisplay">T = 24.0 h</div>
+              <span class="badge badge-purple">LIVE SIMULATION</span>
+            </div>
+            <canvas id="simCanvas" width="520" height="360"></canvas>
+            <div class="sim-controls-toolbar">
+              <button id="simBtnStart" class="btn btn-primary">START</button>
+              <button id="simBtnPause" class="btn btn-purple" style="display:none;">PAUSE</button>
+              <button id="simBtnStep" class="btn btn-secondary">STEP</button>
+              <button id="simBtnReset" class="btn btn-secondary">RESET</button>
+              <select id="simSpeedSelect" class="form-control" style="width:70px;">
+                <option value="0.5">0.5x</option>
+                <option value="1.0" selected>1.0x</option>
+                <option value="2.0">2.0x</option>
+                <option value="5.0">5.0x</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- RIGHT: Live Environment Metrics -->
+          <div class="card" style="grid-column:3; grid-row:1;">
+            <div class="card-header">
+              <span class="card-title">STATE METRICS</span>
+            </div>
+            <div>
+              <div style="font-size:10px; color:var(--text-muted);">CUMULATIVE RELEASE</div>
+              <div id="simReleaseVal" style="font-size:24px; font-weight:800; color:var(--accent-purple);">34.2 %</div>
+            </div>
+            <div>
+              <div style="font-size:10px; color:var(--text-muted);">REMAINING PAYLOAD</div>
+              <div id="simRemainingVal" style="font-size:24px; font-weight:800; color:var(--accent-blue);">65.8 %</div>
+            </div>
+          </div>
+
+          <!-- BOTTOM: Timeline & Event Log -->
+          <div class="sim-timeline-panel">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">SIMULATION EVENT STREAM</span>
+                <span class="badge badge-blue">REAL-TIME LOG</span>
+              </div>
+              <div id="eventLogContainer" class="event-log-container"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           6. DRUG RELEASE PANEL
+           =================================================================== -->
+      <section id="view-release" class="view-section">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Cumulative Drug Release Trajectory</h1>
+            <p class="page-description">Korsmeyer-Peppas model predictions compared against experimental in-vitro dissolution data.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">RELEASE TRAJECTORY CURVE (M_t / M_inf vs TIME)</span>
+            <span class="badge badge-amber">EXTRAPOLATION THRESHOLD: 48.0 h</span>
+          </div>
+          <div style="display:flex; justify-content:center; padding:10px;">
+            <canvas id="releaseChartCanvas" width="760" height="340"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           7. PARTICLE STABILITY PANEL
+           =================================================================== -->
+      <section id="view-stability" class="view-section">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Particle Physical Stability & Heatmap Explorer</h1>
+            <p class="page-description">Colloidal stability evaluation across pH and temperature gradients.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">STABILITY HEATMAP MATRIX (pH vs TEMP)</span>
+              <span class="badge badge-green">DLVO MODEL</span>
+            </div>
+            <div style="overflow-x:auto;">
+              <table id="heatmapGridTable" class="heatmap-table"></table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">UNSUPPORTED DYNAMIC MECHANISMS</span>
+              <span class="badge badge-red">NOT IMPLEMENTED</span>
+            </div>
+            <div class="callout callout-amber" style="margin-bottom:12px;">
+              <span><strong>Scientific Boundary Notice:</strong> The following physical dynamics are not currently supported by backend calculation models.</span>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Mechanism</th>
+                    <th>Status</th>
+                    <th>Required Data</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>PDI Evolution Over Time</td>
+                    <td><span class="badge badge-red">NOT IMPLEMENTED</span></td>
+                    <td>Multi-angle DLS Time Series</td>
+                  </tr>
+                  <tr>
+                    <td>Nanoparticle Aggregation Kinetics</td>
+                    <td><span class="badge badge-red">NOT IMPLEMENTED</span></td>
+                    <td>Smoluchowski Aggregation Data</td>
+                  </tr>
+                  <tr>
+                    <td>Protein Corona Kinetics</td>
+                    <td><span class="badge badge-red">DATA REQUIRED</span></td>
+                    <td>LC-MS/MS Proteomics Archive</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           8. MODEL TRANSPARENCY
+           =================================================================== -->
+      <section id="view-transparency" class="view-section">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Model Transparency & Provenance</h1>
+            <p class="page-description">Complete open-science audit trail, dataset provenance, and validation metrics.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">MODEL VALIDATION AUDIT TRAIL</span>
+            <span class="badge badge-blue">ZERO CROSS-STUDY LEAKAGE</span>
+          </div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Model Name</th>
+                  <th>Algorithm</th>
+                  <th>Validation Scheme</th>
+                  <th>Key Metric</th>
+                  <th>Dataset DOI</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Zeta Stability Predictor</td>
+                  <td>Ridge Regressor + SMILES</td>
+                  <td>GroupKFold by DOI (42 Studies)</td>
+                  <td>RMSE = 4.1 mV</td>
+                  <td><a href="#" style="color:var(--accent-blue);">10.1021/acs.nanolett.demo101</a></td>
+                </tr>
+                <tr>
+                  <td>Cytotoxicity Risk Classifier</td>
+                  <td>Random Forest Classifier</td>
+                  <td>GroupKFold by PubMed ID</td>
+                  <td>ROC-AUC = 0.89</td>
+                  <td><a href="#" style="color:var(--accent-blue);">10.5281/zenodo.15300193</a></td>
+                </tr>
+                <tr>
+                  <td>Drug Release Kinetics Engine</td>
+                  <td>Korsmeyer-Peppas Analytical</td>
+                  <td>In-Vitro Dissolution Archive</td>
+                  <td>R² = 0.96</td>
+                  <td><a href="#" style="color:var(--accent-blue);">10.1016/j.jconrel.demo2024</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           9. DATASET EXPLORER
+           =================================================================== -->
+      <section id="view-datasets" class="view-section">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Curated Research Dataset Explorer</h1>
+            <p class="page-description">Browse open experimental databases used for training and model validation.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">BENCHMARK DATASET ARCHIVE</span>
+            <span class="badge badge-green">3 DATASETS CURATED</span>
+          </div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Dataset ID</th>
+                  <th>Title / Provenance</th>
+                  <th>Records</th>
+                  <th>Studies</th>
+                  <th>Target Variable</th>
+                  <th>Quality Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="mono-cell">DS-NANO-ZETA-288</td>
+                  <td>Harmonized Nanoparticle Zeta Potential Benchmark</td>
+                  <td>288</td>
+                  <td>42</td>
+                  <td>Zeta Potential (mV)</td>
+                  <td><span class="badge badge-green">98.2%</span></td>
+                </tr>
+                <tr>
+                  <td class="mono-cell">DS-CYTO-NANO-1420</td>
+                  <td>In Vitro Nanoparticle Cytotoxicity Meta-Dataset</td>
+                  <td>1,420</td>
+                  <td>118</td>
+                  <td>Viability (% < 70% = Toxic)</td>
+                  <td><span class="badge badge-green">95.6%</span></td>
+                </tr>
+                <tr>
+                  <td class="mono-cell">DS-RELEASE-PLGA-64</td>
+                  <td>Polymeric Nanoparticle In Vitro Dissolution Archive</td>
+                  <td>64</td>
+                  <td>16</td>
+                  <td>Release Trajectory M(t)/M_inf</td>
+                  <td><span class="badge badge-green">92.0%</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           10. CANDIDATE SCREENING
+           =================================================================== -->
+      <section id="view-screening" class="view-section">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Candidate Screening Funnel</h1>
+            <p class="page-description">Narrow a large candidate formulation pool into an experimental shortlist.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">TRANSLATIONAL CANDIDATE SELECTION FUNNEL</span>
+            <span class="badge badge-blue">100 → 10 SHORTLIST</span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:12px; padding:10px 0;">
+            <div style="background-color:rgba(56, 189, 248, 0.15); border:1px solid var(--accent-blue); padding:12px; border-radius:6px; display:flex; justify-content:space-between; align-items:center;">
+              <div><strong>100 Candidate Formulations</strong> (Initial Library Pool)</div>
+              <span class="badge badge-blue">POOL</span>
+            </div>
+            <div style="background-color:rgba(192, 132, 252, 0.15); border:1px solid var(--accent-purple); padding:12px; border-radius:6px; display:flex; justify-content:space-between; align-items:center; width:85%; margin:0 auto;">
+              <div><strong>42 Candidates Inside Model Domain</strong> (Training Coverage Check)</div>
+              <span class="badge badge-purple">MODEL COMPATIBLE</span>
+            </div>
+            <div style="background-color:rgba(251, 191, 36, 0.15); border:1px solid var(--accent-amber); padding:12px; border-radius:6px; display:flex; justify-content:space-between; align-items:center; width:70%; margin:0 auto;">
+              <div><strong>18 Candidates Meeting Biophysical Constraints</strong> (Size < 100nm, Zeta < -20mV)</div>
+              <span class="badge badge-amber">CONSTRAINTS MET</span>
+            </div>
+            <div style="background-color:rgba(52, 211, 153, 0.15); border:1px solid var(--accent-green); padding:12px; border-radius:6px; display:flex; justify-content:space-between; align-items:center; width:55%; margin:0 auto;">
+              <div><strong>10 Candidates Selected for Experimental Review</strong></div>
+              <span class="badge badge-green">EXPERIMENTAL SHORTLIST</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           11. COMPARISON MODE
+           =================================================================== -->
+      <section id="view-comparison" class="view-section">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Candidate Particle Comparison Workspace</h1>
+            <p class="page-description">Side-by-side comparative analysis of candidate nanoparticle formulations.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">MULTI-CANDIDATE COMPARISON MATRIX</span>
+            <span class="badge badge-blue">NEUTRAL EVALUATION</span>
+          </div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>NP-AG-04 (PLGA-PEG/DOX)</th>
+                  <th>NP-AG-09 (AuNP-Citrate)</th>
+                  <th>NP-AG-14 (CuO-Pristine)</th>
+                  <th>NP-AG-22 (CS-TPP/Insulin)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Core Size (nm)</td>
+                  <td class="mono-cell">45.0 nm</td>
+                  <td class="mono-cell">15.0 nm</td>
+                  <td class="mono-cell">32.0 nm</td>
+                  <td class="mono-cell">110.0 nm</td>
+                </tr>
+                <tr>
+                  <td>Zeta Potential (mV)</td>
+                  <td class="mono-cell" style="color:var(--accent-green);">-24.8 mV</td>
+                  <td class="mono-cell" style="color:var(--accent-green);">-38.2 mV</td>
+                  <td class="mono-cell" style="color:var(--accent-red);">-12.4 mV</td>
+                  <td class="mono-cell" style="color:var(--accent-amber);">+31.5 mV</td>
+                </tr>
+                <tr>
+                  <td>Cytotoxicity</td>
+                  <td><span class="badge badge-green">Nontoxic</span></td>
+                  <td><span class="badge badge-green">Nontoxic</span></td>
+                  <td><span class="badge badge-red">Toxic</span></td>
+                  <td><span class="badge badge-green">Nontoxic</span></td>
+                </tr>
+                <tr>
+                  <td>Model Domain Status</td>
+                  <td><span class="badge badge-green">In Domain</span></td>
+                  <td><span class="badge badge-green">In Domain</span></td>
+                  <td><span class="badge badge-green">In Domain</span></td>
+                  <td><span class="badge badge-amber">Out of Domain</span></td>
+                </tr>
+                <tr>
+                  <td>Screening Status</td>
+                  <td><span class="badge badge-green">Shortlisted</span></td>
+                  <td><span class="badge badge-blue">Model Compatible</span></td>
+                  <td><span class="badge badge-red">Rejected</span></td>
+                  <td><span class="badge badge-amber">Validation Required</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           12. RESEARCH REPORT
+           =================================================================== -->
+      <section id="view-report" class="view-section">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Scientific Research Summary Report</h1>
+            <p class="page-description">Exportable scientific documentation of particle analysis and simulation results.</p>
+          </div>
+          <button class="btn btn-primary" onclick="window.print();">PRINT / EXPORT PDF</button>
+        </div>
+
+        <div class="card" style="line-height:1.8;">
+          <div class="card-header">
+            <span class="card-title">NANOMEDAI RESEARCH DOCUMENTATION</span>
+            <span class="badge badge-purple">CONFIDENTIAL RESEARCH REPORT</span>
+          </div>
+
+          <div style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted); margin-bottom:16px;">
+            REPORT GENERATED: 2026-10-02 | TARGET PARTICLE: <span id="reportParticleId" style="color:var(--text-primary); font-weight:700;">PLGA-PEG Doxorubicin (NP-AG-04)</span>
+          </div>
+
+          <h3 style="color:var(--accent-blue); font-size:14px; margin-top:12px;">1. EXECUTIVE FORMULATION SUMMARY</h3>
+          <p>
+            Nanoparticle formulation NP-AG-04 consists of a PLGA (50:50, MW ~45 kDa) core encapsulated with Doxorubicin HCl (8.5% w/w loading) and surface-functionalized with PEG 2000 Da and Folate ligands. Hydrodynamic diameter is 68.5 nm with a PDI of 0.12.
+          </p>
+
+          <h3 style="color:var(--accent-blue); font-size:14px; margin-top:16px;">2. MACHINE LEARNING PREDICTION METRICS</h3>
+          <p>
+            Zeta Potential is predicted at <strong>−24.8 mV</strong> (± 2.1 mV, 95% CI), placing the formulation in the electrostatically stable domain. Cytotoxicity endpoint prediction on A549 cell lines indicates a <strong>Nontoxic</strong> profile (14% toxicity risk probability) under standard 24h exposure at 50 µg/mL.
+          </p>
+
+          <h3 style="color:var(--accent-blue); font-size:14px; margin-top:16px;">3. BIOPHYSICAL KINETICS & MODEL LIMITATIONS</h3>
+          <p>
+            Korsmeyer-Peppas in-vitro release kinetics modeling indicates Fickian spherical matrix diffusion (n = 0.45). Model valid region covers up to 48.0h (45.8% cumulative release). Trajectories beyond 48.0h represent mathematical extrapolation and require experimental validation.
+          </p>
+
+          <div class="callout callout-amber" style="margin-top:20px;">
+            <span><strong>RECOMMENDATION:</strong> NP-AG-04 is recommended for experimental shortlist inclusion. In-vitro cell uptake and dissolution testing in USP Apparatus 4 are required before in-vivo translational phase.</span>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+</body>
+</html>

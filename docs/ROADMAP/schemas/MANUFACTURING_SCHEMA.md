@@ -1,0 +1,14 @@
+# Manufacturing / Process Schema (Future)
+- Preparation method
+- Microfluidic/bulk
+- Flow rate
+- Flow-rate ratio
+- Total flow rate
+- Mixing time
+- Temperature
+- Sonication
+- Stirring
+- Solvent
+- Drying method
+- Storage temperature
+- Storage time

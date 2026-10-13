@@ -1,0 +1,265 @@
+{
+    "rows": 69,
+    "columns": 22,
+    "duplicates": 0,
+    "features": {
+        "metal core": {
+            "dtype": "str",
+            "missing_count": 0,
+            "unique_count": 14,
+            "unique_values": [
+                "Ag",
+                "Ag2S",
+                "CeO2",
+                "CeZrO2",
+                "CePO4"
+            ]
+        },
+        "Coating": {
+            "dtype": "str",
+            "missing_count": 0,
+            "unique_count": 21,
+            "unique_values": [
+                "4% (w/v) each of polyoxyethylene glycerol trioleate and polyoxyethylene (20) sorbitan monolaurate (Tween 20)",
+                "sulfate & PVP capped",
+                "Tannic acid / sodium citrate",
+                "HMTA",
+                "PEG 1500"
+            ]
+        },
+        "Type of Coating \n(Anionic, Cationic, Neutral)": {
+            "dtype": "str",
+            "missing_count": 0,
+            "unique_count": 5,
+            "unique_values": [
+                "neutral",
+                "anionic",
+                "uncoated",
+                "cationic",
+                "positive"
+            ]
+        },
+        "Ageing": {
+            "dtype": "str",
+            "missing_count": 0,
+            "unique_count": 2,
+            "unique_values": [
+                "Pristine",
+                "Aged"
+            ]
+        },
+        "Diameter  (TEM-STEM)": {
+            "dtype": "float64",
+            "missing_count": 0,
+            "unique_count": 51,
+            "unique_values": [
+                19.0,
+                36.0,
+                47.3,
+                30.8,
+                4.5
+            ]
+        },
+        "Shape group": {
+            "dtype": "str",
+            "missing_count": 0,
+            "unique_count": 9,
+            "unique_values": [
+                "Spherical",
+                "Agglomerated",
+                "spherical",
+                "Faceted",
+                "Nanorods"
+            ]
+        },
+        "Geometric Surface Area (nm2)": {
+            "dtype": "float64",
+            "missing_count": 0,
+            "unique_count": 53,
+            "unique_values": [
+                1134.11494794592,
+                4069.44,
+                7025.090599999999,
+                5691.84,
+                63.6172512351933
+            ]
+        },
+        "Corresponding sphere diameter (nm)": {
+            "dtype": "float64",
+            "missing_count": 0,
+            "unique_count": 50,
+            "unique_values": [
+                19.0,
+                36.0,
+                47.3,
+                42.5648792148685,
+                4.5
+            ]
+        },
+        "Atomic radius": {
+            "dtype": "int64",
+            "missing_count": 0,
+            "unique_count": 12,
+            "unique_values": [
+                144,
+                182,
+                102,
+                147,
+                137
+            ]
+        },
+        "Ionic radius": {
+            "dtype": "int64",
+            "missing_count": 0,
+            "unique_count": 12,
+            "unique_values": [
+                115,
+                102,
+                80,
+                67,
+                74
+            ]
+        },
+        "Xox": {
+            "dtype": "int64",
+            "missing_count": 0,
+            "unique_count": 5,
+            "unique_values": [
+                0,
+                1,
+                4,
+                2,
+                3
+            ]
+        },
+        "x": {
+            "dtype": "float64",
+            "missing_count": 0,
+            "unique_count": 11,
+            "unique_values": [
+                1.93,
+                1.12,
+                1.225,
+                1.54,
+                1.65
+            ]
+        },
+        "Nmetal": {
+            "dtype": "int64",
+            "missing_count": 0,
+            "unique_count": 3,
+            "unique_values": [
+                1,
+                2,
+                10
+            ]
+        },
+        "Noxygen": {
+            "dtype": "int64",
+            "missing_count": 0,
+            "unique_count": 7,
+            "unique_values": [
+                0,
+                2,
+                4,
+                12,
+                1
+            ]
+        },
+        "\u03a3x": {
+            "dtype": "float64",
+            "missing_count": 0,
+            "unique_count": 14,
+            "unique_values": [
+                1.93,
+                3.86,
+                1.12,
+                1.1221,
+                2.45
+            ]
+        },
+        "\u03a3x/nO": {
+            "dtype": "float64",
+            "missing_count": 0,
+            "unique_count": 15,
+            "unique_values": [
+                1.93,
+                3.86,
+                0.56,
+                0.56105,
+                1.225
+            ]
+        },
+        "MW": {
+            "dtype": "float64",
+            "missing_count": 0,
+            "unique_count": 15,
+            "unique_values": [
+                107.8682,
+                247.8,
+                172.115,
+                263.339,
+                565.146
+            ]
+        },
+        "Group": {
+            "dtype": "int64",
+            "missing_count": 0,
+            "unique_count": 8,
+            "unique_values": [
+                11,
+                3,
+                4,
+                12,
+                14
+            ]
+        },
+        "Period": {
+            "dtype": "int64",
+            "missing_count": 0,
+            "unique_count": 4,
+            "unique_values": [
+                5,
+                6,
+                4,
+                3
+            ]
+        },
+        "Absolute electronegativity": {
+            "dtype": "float64",
+            "missing_count": 0,
+            "unique_count": 12,
+            "unique_values": [
+                4.44,
+                5.3580000000000005,
+                5.65,
+                7.28805,
+                5.77
+            ]
+        },
+        "Energy Band Gap": {
+            "dtype": "float64",
+            "missing_count": 0,
+            "unique_count": 17,
+            "unique_values": [
+                1.46,
+                1.2,
+                3.2,
+                0.8000307575911774,
+                0.8000289334523839
+            ]
+        },
+        "Zeta (mV)": {
+            "dtype": "float64",
+            "missing_count": 0,
+            "unique_count": 64,
+            "unique_values": [
+                -1.21,
+                -50.5,
+                -57.9,
+                5.7,
+                0.024
+            ]
+        }
+    }
+}

@@ -1,0 +1,501 @@
+record_id,INPUT_drug_name,INPUT_drug_category,INPUT_formulation_type,INPUT_particle_size_nm,INPUT_nanoparticle_material,INPUT_zeta_potential_mV,INPUT_drug_loading_percent,INPUT_encapsulation_efficiency_percent,INPUT_pH,INPUT_temperature_C,INPUT_storage_time_days,INPUT_environment,INPUT_surface_modification
+NM-000001,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,335.5,PLGA,7.1,7.4,79.1,8.4,23.9,140.0,Fetal bovine serum 10%,Dextran coating
+NM-000002,Paracetamol,PARACETAMOL,Liposome,260.5,Albumin,-31.0,7.0,66.3,7.7,7.3,119.0,Cell culture medium,None (bare)
+NM-000003,Paracetamol,PARACETAMOL,PLGA nanoparticle,104.9,Poly(lactic acid),22.7,7.7,80.6,8.0,31.7,19.0,Water,Surfactant (Tween 80)
+NM-000004,Paracetamol,PARACETAMOL,Liposome,90.1,Liposome (DPPC),-35.4,4.0,82.8,7.4,59.6,160.0,Fetal bovine serum 10%,Dextran coating
+NM-000005,Paracetamol,PARACETAMOL,Liposome,279.5,Poly(lactic acid),32.4,5.4,76.8,7.3,9.9,174.0,Plasma-like buffer,Surfactant (Tween 80)
+NM-000006,Paracetamol,PARACETAMOL,Lipid nanoparticle,121.5,Liposome (DPPC),-30.4,4.3,85.2,9.3,17.3,75.0,Cell culture medium,None (bare)
+NM-000007,Paracetamol,PARACETAMOL,PLGA nanoparticle,399.8,Poly(lactic acid),-17.4,13.1,71.0,7.3,52.2,17.0,Fetal bovine serum 10%,Antibody conjugation
+NM-000008,Paracetamol,PARACETAMOL,Liposome,153.0,PEG-PLA,-4.3,12.6,68.3,8.1,59.3,21.0,PBS,Surfactant (Tween 80)
+NM-000009,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,264.3,PEG-PLA,-49.0,10.5,78.7,6.6,51.7,35.0,Fetal bovine serum 10%,None (bare)
+NM-000010,Paracetamol,PARACETAMOL,Polymeric nanoparticle,245.0,Liposome (DPPC),-47.5,1.4,92.7,7.4,40.3,142.0,Fetal bovine serum 10%,PEGylation
+NM-000011,Paracetamol,PARACETAMOL,PLGA nanoparticle,296.6,Albumin,-27.1,8.0,73.4,8.6,11.9,14.0,Fetal bovine serum 10%,Chitosan coating
+NM-000012,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,234.9,Lipid (DSPC),19.0,4.0,81.4,7.4,43.4,112.0,Plasma-like buffer,PEGylation
+NM-000013,Paracetamol,PARACETAMOL,Protein nanoparticle,68.2,Solid lipid (SLN),-36.0,2.9,87.0,6.8,26.5,43.0,Plasma-like buffer,PEGylation
+NM-000014,Paracetamol,PARACETAMOL,Chitosan nanoparticle,238.6,Eudragit,-9.0,19.9,65.0,7.6,53.0,143.0,Cell culture medium,Dextran coating
+NM-000015,Paracetamol,PARACETAMOL,Lipid nanoparticle,365.8,Solid lipid (SLN),-38.9,16.2,76.8,6.1,56.1,128.0,Water,None (bare)
+NM-000016,Paracetamol,PARACETAMOL,Chitosan nanoparticle,36.8,PEG-PLA,-45.0,11.0,77.7,5.9,32.4,3.0,Water,PEGylation
+NM-000017,Paracetamol,PARACETAMOL,Polymeric nanoparticle,376.4,PLGA,-37.5,9.5,69.0,7.6,44.9,19.0,Cell culture medium,PEGylation
+NM-000018,Paracetamol,PARACETAMOL,Polymeric nanoparticle,98.4,Solid lipid (SLN),-28.4,4.0,73.7,6.1,59.1,13.0,Water,None (bare)
+NM-000019,Paracetamol,PARACETAMOL,Lipid nanoparticle,234.7,Eudragit,-30.9,8.5,70.1,8.8,31.0,100.0,Cell culture medium,Surfactant (Tween 80)
+NM-000020,Paracetamol,PARACETAMOL,Polymeric nanoparticle,76.0,Albumin,30.0,2.1,67.1,7.6,42.0,81.0,Water,None (bare)
+NM-000021,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,79.8,Poly(lactic acid),-25.2,12.0,70.4,7.7,42.4,158.0,PBS,None (bare)
+NM-000022,Paracetamol,PARACETAMOL,Polymeric nanoparticle,79.6,Lipid (DSPC),-8.2,2.8,80.7,6.8,53.6,150.0,Fetal bovine serum 10%,Surfactant (Tween 80)
+NM-000023,Paracetamol,PARACETAMOL,Polymeric nanoparticle,25.2,Lipid (DSPC),-29.7,18.6,66.2,7.2,18.4,135.0,Fetal bovine serum 10%,None (bare)
+NM-000024,Paracetamol,PARACETAMOL,Polymeric nanoparticle,190.4,Albumin,-46.9,12.1,62.1,7.8,40.2,85.0,Fetal bovine serum 10%,PEGylation
+NM-000025,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,91.9,Liposome (DPPC),-20.0,16.4,71.8,8.8,14.8,106.0,Fetal bovine serum 10%,PEGylation
+NM-000026,Paracetamol,PARACETAMOL,Polymeric nanoparticle,15.5,Gold-core,31.3,11.9,52.3,7.4,35.6,139.0,Water,Dextran coating
+NM-000027,Paracetamol,PARACETAMOL,Chitosan nanoparticle,231.3,Chitosan,34.7,2.9,84.1,7.6,28.0,96.0,Plasma-like buffer,None (bare)
+NM-000028,Paracetamol,PARACETAMOL,Free drug reference,339.3,None (free drug),-25.4,1.9,46.6,7.7,6.0,176.0,Plasma-like buffer,Dextran coating
+NM-000029,Paracetamol,PARACETAMOL,Chitosan nanoparticle,310.2,Lipid (DSPC),-48.4,11.6,70.9,7.5,39.7,84.0,Fetal bovine serum 10%,PEGylation
+NM-000030,Paracetamol,PARACETAMOL,Polymeric nanoparticle,140.1,Chitosan,-25.0,9.9,66.2,7.5,30.9,147.0,PBS,None (bare)
+NM-000031,Paracetamol,PARACETAMOL,Polymeric nanoparticle,249.4,Eudragit,-21.9,11.4,68.6,7.6,20.6,10.0,Plasma-like buffer,PEGylation
+NM-000032,Paracetamol,PARACETAMOL,Lipid nanoparticle,181.1,PEG-PLA,-19.5,2.7,81.1,8.3,46.3,36.0,Fetal bovine serum 10%,Surfactant (Tween 80)
+NM-000033,Paracetamol,PARACETAMOL,Liposome,276.7,PEG-PLA,4.2,1.2,77.9,7.7,17.8,94.0,Cell culture medium,Chitosan coating
+NM-000034,Paracetamol,PARACETAMOL,PLGA nanoparticle,37.2,Eudragit,-9.7,4.6,83.6,4.9,39.6,86.0,Cell culture medium,PEGylation
+NM-000035,Paracetamol,PARACETAMOL,PLGA nanoparticle,98.6,Gold-core,-26.7,7.3,55.4,8.3,35.9,112.0,Water,PEGylation
+NM-000036,Paracetamol,PARACETAMOL,PLGA nanoparticle,110.7,PLGA,-37.5,7.2,77.0,5.3,46.5,90.0,Plasma-like buffer,PEGylation
+NM-000037,Paracetamol,PARACETAMOL,Chitosan nanoparticle,155.6,PEG-PLA,-41.5,9.0,70.4,7.0,36.6,28.0,Water,Chitosan coating
+NM-000038,Paracetamol,PARACETAMOL,Liposome,208.3,Poly(lactic acid),-30.4,14.0,76.0,7.3,4.7,163.0,Fetal bovine serum 10%,Chitosan coating
+NM-000039,Paracetamol,PARACETAMOL,Lipid nanoparticle,298.7,Poly(lactic acid),-44.2,4.2,72.4,6.6,40.4,88.0,Water,Dextran coating
+NM-000040,Paracetamol,PARACETAMOL,Liposome,286.2,PLGA,27.2,5.3,73.0,5.9,22.1,85.0,Cell culture medium,None (bare)
+NM-000041,Paracetamol,PARACETAMOL,PLGA nanoparticle,167.7,PEG-PLA,32.5,8.0,76.6,5.8,44.0,29.0,Water,Chitosan coating
+NM-000042,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,343.5,Albumin,-21.4,1.1,71.2,7.7,27.2,48.0,Plasma-like buffer,PEGylation
+NM-000043,Paracetamol,PARACETAMOL,Polymeric nanoparticle,261.2,Chitosan,-26.9,3.6,75.0,8.5,9.8,166.0,Plasma-like buffer,Chitosan coating
+NM-000044,Paracetamol,PARACETAMOL,Lipid nanoparticle,272.6,Lipid (DSPC),-32.9,13.0,77.7,6.3,9.2,135.0,Water,None (bare)
+NM-000045,Paracetamol,PARACETAMOL,Polymeric nanoparticle,277.0,Liposome (DPPC),-21.9,3.2,86.9,8.0,23.7,138.0,Fetal bovine serum 10%,None (bare)
+NM-000046,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,47.2,PLGA,-31.9,13.0,75.9,6.9,42.4,66.0,Plasma-like buffer,None (bare)
+NM-000047,Paracetamol,PARACETAMOL,Lipid nanoparticle,337.9,Lipid (DSPC),17.3,6.4,77.2,6.3,33.5,22.0,Fetal bovine serum 10%,Folic acid targeting
+NM-000048,Paracetamol,PARACETAMOL,Chitosan nanoparticle,337.1,Solid lipid (SLN),30.6,3.5,77.6,5.3,52.4,66.0,Cell culture medium,Chitosan coating
+NM-000049,Paracetamol,PARACETAMOL,Polymeric nanoparticle,278.7,PLGA,11.4,5.0,74.9,6.8,55.1,162.0,Water,Dextran coating
+NM-000050,Paracetamol,PARACETAMOL,PLGA nanoparticle,281.6,Liposome (DPPC),25.2,9.6,78.0,7.0,52.1,14.0,PBS,Folic acid targeting
+NM-000051,Paracetamol,PARACETAMOL,PLGA nanoparticle,103.0,PEG-PLA,31.2,18.5,64.9,7.4,31.8,94.0,Cell culture medium,None (bare)
+NM-000052,Paracetamol,PARACETAMOL,Lipid nanoparticle,52.7,Chitosan,6.9,1.3,74.0,7.0,36.6,43.0,Water,Surfactant (Tween 80)
+NM-000053,Paracetamol,PARACETAMOL,Free drug reference,343.9,None (free drug),24.9,2.0,52.6,7.0,29.8,127.0,Water,Folic acid targeting
+NM-000054,Paracetamol,PARACETAMOL,Liposome,319.6,PLGA,-6.2,8.2,71.6,6.8,42.5,69.0,Fetal bovine serum 10%,None (bare)
+NM-000055,Paracetamol,PARACETAMOL,Protein nanoparticle,412.4,Poly(lactic acid),-5.4,1.1,85.7,7.8,24.8,78.0,Plasma-like buffer,None (bare)
+NM-000056,Paracetamol,PARACETAMOL,PLGA nanoparticle,133.5,PLGA,-27.9,1.8,75.8,9.0,12.2,110.0,Water,None (bare)
+NM-000057,Paracetamol,PARACETAMOL,Polymeric nanoparticle,257.3,Chitosan,16.7,11.7,61.6,6.7,16.5,51.0,Fetal bovine serum 10%,Folic acid targeting
+NM-000058,Paracetamol,PARACETAMOL,Liposome,245.7,Chitosan,7.8,4.6,68.5,5.8,35.5,38.0,Plasma-like buffer,Chitosan coating
+NM-000059,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,125.3,PLGA,-34.1,8.3,75.5,9.5,55.4,18.0,Plasma-like buffer,Chitosan coating
+NM-000060,Paracetamol,PARACETAMOL,Polymeric nanoparticle,106.1,PEG-PLA,-24.6,2.6,78.0,7.5,57.7,122.0,Fetal bovine serum 10%,Chitosan coating
+NM-000061,Paracetamol,PARACETAMOL,Liposome,181.7,Albumin,13.5,15.1,67.4,6.7,10.9,13.0,Fetal bovine serum 10%,None (bare)
+NM-000062,Paracetamol,PARACETAMOL,Polymeric nanoparticle,132.7,Liposome (DPPC),-39.2,8.2,81.4,6.5,56.0,11.0,Plasma-like buffer,None (bare)
+NM-000063,Paracetamol,PARACETAMOL,Lipid nanoparticle,388.1,PEG-PLA,37.6,9.8,77.4,7.8,21.3,14.0,PBS,Surfactant (Tween 80)
+NM-000064,Paracetamol,PARACETAMOL,PLGA nanoparticle,217.4,Solid lipid (SLN),13.0,13.3,74.8,7.7,56.5,53.0,Cell culture medium,Folic acid targeting
+NM-000065,Paracetamol,PARACETAMOL,Polymeric nanoparticle,96.3,Gold-core,10.7,8.5,63.7,5.8,36.8,59.0,Water,Surfactant (Tween 80)
+NM-000066,Paracetamol,PARACETAMOL,Liposome,255.0,Eudragit,30.6,8.5,71.5,7.7,7.0,112.0,PBS,None (bare)
+NM-000067,Paracetamol,PARACETAMOL,Liposome,73.7,Gold-core,33.6,2.0,68.9,5.7,48.4,56.0,Fetal bovine serum 10%,Surfactant (Tween 80)
+NM-000068,Paracetamol,PARACETAMOL,Chitosan nanoparticle,221.1,Lipid (DSPC),32.7,8.7,79.0,9.2,52.6,91.0,Cell culture medium,Chitosan coating
+NM-000069,Paracetamol,PARACETAMOL,PLGA nanoparticle,271.0,PEG-PLA,-8.5,8.1,78.7,6.2,21.2,70.0,Plasma-like buffer,PEGylation
+NM-000070,Paracetamol,PARACETAMOL,Polymeric nanoparticle,154.4,PEG-PLA,42.1,12.0,75.9,7.0,35.4,116.0,Plasma-like buffer,None (bare)
+NM-000071,Paracetamol,PARACETAMOL,PLGA nanoparticle,108.5,Gold-core,1.7,4.2,55.2,9.0,22.0,10.0,Cell culture medium,None (bare)
+NM-000072,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,353.8,Chitosan,15.5,10.5,74.1,6.6,46.4,103.0,Plasma-like buffer,Chitosan coating
+NM-000073,Paracetamol,PARACETAMOL,Lipid nanoparticle,227.5,Solid lipid (SLN),3.8,6.7,90.9,6.4,50.8,94.0,Fetal bovine serum 10%,None (bare)
+NM-000074,Paracetamol,PARACETAMOL,Polymeric nanoparticle,295.9,Poly(lactic acid),-39.4,7.5,65.5,5.5,27.2,79.0,Plasma-like buffer,PEGylation
+NM-000075,Paracetamol,PARACETAMOL,Chitosan nanoparticle,105.5,PLGA,-50.9,10.0,78.9,5.5,6.2,167.0,Cell culture medium,PEGylation
+NM-000076,Paracetamol,PARACETAMOL,Chitosan nanoparticle,389.6,Poly(lactic acid),-25.5,7.8,76.3,9.9,40.3,13.0,Water,Surfactant (Tween 80)
+NM-000077,Paracetamol,PARACETAMOL,Polymeric nanoparticle,23.0,Gold-core,-39.5,4.5,50.6,9.0,59.5,76.0,PBS,PEGylation
+NM-000078,Paracetamol,PARACETAMOL,Lipid nanoparticle,335.7,Liposome (DPPC),13.4,8.8,75.3,7.2,46.2,87.0,Water,Surfactant (Tween 80)
+NM-000079,Paracetamol,PARACETAMOL,Polymeric nanoparticle,86.7,PLGA,32.0,6.7,75.1,5.9,50.8,58.0,Water,Antibody conjugation
+NM-000080,Paracetamol,PARACETAMOL,Free drug reference,340.4,None (free drug),15.8,2.4,47.3,8.1,25.4,6.0,Fetal bovine serum 10%,PEGylation
+NM-000081,Paracetamol,PARACETAMOL,Free drug reference,75.3,None (free drug),24.0,5.7,50.8,7.8,33.1,32.0,PBS,Surfactant (Tween 80)
+NM-000082,Paracetamol,PARACETAMOL,Polymeric nanoparticle,277.7,Liposome (DPPC),-25.3,14.0,82.6,6.4,48.8,34.0,Plasma-like buffer,Dextran coating
+NM-000083,Paracetamol,PARACETAMOL,Polymeric nanoparticle,417.7,PLGA,-22.8,13.4,63.4,8.6,59.8,23.0,Plasma-like buffer,Surfactant (Tween 80)
+NM-000084,Paracetamol,PARACETAMOL,Polymeric nanoparticle,75.3,PEG-PLA,-15.1,6.4,81.4,8.2,57.3,134.0,Cell culture medium,PEGylation
+NM-000085,Paracetamol,PARACETAMOL,Liposome,256.4,Chitosan,39.5,11.1,69.4,7.2,25.0,67.0,Water,Chitosan coating
+NM-000086,Paracetamol,PARACETAMOL,Lipid nanoparticle,68.3,Solid lipid (SLN),-6.3,20.5,68.0,8.0,50.2,59.0,Cell culture medium,Surfactant (Tween 80)
+NM-000087,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,214.2,PEG-PLA,-25.7,9.4,72.3,7.4,37.0,22.0,Plasma-like buffer,None (bare)
+NM-000088,Paracetamol,PARACETAMOL,PLGA nanoparticle,311.7,Chitosan,-24.2,15.5,60.0,6.6,19.4,119.0,Plasma-like buffer,Dextran coating
+NM-000089,Paracetamol,PARACETAMOL,Lipid nanoparticle,182.0,Chitosan,-47.4,3.5,79.4,6.9,22.1,99.0,Water,None (bare)
+NM-000090,Paracetamol,PARACETAMOL,Lipid nanoparticle,74.2,Eudragit,-26.8,14.2,74.6,6.9,53.0,55.0,PBS,Surfactant (Tween 80)
+NM-000091,Paracetamol,PARACETAMOL,Lipid nanoparticle,338.5,Eudragit,-31.2,10.4,70.1,6.8,22.8,109.0,Fetal bovine serum 10%,None (bare)
+NM-000092,Paracetamol,PARACETAMOL,Free drug reference,224.0,None (free drug),21.1,1.0,53.9,5.6,28.1,118.0,Plasma-like buffer,Dextran coating
+NM-000093,Paracetamol,PARACETAMOL,Chitosan nanoparticle,396.5,Eudragit,37.7,5.0,77.1,6.6,48.1,54.0,Fetal bovine serum 10%,Antibody conjugation
+NM-000094,Paracetamol,PARACETAMOL,PLGA nanoparticle,258.8,Liposome (DPPC),-19.0,6.7,82.6,7.5,24.4,108.0,Plasma-like buffer,None (bare)
+NM-000095,Paracetamol,PARACETAMOL,PLGA nanoparticle,320.8,Chitosan,-9.1,8.4,78.6,7.2,48.1,28.0,Water,PEGylation
+NM-000096,Paracetamol,PARACETAMOL,Lipid nanoparticle,37.3,Poly(lactic acid),-42.9,1.0,77.4,6.3,21.2,34.0,Cell culture medium,PEGylation
+NM-000097,Paracetamol,PARACETAMOL,PLGA nanoparticle,388.2,Albumin,-27.8,14.4,64.4,7.3,15.1,159.0,Plasma-like buffer,Folic acid targeting
+NM-000098,Paracetamol,PARACETAMOL,PLGA nanoparticle,160.7,Lipid (DSPC),-56.4,7.6,78.1,6.1,27.3,74.0,Fetal bovine serum 10%,PEGylation
+NM-000099,Paracetamol,PARACETAMOL,PLGA nanoparticle,243.9,Chitosan,-54.3,3.0,69.1,6.7,16.7,101.0,Cell culture medium,PEGylation
+NM-000100,Paracetamol,PARACETAMOL,Chitosan nanoparticle,44.2,Poly(lactic acid),-28.2,11.8,67.6,6.5,38.1,121.0,Plasma-like buffer,None (bare)
+NM-000101,Paracetamol,PARACETAMOL,Polymeric nanoparticle,79.4,PLGA,-32.0,12.0,75.8,7.9,20.4,83.0,Cell culture medium,PEGylation
+NM-000102,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,274.3,Liposome (DPPC),32.5,5.0,79.6,7.9,52.3,105.0,Cell culture medium,Chitosan coating
+NM-000103,Paracetamol,PARACETAMOL,Chitosan nanoparticle,95.4,Gold-core,-43.5,7.2,56.7,5.2,7.9,120.0,Plasma-like buffer,PEGylation
+NM-000104,Paracetamol,PARACETAMOL,Lipid nanoparticle,334.4,Albumin,30.2,11.5,61.0,7.8,42.5,36.0,PBS,None (bare)
+NM-000105,Paracetamol,PARACETAMOL,PLGA nanoparticle,91.8,Gold-core,-37.3,3.4,51.8,7.2,29.0,135.0,PBS,Antibody conjugation
+NM-000106,Paracetamol,PARACETAMOL,PLGA nanoparticle,372.8,PEG-PLA,15.9,10.9,79.9,8.1,32.4,157.0,Plasma-like buffer,Surfactant (Tween 80)
+NM-000107,Paracetamol,PARACETAMOL,Lipid nanoparticle,404.9,Eudragit,-28.4,11.5,68.8,6.6,21.0,27.0,Water,PEGylation
+NM-000108,Paracetamol,PARACETAMOL,PLGA nanoparticle,255.9,Poly(lactic acid),-12.1,10.5,72.3,6.3,37.5,8.0,Fetal bovine serum 10%,PEGylation
+NM-000109,Paracetamol,PARACETAMOL,Chitosan nanoparticle,173.3,Chitosan,-10.4,16.4,68.5,7.4,27.4,23.0,Cell culture medium,Surfactant (Tween 80)
+NM-000110,Paracetamol,PARACETAMOL,PLGA nanoparticle,73.9,Chitosan,-35.0,2.6,72.7,6.7,34.8,19.0,PBS,Chitosan coating
+NM-000111,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,337.6,Liposome (DPPC),-31.5,4.0,83.7,8.2,45.7,74.0,Plasma-like buffer,None (bare)
+NM-000112,Paracetamol,PARACETAMOL,Liposome,258.1,Solid lipid (SLN),-4.4,6.4,81.7,7.4,33.3,36.0,Fetal bovine serum 10%,PEGylation
+NM-000113,Paracetamol,PARACETAMOL,Protein nanoparticle,418.0,Lipid (DSPC),-7.7,8.8,92.9,5.0,50.3,35.0,Cell culture medium,None (bare)
+NM-000114,Paracetamol,PARACETAMOL,PLGA nanoparticle,79.7,Eudragit,-28.9,7.2,74.6,5.7,47.5,84.0,Plasma-like buffer,Surfactant (Tween 80)
+NM-000115,Paracetamol,PARACETAMOL,Lipid nanoparticle,194.9,PEG-PLA,-36.9,15.6,72.1,6.4,25.6,179.0,Water,PEGylation
+NM-000116,Paracetamol,PARACETAMOL,Polymeric nanoparticle,334.2,Eudragit,26.2,3.4,79.3,8.0,53.2,27.0,Plasma-like buffer,Antibody conjugation
+NM-000117,Paracetamol,PARACETAMOL,Liposome,121.7,PEG-PLA,-3.6,2.8,78.8,6.0,24.0,35.0,Water,Antibody conjugation
+NM-000118,Paracetamol,PARACETAMOL,Polymeric nanoparticle,191.1,Liposome (DPPC),-2.3,8.5,75.8,7.0,20.1,47.0,PBS,None (bare)
+NM-000119,Paracetamol,PARACETAMOL,Lipid nanoparticle,263.0,PLGA,16.0,13.2,79.5,6.4,41.0,130.0,Water,Surfactant (Tween 80)
+NM-000120,Paracetamol,PARACETAMOL,PLGA nanoparticle,82.6,PEG-PLA,46.5,6.9,69.6,6.5,50.9,32.0,Fetal bovine serum 10%,None (bare)
+NM-000121,Paracetamol,PARACETAMOL,PLGA nanoparticle,39.0,Eudragit,-23.6,5.1,78.5,8.9,44.3,178.0,Plasma-like buffer,Folic acid targeting
+NM-000122,Paracetamol,PARACETAMOL,Chitosan nanoparticle,57.3,Gold-core,4.5,7.3,52.1,8.1,39.7,89.0,Water,Surfactant (Tween 80)
+NM-000123,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,371.6,PEG-PLA,-20.0,8.1,74.1,8.3,13.0,94.0,PBS,Chitosan coating
+NM-000124,Paracetamol,PARACETAMOL,Polymeric nanoparticle,225.2,Lipid (DSPC),-19.2,25.1,59.7,7.3,31.5,134.0,Cell culture medium,Folic acid targeting
+NM-000125,Paracetamol,PARACETAMOL,Chitosan nanoparticle,287.6,Eudragit,-15.0,3.8,69.7,6.4,56.8,104.0,Fetal bovine serum 10%,Dextran coating
+NM-000126,Paracetamol,PARACETAMOL,Liposome,219.9,Solid lipid (SLN),-2.5,7.1,77.1,6.9,16.9,21.0,Plasma-like buffer,None (bare)
+NM-000127,Paracetamol,PARACETAMOL,PLGA nanoparticle,146.0,Liposome (DPPC),-26.2,8.0,82.7,7.2,18.4,177.0,PBS,Dextran coating
+NM-000128,Paracetamol,PARACETAMOL,Lipid nanoparticle,35.2,Poly(lactic acid),-31.1,5.6,72.5,7.2,51.6,145.0,Plasma-like buffer,None (bare)
+NM-000129,Paracetamol,PARACETAMOL,Lipid nanoparticle,244.9,Solid lipid (SLN),14.9,4.2,82.6,4.4,51.0,113.0,Fetal bovine serum 10%,None (bare)
+NM-000130,Paracetamol,PARACETAMOL,PLGA nanoparticle,132.0,PLGA,-20.4,4.8,84.0,8.5,50.6,71.0,Plasma-like buffer,Chitosan coating
+NM-000131,Paracetamol,PARACETAMOL,Polymeric nanoparticle,54.9,Gold-core,29.8,6.9,55.0,8.0,10.9,169.0,Fetal bovine serum 10%,Antibody conjugation
+NM-000132,Paracetamol,PARACETAMOL,Free drug reference,80.1,None (free drug),-37.8,4.1,53.5,8.1,40.3,102.0,PBS,Chitosan coating
+NM-000133,Paracetamol,PARACETAMOL,PLGA nanoparticle,347.8,Poly(lactic acid),10.7,3.8,78.5,7.9,48.3,60.0,Fetal bovine serum 10%,PEGylation
+NM-000134,Paracetamol,PARACETAMOL,Chitosan nanoparticle,169.1,Solid lipid (SLN),22.4,8.9,76.4,8.3,57.3,148.0,PBS,None (bare)
+NM-000135,Paracetamol,PARACETAMOL,PLGA nanoparticle,54.1,Eudragit,44.0,11.8,65.5,6.9,9.6,45.0,Cell culture medium,None (bare)
+NM-000136,Paracetamol,PARACETAMOL,Polymeric nanoparticle,153.8,Liposome (DPPC),-19.1,5.0,79.7,6.1,16.8,172.0,Water,None (bare)
+NM-000137,Paracetamol,PARACETAMOL,Lipid nanoparticle,234.9,Solid lipid (SLN),27.2,1.0,89.6,8.2,51.7,120.0,PBS,Folic acid targeting
+NM-000138,Paracetamol,PARACETAMOL,Chitosan nanoparticle,189.9,Lipid (DSPC),-1.8,6.3,78.0,6.4,18.5,64.0,Cell culture medium,Surfactant (Tween 80)
+NM-000139,Paracetamol,PARACETAMOL,Chitosan nanoparticle,133.7,Albumin,46.2,5.7,72.5,5.4,15.0,141.0,Cell culture medium,Chitosan coating
+NM-000140,Paracetamol,PARACETAMOL,Chitosan nanoparticle,166.3,Chitosan,9.7,2.8,79.1,7.6,11.4,144.0,Cell culture medium,Folic acid targeting
+NM-000141,Paracetamol,PARACETAMOL,Polymeric nanoparticle,43.8,Eudragit,-44.0,8.8,72.0,7.5,25.8,88.0,PBS,PEGylation
+NM-000142,Paracetamol,PARACETAMOL,Polymeric nanoparticle,356.9,Eudragit,-33.1,2.6,80.7,6.5,48.2,6.0,Water,Dextran coating
+NM-000143,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,136.7,Poly(lactic acid),-23.8,11.6,71.7,6.5,9.0,165.0,Cell culture medium,None (bare)
+NM-000144,Paracetamol,PARACETAMOL,Polymeric nanoparticle,220.8,Liposome (DPPC),-42.0,11.2,75.8,5.4,5.2,162.0,Plasma-like buffer,PEGylation
+NM-000145,Paracetamol,PARACETAMOL,Polymeric nanoparticle,176.3,PEG-PLA,5.4,6.7,65.7,5.9,40.3,55.0,Water,Chitosan coating
+NM-000146,Paracetamol,PARACETAMOL,Polymeric nanoparticle,179.1,Liposome (DPPC),-19.8,5.4,77.8,7.4,38.5,127.0,PBS,None (bare)
+NM-000147,Paracetamol,PARACETAMOL,Protein nanoparticle,302.3,Albumin,38.2,10.5,72.4,8.2,25.6,148.0,Cell culture medium,Surfactant (Tween 80)
+NM-000148,Paracetamol,PARACETAMOL,Free drug reference,361.0,None (free drug),11.9,1.9,48.5,6.0,10.2,95.0,Water,Antibody conjugation
+NM-000149,Paracetamol,PARACETAMOL,Chitosan nanoparticle,350.2,Lipid (DSPC),-35.8,7.4,79.7,6.8,52.0,153.0,Fetal bovine serum 10%,PEGylation
+NM-000150,Paracetamol,PARACETAMOL,PLGA nanoparticle,298.8,Eudragit,-24.7,5.6,81.2,5.7,49.0,40.0,Fetal bovine serum 10%,PEGylation
+NM-000151,Paracetamol,PARACETAMOL,Liposome,274.1,Eudragit,-40.2,6.2,76.6,8.3,36.5,143.0,PBS,PEGylation
+NM-000152,Paracetamol,PARACETAMOL,Lipid nanoparticle,236.5,PLGA,25.3,18.6,66.4,8.3,38.7,65.0,Plasma-like buffer,Chitosan coating
+NM-000153,Paracetamol,PARACETAMOL,Lipid nanoparticle,296.7,Chitosan,-28.1,11.0,69.4,5.8,9.9,47.0,Fetal bovine serum 10%,None (bare)
+NM-000154,Paracetamol,PARACETAMOL,Polymeric nanoparticle,78.5,PEG-PLA,-20.3,7.1,71.9,7.7,44.3,0.0,Cell culture medium,None (bare)
+NM-000155,Paracetamol,PARACETAMOL,PLGA nanoparticle,411.3,PLGA,29.6,17.3,68.8,7.1,34.5,28.0,Cell culture medium,None (bare)
+NM-000156,Paracetamol,PARACETAMOL,Polymeric nanoparticle,203.6,Chitosan,15.3,10.1,64.1,7.2,44.8,105.0,Plasma-like buffer,None (bare)
+NM-000157,Paracetamol,PARACETAMOL,Chitosan nanoparticle,61.6,PEG-PLA,6.4,3.5,73.0,7.7,25.4,176.0,Plasma-like buffer,None (bare)
+NM-000158,Paracetamol,PARACETAMOL,PLGA nanoparticle,127.4,Chitosan,-18.4,10.3,72.4,7.9,36.1,56.0,Water,None (bare)
+NM-000159,Paracetamol,PARACETAMOL,Polymeric nanoparticle,305.0,Liposome (DPPC),24.3,14.1,68.5,7.4,31.3,131.0,Water,None (bare)
+NM-000160,Paracetamol,PARACETAMOL,Liposome,180.1,Lipid (DSPC),34.6,10.7,72.9,5.7,52.5,102.0,Water,Chitosan coating
+NM-000161,Paracetamol,PARACETAMOL,Liposome,126.4,Eudragit,-38.4,16.3,65.0,6.0,36.3,74.0,Cell culture medium,Surfactant (Tween 80)
+NM-000162,Paracetamol,PARACETAMOL,Liposome,215.0,Albumin,19.0,2.1,68.4,7.8,48.2,107.0,Cell culture medium,Antibody conjugation
+NM-000163,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,283.0,PLGA,-1.4,2.6,83.2,6.9,49.4,149.0,Water,Antibody conjugation
+NM-000164,Paracetamol,PARACETAMOL,PLGA nanoparticle,247.1,Albumin,-23.9,15.6,61.4,8.1,15.0,42.0,Plasma-like buffer,Dextran coating
+NM-000165,Paracetamol,PARACETAMOL,PLGA nanoparticle,299.3,Eudragit,22.9,4.5,81.2,9.1,4.1,25.0,Fetal bovine serum 10%,Surfactant (Tween 80)
+NM-000166,Paracetamol,PARACETAMOL,Chitosan nanoparticle,394.8,Poly(lactic acid),26.4,8.6,75.2,7.3,30.8,97.0,PBS,None (bare)
+NM-000167,Paracetamol,PARACETAMOL,Liposome,174.4,Liposome (DPPC),-27.9,3.7,77.3,7.3,47.7,149.0,Plasma-like buffer,Surfactant (Tween 80)
+NM-000168,Paracetamol,PARACETAMOL,PLGA nanoparticle,312.5,Poly(lactic acid),31.6,4.8,77.8,7.5,22.8,2.0,Water,Surfactant (Tween 80)
+NM-000169,Paracetamol,PARACETAMOL,Polymeric nanoparticle,322.2,Lipid (DSPC),18.4,3.6,84.5,7.1,49.9,60.0,Cell culture medium,Dextran coating
+NM-000170,Paracetamol,PARACETAMOL,PLGA nanoparticle,371.0,Eudragit,5.6,15.1,71.8,7.4,14.0,108.0,PBS,Chitosan coating
+NM-000171,Paracetamol,PARACETAMOL,Liposome,266.4,Solid lipid (SLN),1.7,1.0,84.7,6.6,10.7,57.0,PBS,PEGylation
+NM-000172,Paracetamol,PARACETAMOL,Protein nanoparticle,136.1,PLGA,22.3,7.9,80.7,8.7,7.0,28.0,Water,PEGylation
+NM-000173,Paracetamol,PARACETAMOL,Liposome,252.4,PLGA,0.5,9.9,77.2,5.8,30.0,157.0,Cell culture medium,PEGylation
+NM-000174,Paracetamol,PARACETAMOL,Polymeric nanoparticle,375.6,Poly(lactic acid),-26.2,11.5,77.4,7.7,59.6,105.0,Water,Dextran coating
+NM-000175,Paracetamol,PARACETAMOL,PLGA nanoparticle,34.7,Chitosan,-40.1,4.9,79.6,6.6,58.3,86.0,Fetal bovine serum 10%,None (bare)
+NM-000176,Paracetamol,PARACETAMOL,Liposome,267.8,PEG-PLA,-32.3,15.4,73.8,4.7,23.4,175.0,Fetal bovine serum 10%,Folic acid targeting
+NM-000177,Paracetamol,PARACETAMOL,Free drug reference,265.2,None (free drug),9.9,5.3,50.3,7.9,57.9,5.0,Cell culture medium,Dextran coating
+NM-000178,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,336.2,Poly(lactic acid),22.2,14.5,78.3,8.4,47.6,97.0,Plasma-like buffer,PEGylation
+NM-000179,Paracetamol,PARACETAMOL,Polymeric nanoparticle,57.6,Gold-core,-46.6,4.3,57.7,8.3,4.7,167.0,Plasma-like buffer,PEGylation
+NM-000180,Paracetamol,PARACETAMOL,PLGA nanoparticle,355.3,PLGA,-35.3,12.0,72.2,7.6,59.1,13.0,PBS,None (bare)
+NM-000181,Paracetamol,PARACETAMOL,Lipid nanoparticle,137.0,Liposome (DPPC),37.4,4.2,82.8,6.9,43.3,64.0,Fetal bovine serum 10%,Surfactant (Tween 80)
+NM-000182,Paracetamol,PARACETAMOL,Chitosan nanoparticle,136.6,Chitosan,45.8,7.1,70.4,7.2,58.5,49.0,Water,None (bare)
+NM-000183,Paracetamol,PARACETAMOL,Protein nanoparticle,55.4,Chitosan,-44.0,11.0,69.4,7.5,37.1,145.0,Cell culture medium,None (bare)
+NM-000184,Paracetamol,PARACETAMOL,PLGA nanoparticle,300.9,Solid lipid (SLN),35.8,10.3,72.1,7.2,7.2,100.0,Water,None (bare)
+NM-000185,Paracetamol,PARACETAMOL,PLGA nanoparticle,238.7,PEG-PLA,22.5,5.0,87.1,6.2,17.1,2.0,Cell culture medium,PEGylation
+NM-000186,Paracetamol,PARACETAMOL,PLGA nanoparticle,89.4,PEG-PLA,-8.2,5.6,70.8,6.3,55.7,174.0,PBS,Surfactant (Tween 80)
+NM-000187,Paracetamol,PARACETAMOL,Polymeric nanoparticle,28.3,Gold-core,-23.2,3.6,58.7,9.1,4.4,87.0,Cell culture medium,None (bare)
+NM-000188,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,321.1,Lipid (DSPC),-13.5,10.8,75.4,6.4,45.7,140.0,Water,Folic acid targeting
+NM-000189,Paracetamol,PARACETAMOL,Liposome,199.0,PEG-PLA,-28.5,12.4,70.2,5.5,33.9,8.0,Cell culture medium,Chitosan coating
+NM-000190,Paracetamol,PARACETAMOL,Polymeric nanoparticle,222.6,Albumin,21.0,2.9,69.7,5.8,50.4,64.0,Cell culture medium,Folic acid targeting
+NM-000191,Paracetamol,PARACETAMOL,Lipid nanoparticle,124.8,Eudragit,-18.5,9.6,79.3,6.7,8.2,37.0,PBS,Antibody conjugation
+NM-000192,Paracetamol,PARACETAMOL,Polymeric nanoparticle,270.0,Chitosan,-19.3,11.2,73.2,8.7,4.7,109.0,Fetal bovine serum 10%,None (bare)
+NM-000193,Paracetamol,PARACETAMOL,Polymeric nanoparticle,129.8,Lipid (DSPC),-1.3,1.7,85.1,5.3,10.2,112.0,Cell culture medium,Antibody conjugation
+NM-000194,Paracetamol,PARACETAMOL,Protein nanoparticle,148.0,Chitosan,-32.8,2.8,71.4,7.7,43.0,89.0,PBS,PEGylation
+NM-000195,Paracetamol,PARACETAMOL,PLGA nanoparticle,75.0,Solid lipid (SLN),-27.3,18.2,66.8,5.8,24.3,149.0,Plasma-like buffer,None (bare)
+NM-000196,Paracetamol,PARACETAMOL,PLGA nanoparticle,265.4,Liposome (DPPC),-25.5,1.0,85.8,7.8,16.3,55.0,Water,None (bare)
+NM-000197,Paracetamol,PARACETAMOL,Liposome,92.5,Gold-core,42.6,4.9,61.9,5.6,17.2,141.0,Cell culture medium,Chitosan coating
+NM-000198,Paracetamol,PARACETAMOL,Lipid nanoparticle,413.6,Lipid (DSPC),-30.5,5.5,77.7,7.6,7.4,105.0,Water,PEGylation
+NM-000199,Paracetamol,PARACETAMOL,Lipid nanoparticle,244.5,Solid lipid (SLN),-20.2,8.9,70.8,9.5,35.6,48.0,Cell culture medium,PEGylation
+NM-000200,Paracetamol,PARACETAMOL,Chitosan nanoparticle,276.0,Eudragit,-23.9,9.7,72.3,6.5,55.9,105.0,PBS,Chitosan coating
+NM-000201,Paracetamol,PARACETAMOL,Lipid nanoparticle,385.6,Chitosan,-33.3,2.6,65.6,6.0,48.2,140.0,Cell culture medium,Dextran coating
+NM-000202,Paracetamol,PARACETAMOL,Lipid nanoparticle,276.4,Eudragit,5.2,4.2,77.8,7.1,47.4,15.0,PBS,None (bare)
+NM-000203,Paracetamol,PARACETAMOL,Liposome,123.3,PLGA,39.3,4.2,78.0,8.3,26.1,152.0,Water,Dextran coating
+NM-000204,Paracetamol,PARACETAMOL,Polymeric nanoparticle,195.7,Liposome (DPPC),12.5,14.5,79.4,6.0,47.0,158.0,PBS,Surfactant (Tween 80)
+NM-000205,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,221.7,Eudragit,-41.0,5.6,77.3,5.6,11.4,140.0,Fetal bovine serum 10%,Antibody conjugation
+NM-000206,Paracetamol,PARACETAMOL,Liposome,103.9,Gold-core,-3.6,5.1,60.7,7.9,13.9,91.0,Water,Folic acid targeting
+NM-000207,Paracetamol,PARACETAMOL,PLGA nanoparticle,148.6,Chitosan,-33.5,9.4,72.2,7.5,39.6,77.0,Water,PEGylation
+NM-000208,Paracetamol,PARACETAMOL,Protein nanoparticle,49.2,Lipid (DSPC),25.1,12.9,71.6,8.9,18.8,19.0,Plasma-like buffer,None (bare)
+NM-000209,Paracetamol,PARACETAMOL,PLGA nanoparticle,132.8,PEG-PLA,11.7,10.4,77.2,8.7,58.5,147.0,Water,Chitosan coating
+NM-000210,Paracetamol,PARACETAMOL,PLGA nanoparticle,298.6,Liposome (DPPC),-10.6,15.6,62.0,8.3,44.2,33.0,Water,Antibody conjugation
+NM-000211,Paracetamol,PARACETAMOL,Protein nanoparticle,415.1,Eudragit,8.8,9.4,74.8,6.3,26.4,81.0,Cell culture medium,Folic acid targeting
+NM-000212,Paracetamol,PARACETAMOL,Liposome,310.3,Albumin,37.8,6.7,65.3,7.5,44.1,89.0,Fetal bovine serum 10%,Surfactant (Tween 80)
+NM-000213,Paracetamol,PARACETAMOL,Lipid nanoparticle,39.2,Gold-core,9.2,5.3,66.9,9.2,33.1,118.0,Plasma-like buffer,PEGylation
+NM-000214,Paracetamol,PARACETAMOL,PLGA nanoparticle,282.5,PLGA,-24.8,6.1,73.2,5.9,48.2,33.0,Water,None (bare)
+NM-000215,Paracetamol,PARACETAMOL,Liposome,82.4,Lipid (DSPC),24.6,13.5,74.0,6.2,5.0,12.0,Water,Surfactant (Tween 80)
+NM-000216,Paracetamol,PARACETAMOL,Polymeric nanoparticle,287.5,Liposome (DPPC),3.7,17.7,70.4,8.9,50.2,79.0,Plasma-like buffer,PEGylation
+NM-000217,Paracetamol,PARACETAMOL,Polymeric nanoparticle,151.0,Eudragit,-35.7,14.1,71.8,8.1,52.3,168.0,Water,None (bare)
+NM-000218,Paracetamol,PARACETAMOL,Lipid nanoparticle,157.3,PLGA,-25.3,13.8,76.3,9.6,17.7,39.0,PBS,None (bare)
+NM-000219,Paracetamol,PARACETAMOL,Chitosan nanoparticle,404.2,Albumin,-37.7,1.9,76.5,7.0,43.5,61.0,Cell culture medium,PEGylation
+NM-000220,Paracetamol,PARACETAMOL,Protein nanoparticle,100.9,Liposome (DPPC),-30.2,11.2,72.5,7.8,46.3,49.0,Fetal bovine serum 10%,Antibody conjugation
+NM-000221,Paracetamol,PARACETAMOL,Polymeric nanoparticle,363.6,PLGA,-41.8,19.3,73.4,7.0,5.5,125.0,Fetal bovine serum 10%,None (bare)
+NM-000222,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,262.9,PLGA,-22.4,1.0,86.3,8.0,24.3,62.0,Water,Chitosan coating
+NM-000223,Paracetamol,PARACETAMOL,Lipid nanoparticle,286.2,Liposome (DPPC),5.2,14.2,76.8,6.5,25.3,16.0,Cell culture medium,Folic acid targeting
+NM-000224,Paracetamol,PARACETAMOL,Lipid nanoparticle,80.9,Lipid (DSPC),-44.5,9.6,77.5,7.7,23.0,95.0,Plasma-like buffer,PEGylation
+NM-000225,Paracetamol,PARACETAMOL,PLGA nanoparticle,103.6,PLGA,6.5,14.6,67.3,6.8,25.8,91.0,PBS,Surfactant (Tween 80)
+NM-000226,Paracetamol,PARACETAMOL,Protein nanoparticle,344.5,Albumin,-4.9,13.5,64.5,6.1,10.4,120.0,Water,Surfactant (Tween 80)
+NM-000227,Paracetamol,PARACETAMOL,Liposome,288.7,Solid lipid (SLN),-28.1,9.2,82.1,7.8,45.4,110.0,Plasma-like buffer,Antibody conjugation
+NM-000228,Paracetamol,PARACETAMOL,PLGA nanoparticle,363.7,Eudragit,-8.3,5.2,75.6,8.0,21.9,111.0,Cell culture medium,None (bare)
+NM-000229,Paracetamol,PARACETAMOL,Polymeric nanoparticle,261.6,PEG-PLA,-39.4,4.8,72.0,6.8,49.5,161.0,PBS,PEGylation
+NM-000230,Paracetamol,PARACETAMOL,PLGA nanoparticle,81.1,Lipid (DSPC),25.9,18.3,69.2,7.3,17.8,130.0,PBS,None (bare)
+NM-000231,Paracetamol,PARACETAMOL,Liposome,219.9,Albumin,22.3,7.5,64.8,8.5,25.9,165.0,Cell culture medium,Surfactant (Tween 80)
+NM-000232,Paracetamol,PARACETAMOL,Chitosan nanoparticle,80.4,Poly(lactic acid),22.8,3.6,81.5,7.5,28.4,15.0,Plasma-like buffer,Chitosan coating
+NM-000233,Paracetamol,PARACETAMOL,Polymeric nanoparticle,189.6,Chitosan,-30.5,11.4,71.8,5.6,25.4,62.0,Water,None (bare)
+NM-000234,Paracetamol,PARACETAMOL,Lipid nanoparticle,232.1,PEG-PLA,1.5,6.8,77.4,9.3,33.0,100.0,Fetal bovine serum 10%,Surfactant (Tween 80)
+NM-000235,Paracetamol,PARACETAMOL,Chitosan nanoparticle,154.3,Solid lipid (SLN),-31.8,14.2,69.5,7.7,44.5,2.0,Plasma-like buffer,Antibody conjugation
+NM-000236,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,190.0,Poly(lactic acid),-4.4,3.5,81.3,8.0,45.2,120.0,Cell culture medium,PEGylation
+NM-000237,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,130.8,Liposome (DPPC),36.1,20.8,69.7,7.5,36.9,101.0,Water,Dextran coating
+NM-000238,Paracetamol,PARACETAMOL,Polymeric nanoparticle,379.3,Lipid (DSPC),-7.9,8.1,83.7,6.7,47.9,58.0,Water,Folic acid targeting
+NM-000239,Paracetamol,PARACETAMOL,Protein nanoparticle,276.9,PLGA,-26.1,7.3,77.0,5.8,10.3,91.0,Cell culture medium,Dextran coating
+NM-000240,Paracetamol,PARACETAMOL,Liposome,277.9,Lipid (DSPC),-30.6,16.2,69.2,7.8,40.6,159.0,Cell culture medium,None (bare)
+NM-000241,Paracetamol,PARACETAMOL,Lipid nanoparticle,395.8,Solid lipid (SLN),11.6,7.8,85.3,6.6,34.4,58.0,Fetal bovine serum 10%,PEGylation
+NM-000242,Paracetamol,PARACETAMOL,PLGA nanoparticle,264.9,PLGA,-49.2,14.1,71.5,7.6,32.2,157.0,Cell culture medium,Folic acid targeting
+NM-000243,Paracetamol,PARACETAMOL,Liposome,237.6,Poly(lactic acid),-7.1,3.6,70.7,6.0,31.4,58.0,Plasma-like buffer,Folic acid targeting
+NM-000244,Paracetamol,PARACETAMOL,Protein nanoparticle,62.1,Lipid (DSPC),-46.3,13.5,69.8,5.6,36.2,92.0,Water,PEGylation
+NM-000245,Paracetamol,PARACETAMOL,Free drug reference,287.1,None (free drug),-2.7,1.0,47.9,6.3,15.5,14.0,Water,None (bare)
+NM-000246,Paracetamol,PARACETAMOL,Polymeric nanoparticle,328.0,Albumin,18.4,3.8,71.5,7.3,14.8,101.0,Fetal bovine serum 10%,None (bare)
+NM-000247,Paracetamol,PARACETAMOL,Liposome,20.2,Gold-core,15.7,2.5,55.7,7.7,48.6,128.0,Water,PEGylation
+NM-000248,Paracetamol,PARACETAMOL,Lipid nanoparticle,367.3,Lipid (DSPC),-21.1,17.7,64.4,8.9,23.6,141.0,Cell culture medium,Antibody conjugation
+NM-000249,Paracetamol,PARACETAMOL,PLGA nanoparticle,152.8,PLGA,-45.6,4.1,79.6,6.1,11.2,165.0,Fetal bovine serum 10%,Dextran coating
+NM-000250,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,212.3,PLGA,-19.7,12.3,72.9,7.9,36.3,72.0,Water,Folic acid targeting
+NM-000251,Paracetamol,PARACETAMOL,Polymeric nanoparticle,67.6,Chitosan,24.7,14.0,65.9,7.0,35.7,55.0,Plasma-like buffer,Dextran coating
+NM-000252,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,325.6,Solid lipid (SLN),23.9,7.2,73.3,6.4,11.1,9.0,Plasma-like buffer,Chitosan coating
+NM-000253,Paracetamol,PARACETAMOL,Polymeric nanoparticle,35.4,Chitosan,-26.4,5.0,78.2,8.4,5.3,28.0,Plasma-like buffer,Chitosan coating
+NM-000254,Paracetamol,PARACETAMOL,Lipid nanoparticle,368.9,PLGA,13.6,5.0,76.2,7.3,31.6,34.0,PBS,PEGylation
+NM-000255,Paracetamol,PARACETAMOL,Lipid nanoparticle,372.8,Chitosan,-29.9,17.2,62.8,7.0,15.1,78.0,Water,Dextran coating
+NM-000256,Paracetamol,PARACETAMOL,Chitosan nanoparticle,376.8,PLGA,5.1,5.6,81.1,7.9,46.6,4.0,PBS,Surfactant (Tween 80)
+NM-000257,Paracetamol,PARACETAMOL,Liposome,137.5,Poly(lactic acid),41.4,11.4,72.0,7.6,32.6,168.0,PBS,Surfactant (Tween 80)
+NM-000258,Paracetamol,PARACETAMOL,PLGA nanoparticle,103.1,PEG-PLA,-23.1,5.0,74.5,5.4,29.3,87.0,Water,Folic acid targeting
+NM-000259,Paracetamol,PARACETAMOL,Liposome,214.9,Lipid (DSPC),-48.4,13.8,79.9,7.3,40.2,63.0,Water,PEGylation
+NM-000260,Paracetamol,PARACETAMOL,Liposome,217.8,Chitosan,-21.4,5.3,73.0,6.3,37.9,13.0,Fetal bovine serum 10%,PEGylation
+NM-000261,Paracetamol,PARACETAMOL,Polymeric nanoparticle,289.0,Chitosan,-32.2,13.2,67.2,6.1,19.7,119.0,Cell culture medium,Surfactant (Tween 80)
+NM-000262,Paracetamol,PARACETAMOL,Liposome,348.3,Lipid (DSPC),-45.6,15.4,70.1,7.2,9.6,1.0,Plasma-like buffer,None (bare)
+NM-000263,Paracetamol,PARACETAMOL,Lipid nanoparticle,89.7,Gold-core,8.7,3.5,59.5,7.4,13.4,71.0,Fetal bovine serum 10%,Dextran coating
+NM-000264,Paracetamol,PARACETAMOL,Lipid nanoparticle,144.1,Liposome (DPPC),13.5,12.0,74.8,6.4,24.8,98.0,Fetal bovine serum 10%,None (bare)
+NM-000265,Paracetamol,PARACETAMOL,PLGA nanoparticle,69.9,Gold-core,9.3,1.7,62.0,7.2,12.4,155.0,PBS,PEGylation
+NM-000266,Paracetamol,PARACETAMOL,Free drug reference,62.6,None (free drug),-12.7,2.6,45.2,7.3,32.3,108.0,Fetal bovine serum 10%,PEGylation
+NM-000267,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,43.5,Gold-core,-19.8,9.3,47.7,7.1,54.0,31.0,Fetal bovine serum 10%,None (bare)
+NM-000268,Paracetamol,PARACETAMOL,PLGA nanoparticle,309.0,Liposome (DPPC),36.8,5.7,80.9,8.0,7.3,4.0,Water,Chitosan coating
+NM-000269,Paracetamol,PARACETAMOL,Lipid nanoparticle,130.6,Solid lipid (SLN),19.1,7.9,86.2,6.2,30.1,122.0,Cell culture medium,Surfactant (Tween 80)
+NM-000270,Paracetamol,PARACETAMOL,PLGA nanoparticle,358.9,Poly(lactic acid),-18.4,2.4,77.8,6.7,57.2,10.0,Water,Dextran coating
+NM-000271,Paracetamol,PARACETAMOL,Liposome,130.9,Solid lipid (SLN),29.9,9.5,84.5,8.2,47.1,125.0,Fetal bovine serum 10%,None (bare)
+NM-000272,Paracetamol,PARACETAMOL,Lipid nanoparticle,338.0,Eudragit,35.6,6.8,71.3,6.6,45.4,112.0,Cell culture medium,None (bare)
+NM-000273,Paracetamol,PARACETAMOL,Liposome,164.7,Solid lipid (SLN),-25.1,7.9,80.8,7.7,22.1,119.0,Water,Chitosan coating
+NM-000274,Paracetamol,PARACETAMOL,Chitosan nanoparticle,117.9,PLGA,20.9,11.8,67.0,7.6,38.8,114.0,Cell culture medium,PEGylation
+NM-000275,Paracetamol,PARACETAMOL,Protein nanoparticle,211.3,Poly(lactic acid),12.4,12.1,69.8,6.8,33.7,155.0,Plasma-like buffer,None (bare)
+NM-000276,Paracetamol,PARACETAMOL,Liposome,119.2,Albumin,-14.7,5.8,66.7,8.2,39.8,22.0,Cell culture medium,Dextran coating
+NM-000277,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,274.8,Lipid (DSPC),-36.1,16.4,63.9,6.3,26.7,80.0,Cell culture medium,Surfactant (Tween 80)
+NM-000278,Paracetamol,PARACETAMOL,Liposome,178.9,Albumin,22.7,8.4,68.9,6.8,5.8,81.0,Plasma-like buffer,None (bare)
+NM-000279,Paracetamol,PARACETAMOL,Liposome,115.4,Gold-core,1.1,7.7,52.5,7.2,58.0,159.0,PBS,Folic acid targeting
+NM-000280,Paracetamol,PARACETAMOL,Polymeric nanoparticle,392.3,Solid lipid (SLN),2.2,6.4,74.6,8.5,40.3,50.0,Water,PEGylation
+NM-000281,Paracetamol,PARACETAMOL,Liposome,157.9,Poly(lactic acid),-51.4,7.8,67.9,5.8,34.9,38.0,Plasma-like buffer,PEGylation
+NM-000282,Paracetamol,PARACETAMOL,Lipid nanoparticle,31.1,Albumin,40.0,14.1,57.5,8.6,39.6,71.0,Cell culture medium,Surfactant (Tween 80)
+NM-000283,Paracetamol,PARACETAMOL,Lipid nanoparticle,38.4,Chitosan,6.1,18.1,69.5,6.5,45.5,134.0,Fetal bovine serum 10%,PEGylation
+NM-000284,Paracetamol,PARACETAMOL,Liposome,154.9,Poly(lactic acid),-36.7,11.3,64.5,7.1,52.4,100.0,Fetal bovine serum 10%,None (bare)
+NM-000285,Paracetamol,PARACETAMOL,PLGA nanoparticle,384.1,PEG-PLA,-10.5,12.9,71.8,6.6,22.4,12.0,Water,Folic acid targeting
+NM-000286,Paracetamol,PARACETAMOL,Lipid nanoparticle,190.1,Poly(lactic acid),47.4,7.5,81.5,9.5,29.6,31.0,Water,Surfactant (Tween 80)
+NM-000287,Paracetamol,PARACETAMOL,Liposome,206.9,Chitosan,31.6,1.4,73.0,8.2,35.7,32.0,Water,None (bare)
+NM-000288,Paracetamol,PARACETAMOL,PLGA nanoparticle,248.6,Eudragit,-30.7,8.0,81.9,7.6,12.2,139.0,Cell culture medium,Chitosan coating
+NM-000289,Paracetamol,PARACETAMOL,Chitosan nanoparticle,286.0,Eudragit,19.9,4.0,76.2,7.4,9.6,160.0,Water,None (bare)
+NM-000290,Paracetamol,PARACETAMOL,Chitosan nanoparticle,72.4,Gold-core,-20.2,5.6,63.3,8.9,57.6,149.0,Water,None (bare)
+NM-000291,Paracetamol,PARACETAMOL,Lipid nanoparticle,339.1,Eudragit,-33.0,5.4,77.4,8.2,57.0,150.0,Plasma-like buffer,Chitosan coating
+NM-000292,Paracetamol,PARACETAMOL,Chitosan nanoparticle,112.4,Lipid (DSPC),-13.4,5.9,85.4,8.6,47.7,116.0,Plasma-like buffer,None (bare)
+NM-000293,Paracetamol,PARACETAMOL,Liposome,296.2,PEG-PLA,31.0,3.5,78.7,6.6,14.4,55.0,Fetal bovine serum 10%,None (bare)
+NM-000294,Paracetamol,PARACETAMOL,PLGA nanoparticle,323.1,Liposome (DPPC),42.0,5.8,87.1,7.0,39.7,156.0,Water,Chitosan coating
+NM-000295,Paracetamol,PARACETAMOL,Lipid nanoparticle,403.9,PLGA,15.8,8.7,81.0,9.0,51.1,159.0,Plasma-like buffer,None (bare)
+NM-000296,Paracetamol,PARACETAMOL,Lipid nanoparticle,130.8,Lipid (DSPC),-7.2,14.5,65.0,7.3,17.6,149.0,Cell culture medium,None (bare)
+NM-000297,Paracetamol,PARACETAMOL,PLGA nanoparticle,285.8,Poly(lactic acid),-41.8,3.0,82.9,8.1,53.3,32.0,Plasma-like buffer,None (bare)
+NM-000298,Paracetamol,PARACETAMOL,PLGA nanoparticle,119.6,Gold-core,-32.0,9.5,62.3,6.1,35.9,16.0,PBS,Dextran coating
+NM-000299,Paracetamol,PARACETAMOL,Liposome,263.8,Poly(lactic acid),17.7,12.0,69.9,7.2,24.3,171.0,Fetal bovine serum 10%,Folic acid targeting
+NM-000300,Paracetamol,PARACETAMOL,Lipid nanoparticle,59.5,Gold-core,14.9,3.5,64.5,7.8,53.9,133.0,Plasma-like buffer,None (bare)
+NM-000301,Paracetamol,PARACETAMOL,Polymeric nanoparticle,330.4,Lipid (DSPC),25.0,4.2,76.7,7.7,13.5,3.0,Water,Chitosan coating
+NM-000302,Paracetamol,PARACETAMOL,Chitosan nanoparticle,188.5,PLGA,20.7,4.6,88.9,6.3,17.1,167.0,Water,None (bare)
+NM-000303,Paracetamol,PARACETAMOL,Lipid nanoparticle,139.6,PEG-PLA,-28.7,11.6,74.9,6.8,5.1,39.0,Water,PEGylation
+NM-000304,Paracetamol,PARACETAMOL,Lipid nanoparticle,190.4,Eudragit,26.4,11.0,65.2,5.9,56.4,132.0,Plasma-like buffer,Chitosan coating
+NM-000305,Paracetamol,PARACETAMOL,Chitosan nanoparticle,386.6,Chitosan,-14.7,4.5,71.5,8.3,50.2,168.0,Cell culture medium,None (bare)
+NM-000306,Paracetamol,PARACETAMOL,Polymeric nanoparticle,25.7,Lipid (DSPC),0.7,1.5,80.1,6.7,4.1,132.0,Cell culture medium,None (bare)
+NM-000307,Paracetamol,PARACETAMOL,Chitosan nanoparticle,236.9,Albumin,28.3,1.8,75.7,8.4,7.6,174.0,Plasma-like buffer,Chitosan coating
+NM-000308,Paracetamol,PARACETAMOL,Protein nanoparticle,419.7,PEG-PLA,-4.6,2.8,81.1,8.1,31.5,144.0,Water,Dextran coating
+NM-000309,Paracetamol,PARACETAMOL,Lipid nanoparticle,65.3,Chitosan,-25.6,17.4,61.5,6.5,5.8,71.0,Water,None (bare)
+NM-000310,Paracetamol,PARACETAMOL,Liposome,87.3,Eudragit,21.9,8.8,74.5,6.0,44.3,36.0,Plasma-like buffer,PEGylation
+NM-000311,Paracetamol,PARACETAMOL,Liposome,279.7,Chitosan,-3.2,14.8,64.0,8.2,36.2,33.0,Fetal bovine serum 10%,Dextran coating
+NM-000312,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,97.4,Albumin,27.2,1.7,72.3,7.9,34.0,147.0,Plasma-like buffer,None (bare)
+NM-000313,Paracetamol,PARACETAMOL,Liposome,207.1,Chitosan,-38.2,4.0,71.3,7.1,16.5,127.0,Plasma-like buffer,Surfactant (Tween 80)
+NM-000314,Paracetamol,PARACETAMOL,Chitosan nanoparticle,69.1,PEG-PLA,-50.3,12.9,67.9,7.8,5.1,161.0,Fetal bovine serum 10%,Chitosan coating
+NM-000315,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,172.1,PLGA,-33.6,15.1,66.0,6.8,31.5,70.0,PBS,PEGylation
+NM-000316,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,141.1,Liposome (DPPC),-7.3,17.9,61.9,7.5,48.4,61.0,Cell culture medium,None (bare)
+NM-000317,Paracetamol,PARACETAMOL,PLGA nanoparticle,288.2,Solid lipid (SLN),37.6,2.4,81.7,5.0,34.7,30.0,Fetal bovine serum 10%,None (bare)
+NM-000318,Paracetamol,PARACETAMOL,Free drug reference,391.3,None (free drug),-23.4,4.0,45.6,7.1,4.8,12.0,Fetal bovine serum 10%,PEGylation
+NM-000319,Paracetamol,PARACETAMOL,Liposome,180.7,Poly(lactic acid),33.3,9.2,66.6,6.7,24.6,119.0,Water,None (bare)
+NM-000320,Paracetamol,PARACETAMOL,PLGA nanoparticle,303.5,Eudragit,-33.1,7.8,74.1,8.5,59.1,120.0,Plasma-like buffer,Antibody conjugation
+NM-000321,Paracetamol,PARACETAMOL,PLGA nanoparticle,394.6,Chitosan,-20.3,3.5,79.4,7.6,10.2,50.0,Water,None (bare)
+NM-000322,Paracetamol,PARACETAMOL,Polymeric nanoparticle,35.8,Gold-core,20.5,4.0,60.1,7.2,59.6,77.0,Fetal bovine serum 10%,Antibody conjugation
+NM-000323,Paracetamol,PARACETAMOL,PLGA nanoparticle,198.4,Solid lipid (SLN),17.1,15.0,71.4,6.7,13.0,55.0,Plasma-like buffer,PEGylation
+NM-000324,Paracetamol,PARACETAMOL,PLGA nanoparticle,271.9,Eudragit,-55.7,3.3,73.5,7.0,7.3,122.0,PBS,PEGylation
+NM-000325,Paracetamol,PARACETAMOL,Polymeric nanoparticle,130.8,Poly(lactic acid),-14.1,3.1,76.5,7.5,10.3,147.0,Plasma-like buffer,PEGylation
+NM-000326,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,118.4,Liposome (DPPC),32.7,12.8,64.7,6.9,46.6,16.0,Cell culture medium,Surfactant (Tween 80)
+NM-000327,Paracetamol,PARACETAMOL,PLGA nanoparticle,277.2,Albumin,25.7,10.9,68.6,8.7,48.7,48.0,Plasma-like buffer,Surfactant (Tween 80)
+NM-000328,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,413.2,PEG-PLA,-50.9,8.6,68.6,6.2,34.7,149.0,Water,PEGylation
+NM-000329,Paracetamol,PARACETAMOL,Polymeric nanoparticle,314.4,Eudragit,25.6,8.8,75.2,7.9,22.5,15.0,Fetal bovine serum 10%,Folic acid targeting
+NM-000330,Paracetamol,PARACETAMOL,Chitosan nanoparticle,95.5,Liposome (DPPC),-17.0,3.5,83.9,7.6,52.3,57.0,Plasma-like buffer,Antibody conjugation
+NM-000331,Paracetamol,PARACETAMOL,PLGA nanoparticle,150.8,Eudragit,42.6,21.1,65.7,5.7,53.5,93.0,Water,None (bare)
+NM-000332,Paracetamol,PARACETAMOL,Chitosan nanoparticle,136.5,Lipid (DSPC),-29.2,12.3,80.3,6.7,4.3,101.0,Fetal bovine serum 10%,Folic acid targeting
+NM-000333,Paracetamol,PARACETAMOL,Liposome,85.3,Chitosan,-19.5,7.8,72.6,8.0,50.4,113.0,Fetal bovine serum 10%,PEGylation
+NM-000334,Paracetamol,PARACETAMOL,Lipid nanoparticle,221.2,Poly(lactic acid),21.0,2.8,77.5,7.7,58.7,102.0,Plasma-like buffer,PEGylation
+NM-000335,Paracetamol,PARACETAMOL,Chitosan nanoparticle,392.0,Chitosan,4.6,9.4,60.2,8.6,17.4,144.0,PBS,None (bare)
+NM-000336,Paracetamol,PARACETAMOL,Chitosan nanoparticle,269.5,Poly(lactic acid),33.4,9.8,78.7,6.8,55.6,44.0,PBS,Antibody conjugation
+NM-000337,Paracetamol,PARACETAMOL,Liposome,285.4,Liposome (DPPC),-30.9,12.5,73.4,7.2,25.8,72.0,Cell culture medium,None (bare)
+NM-000338,Paracetamol,PARACETAMOL,Polymeric nanoparticle,248.5,Solid lipid (SLN),-20.8,5.6,78.9,7.3,7.9,23.0,Fetal bovine serum 10%,Surfactant (Tween 80)
+NM-000339,Paracetamol,PARACETAMOL,Polymeric nanoparticle,399.9,Eudragit,26.2,4.1,75.3,7.0,37.1,10.0,Fetal bovine serum 10%,Surfactant (Tween 80)
+NM-000340,Paracetamol,PARACETAMOL,Polymeric nanoparticle,218.2,Eudragit,31.4,5.0,70.3,6.2,44.4,176.0,Fetal bovine serum 10%,Dextran coating
+NM-000341,Paracetamol,PARACETAMOL,Liposome,251.4,Chitosan,31.1,1.8,74.2,7.2,39.2,76.0,Fetal bovine serum 10%,Surfactant (Tween 80)
+NM-000342,Paracetamol,PARACETAMOL,Lipid nanoparticle,396.0,Chitosan,26.0,11.0,65.1,8.0,50.7,42.0,Cell culture medium,Antibody conjugation
+NM-000343,Paracetamol,PARACETAMOL,Polymeric nanoparticle,115.5,Solid lipid (SLN),18.0,1.4,85.6,7.0,42.4,163.0,Plasma-like buffer,PEGylation
+NM-000344,Paracetamol,PARACETAMOL,PLGA nanoparticle,288.7,Liposome (DPPC),-25.8,8.6,81.9,8.8,23.6,167.0,Cell culture medium,Dextran coating
+NM-000345,Paracetamol,PARACETAMOL,Polymeric nanoparticle,289.8,Albumin,-12.2,4.6,74.2,7.2,38.8,166.0,Cell culture medium,Dextran coating
+NM-000346,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,65.0,Lipid (DSPC),-7.5,8.4,75.4,7.5,51.5,32.0,PBS,Dextran coating
+NM-000347,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,367.0,PLGA,-18.2,2.6,75.6,8.0,31.2,161.0,Fetal bovine serum 10%,Chitosan coating
+NM-000348,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,162.9,PEG-PLA,33.9,5.9,82.7,7.6,58.9,1.0,Water,Dextran coating
+NM-000349,Paracetamol,PARACETAMOL,Liposome,156.6,Lipid (DSPC),-2.4,4.8,81.9,7.5,26.6,150.0,Plasma-like buffer,Dextran coating
+NM-000350,Paracetamol,PARACETAMOL,Lipid nanoparticle,261.0,Liposome (DPPC),14.0,17.8,72.2,9.0,47.8,125.0,Plasma-like buffer,Surfactant (Tween 80)
+NM-000351,Paracetamol,PARACETAMOL,PLGA nanoparticle,89.7,Poly(lactic acid),-47.8,15.9,72.6,6.7,25.3,81.0,Water,PEGylation
+NM-000352,Paracetamol,PARACETAMOL,Liposome,81.8,PEG-PLA,-16.4,6.0,80.7,8.4,18.5,125.0,Water,Dextran coating
+NM-000353,Paracetamol,PARACETAMOL,Polymeric nanoparticle,406.0,Albumin,-31.9,3.8,73.1,8.9,21.2,18.0,Fetal bovine serum 10%,Antibody conjugation
+NM-000354,Paracetamol,PARACETAMOL,Liposome,113.4,Gold-core,-28.8,3.9,52.7,6.5,16.0,149.0,Fetal bovine serum 10%,Antibody conjugation
+NM-000355,Paracetamol,PARACETAMOL,PLGA nanoparticle,249.3,Eudragit,-6.9,8.7,67.2,6.9,4.6,125.0,Fetal bovine serum 10%,None (bare)
+NM-000356,Paracetamol,PARACETAMOL,PLGA nanoparticle,275.3,Lipid (DSPC),-21.6,10.7,79.5,7.0,49.9,146.0,Cell culture medium,None (bare)
+NM-000357,Paracetamol,PARACETAMOL,Chitosan nanoparticle,38.6,Gold-core,-12.1,4.1,56.8,7.5,8.0,27.0,Water,Dextran coating
+NM-000358,Paracetamol,PARACETAMOL,Lipid nanoparticle,316.1,PLGA,-27.8,5.7,78.0,7.1,54.0,120.0,Plasma-like buffer,Surfactant (Tween 80)
+NM-000359,Paracetamol,PARACETAMOL,Chitosan nanoparticle,217.8,Liposome (DPPC),-36.3,7.7,74.8,6.7,24.6,125.0,Fetal bovine serum 10%,Antibody conjugation
+NM-000360,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,112.3,Poly(lactic acid),-20.3,14.5,69.8,6.6,51.4,18.0,PBS,Dextran coating
+NM-000361,Paracetamol,PARACETAMOL,Polymeric nanoparticle,27.3,PLGA,43.5,20.7,61.9,7.8,12.3,98.0,Plasma-like buffer,None (bare)
+NM-000362,Paracetamol,PARACETAMOL,Lipid nanoparticle,45.9,Solid lipid (SLN),33.2,4.3,85.1,5.2,48.0,173.0,PBS,None (bare)
+NM-000363,Paracetamol,PARACETAMOL,Liposome,293.4,Albumin,25.4,11.9,65.3,7.0,16.2,14.0,Cell culture medium,None (bare)
+NM-000364,Paracetamol,PARACETAMOL,Free drug reference,251.5,None (free drug),-38.6,2.4,54.0,6.3,4.6,27.0,Plasma-like buffer,None (bare)
+NM-000365,Paracetamol,PARACETAMOL,PLGA nanoparticle,376.0,Solid lipid (SLN),-25.5,6.1,76.2,7.7,9.2,115.0,Fetal bovine serum 10%,Surfactant (Tween 80)
+NM-000366,Paracetamol,PARACETAMOL,Liposome,156.5,Chitosan,36.1,11.2,75.6,8.6,49.5,68.0,Cell culture medium,Surfactant (Tween 80)
+NM-000367,Paracetamol,PARACETAMOL,Liposome,88.4,Chitosan,7.7,3.4,75.6,4.4,39.7,13.0,Water,PEGylation
+NM-000368,Paracetamol,PARACETAMOL,Liposome,122.6,Lipid (DSPC),-28.8,14.9,64.5,8.3,43.1,87.0,Water,Surfactant (Tween 80)
+NM-000369,Paracetamol,PARACETAMOL,Polymeric nanoparticle,223.4,Liposome (DPPC),14.1,7.4,79.3,7.6,55.4,59.0,Cell culture medium,PEGylation
+NM-000370,Paracetamol,PARACETAMOL,Liposome,185.4,PLGA,21.7,12.2,73.4,6.8,28.5,8.0,Plasma-like buffer,None (bare)
+NM-000371,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,412.1,Albumin,2.8,8.9,66.3,6.1,37.9,79.0,Water,Surfactant (Tween 80)
+NM-000372,Paracetamol,PARACETAMOL,Lipid nanoparticle,16.0,Gold-core,-14.4,4.4,53.7,6.4,37.8,123.0,PBS,None (bare)
+NM-000373,Paracetamol,PARACETAMOL,Liposome,128.2,Eudragit,-1.2,11.1,62.6,8.7,57.3,144.0,Plasma-like buffer,Surfactant (Tween 80)
+NM-000374,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,62.5,Solid lipid (SLN),-19.0,1.0,91.7,8.6,52.2,44.0,Cell culture medium,Chitosan coating
+NM-000375,Paracetamol,PARACETAMOL,Chitosan nanoparticle,193.4,Liposome (DPPC),-39.9,8.1,83.3,5.5,14.6,122.0,PBS,PEGylation
+NM-000376,Paracetamol,PARACETAMOL,Liposome,206.6,Albumin,-34.7,8.3,67.1,6.1,20.3,36.0,Water,Chitosan coating
+NM-000377,Paracetamol,PARACETAMOL,Liposome,318.3,PLGA,-30.8,3.0,79.8,9.6,44.8,30.0,Plasma-like buffer,PEGylation
+NM-000378,Paracetamol,PARACETAMOL,Lipid nanoparticle,75.7,Solid lipid (SLN),-33.7,4.5,83.4,8.3,7.8,24.0,Plasma-like buffer,Chitosan coating
+NM-000379,Paracetamol,PARACETAMOL,Lipid nanoparticle,144.1,Liposome (DPPC),-32.2,4.1,81.1,7.2,19.7,22.0,PBS,PEGylation
+NM-000380,Paracetamol,PARACETAMOL,Polymeric nanoparticle,144.5,Albumin,-34.2,3.1,76.9,7.8,11.6,14.0,PBS,None (bare)
+NM-000381,Paracetamol,PARACETAMOL,Polymeric nanoparticle,98.6,Solid lipid (SLN),7.8,3.1,81.6,9.2,57.5,114.0,Plasma-like buffer,Folic acid targeting
+NM-000382,Paracetamol,PARACETAMOL,Protein nanoparticle,144.9,PEG-PLA,-19.5,14.4,70.5,7.8,50.7,11.0,Water,Antibody conjugation
+NM-000383,Paracetamol,PARACETAMOL,Chitosan nanoparticle,104.8,Liposome (DPPC),39.0,12.9,71.8,6.3,41.7,163.0,PBS,Dextran coating
+NM-000384,Paracetamol,PARACETAMOL,Liposome,219.6,PLGA,18.9,3.0,77.7,6.9,51.4,133.0,PBS,PEGylation
+NM-000385,Paracetamol,PARACETAMOL,Lipid nanoparticle,310.2,Eudragit,-35.6,18.3,72.8,6.6,39.2,148.0,Water,Chitosan coating
+NM-000386,Paracetamol,PARACETAMOL,Lipid nanoparticle,185.0,Chitosan,-15.7,5.3,70.4,7.9,56.3,86.0,Cell culture medium,Dextran coating
+NM-000387,Paracetamol,PARACETAMOL,Lipid nanoparticle,131.8,PEG-PLA,18.0,18.4,69.7,8.5,50.4,59.0,Water,Folic acid targeting
+NM-000388,Paracetamol,PARACETAMOL,PLGA nanoparticle,233.7,PLGA,37.9,4.8,85.7,7.0,17.7,124.0,PBS,Antibody conjugation
+NM-000389,Paracetamol,PARACETAMOL,Liposome,94.3,Poly(lactic acid),34.5,7.8,75.6,6.2,56.2,48.0,PBS,Antibody conjugation
+NM-000390,Paracetamol,PARACETAMOL,Chitosan nanoparticle,143.3,Albumin,-25.6,6.9,69.8,7.0,5.8,69.0,Cell culture medium,None (bare)
+NM-000391,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,413.0,Poly(lactic acid),46.0,1.9,79.2,7.6,22.0,51.0,PBS,Surfactant (Tween 80)
+NM-000392,Paracetamol,PARACETAMOL,Chitosan nanoparticle,73.3,Chitosan,-12.8,1.0,81.2,7.5,29.7,149.0,PBS,None (bare)
+NM-000393,Paracetamol,PARACETAMOL,Polymeric nanoparticle,212.2,Chitosan,-10.9,10.5,71.6,8.2,43.5,172.0,PBS,PEGylation
+NM-000394,Paracetamol,PARACETAMOL,Liposome,111.6,Poly(lactic acid),-3.9,16.1,68.7,6.4,12.5,123.0,Fetal bovine serum 10%,Dextran coating
+NM-000395,Paracetamol,PARACETAMOL,Liposome,231.8,Albumin,11.7,12.9,66.2,7.4,36.5,89.0,Plasma-like buffer,PEGylation
+NM-000396,Paracetamol,PARACETAMOL,PLGA nanoparticle,221.6,Chitosan,-1.5,20.3,62.2,9.4,53.1,110.0,Plasma-like buffer,None (bare)
+NM-000397,Paracetamol,PARACETAMOL,PLGA nanoparticle,96.9,Gold-core,22.0,1.0,66.1,7.0,43.1,2.0,Fetal bovine serum 10%,PEGylation
+NM-000398,Paracetamol,PARACETAMOL,Chitosan nanoparticle,286.1,Chitosan,-10.9,9.1,78.9,6.9,5.5,75.0,PBS,None (bare)
+NM-000399,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,379.4,PEG-PLA,-8.5,7.3,71.2,6.1,53.8,62.0,PBS,None (bare)
+NM-000400,Paracetamol,PARACETAMOL,Protein nanoparticle,94.4,Lipid (DSPC),-4.9,18.6,68.1,8.1,56.0,30.0,Fetal bovine serum 10%,Antibody conjugation
+NM-000401,Paracetamol,PARACETAMOL,Liposome,134.6,Lipid (DSPC),-37.8,3.0,84.0,6.9,5.6,87.0,Water,None (bare)
+NM-000402,Paracetamol,PARACETAMOL,PLGA nanoparticle,77.6,Gold-core,-27.6,5.1,63.8,6.9,30.2,176.0,Plasma-like buffer,None (bare)
+NM-000403,Paracetamol,PARACETAMOL,Chitosan nanoparticle,192.5,Liposome (DPPC),19.8,2.0,84.8,8.9,40.0,91.0,Cell culture medium,None (bare)
+NM-000404,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,76.8,Eudragit,3.2,6.2,76.1,7.7,34.4,30.0,Plasma-like buffer,Antibody conjugation
+NM-000405,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,70.3,Lipid (DSPC),-24.4,6.4,78.8,8.7,34.0,16.0,Water,None (bare)
+NM-000406,Paracetamol,PARACETAMOL,Liposome,196.3,Liposome (DPPC),2.2,4.1,81.8,8.2,23.9,93.0,PBS,None (bare)
+NM-000407,Paracetamol,PARACETAMOL,Liposome,225.8,Chitosan,-40.3,4.6,72.3,7.3,38.2,0.0,Fetal bovine serum 10%,Chitosan coating
+NM-000408,Paracetamol,PARACETAMOL,Polymeric nanoparticle,230.5,Eudragit,17.7,7.8,74.6,8.4,48.3,152.0,PBS,PEGylation
+NM-000409,Paracetamol,PARACETAMOL,Protein nanoparticle,239.5,Poly(lactic acid),28.4,7.3,74.6,6.6,26.9,107.0,PBS,None (bare)
+NM-000410,Paracetamol,PARACETAMOL,Protein nanoparticle,348.9,PLGA,23.3,9.6,76.7,8.0,38.2,5.0,Water,PEGylation
+NM-000411,Paracetamol,PARACETAMOL,PLGA nanoparticle,92.6,Poly(lactic acid),11.6,5.0,76.4,7.0,32.3,92.0,Cell culture medium,Chitosan coating
+NM-000412,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,40.5,Chitosan,25.0,19.8,61.1,8.7,56.1,177.0,Plasma-like buffer,None (bare)
+NM-000413,Paracetamol,PARACETAMOL,Polymeric nanoparticle,385.6,Solid lipid (SLN),-20.5,15.3,69.5,7.2,46.6,95.0,Plasma-like buffer,Folic acid targeting
+NM-000414,Paracetamol,PARACETAMOL,Liposome,93.0,PLGA,-31.1,1.0,77.4,8.4,38.6,19.0,Cell culture medium,None (bare)
+NM-000415,Paracetamol,PARACETAMOL,PLGA nanoparticle,257.8,Liposome (DPPC),-39.1,17.7,70.6,7.8,6.4,34.0,Plasma-like buffer,PEGylation
+NM-000416,Paracetamol,PARACETAMOL,Chitosan nanoparticle,45.5,Eudragit,-8.8,5.4,75.9,7.6,37.8,104.0,Water,PEGylation
+NM-000417,Paracetamol,PARACETAMOL,Liposome,123.5,Chitosan,-28.8,24.9,55.4,7.8,47.2,72.0,Fetal bovine serum 10%,Folic acid targeting
+NM-000418,Paracetamol,PARACETAMOL,PLGA nanoparticle,213.8,Liposome (DPPC),-17.3,6.3,76.9,6.8,26.7,176.0,Fetal bovine serum 10%,PEGylation
+NM-000419,Paracetamol,PARACETAMOL,Liposome,290.8,Chitosan,35.3,18.0,64.0,6.7,15.3,178.0,Water,Folic acid targeting
+NM-000420,Paracetamol,PARACETAMOL,Lipid nanoparticle,121.0,Eudragit,-26.3,6.8,72.8,7.6,31.9,63.0,Fetal bovine serum 10%,None (bare)
+NM-000421,Paracetamol,PARACETAMOL,Lipid nanoparticle,86.1,Albumin,30.7,5.8,68.5,6.6,19.1,97.0,PBS,None (bare)
+NM-000422,Paracetamol,PARACETAMOL,Lipid nanoparticle,90.0,Chitosan,37.8,7.5,70.3,6.8,15.1,30.0,Water,Folic acid targeting
+NM-000423,Paracetamol,PARACETAMOL,Chitosan nanoparticle,200.4,Poly(lactic acid),3.7,5.6,89.5,7.7,39.9,55.0,Fetal bovine serum 10%,PEGylation
+NM-000424,Paracetamol,PARACETAMOL,Protein nanoparticle,159.9,Liposome (DPPC),-10.9,10.1,78.5,6.5,30.3,179.0,Water,Chitosan coating
+NM-000425,Paracetamol,PARACETAMOL,Liposome,165.9,Eudragit,-17.4,1.1,87.0,9.0,20.4,164.0,PBS,Chitosan coating
+NM-000426,Paracetamol,PARACETAMOL,Liposome,157.1,PLGA,22.5,17.2,68.1,9.7,13.9,102.0,PBS,None (bare)
+NM-000427,Paracetamol,PARACETAMOL,Lipid nanoparticle,287.0,Poly(lactic acid),-38.1,12.6,73.3,7.5,46.4,111.0,PBS,Surfactant (Tween 80)
+NM-000428,Paracetamol,PARACETAMOL,Liposome,149.8,Solid lipid (SLN),30.8,4.0,78.8,8.1,24.2,9.0,Water,Surfactant (Tween 80)
+NM-000429,Paracetamol,PARACETAMOL,Lipid nanoparticle,22.6,Gold-core,-3.7,8.5,61.5,7.5,10.6,151.0,Cell culture medium,None (bare)
+NM-000430,Paracetamol,PARACETAMOL,PLGA nanoparticle,358.6,Albumin,-25.2,14.8,60.5,6.6,53.0,133.0,Cell culture medium,Antibody conjugation
+NM-000431,Paracetamol,PARACETAMOL,PLGA nanoparticle,263.7,PLGA,9.5,9.5,77.2,6.4,40.4,40.0,Fetal bovine serum 10%,Chitosan coating
+NM-000432,Paracetamol,PARACETAMOL,PLGA nanoparticle,380.3,Eudragit,13.2,9.9,71.1,7.6,59.3,122.0,Cell culture medium,PEGylation
+NM-000433,Paracetamol,PARACETAMOL,Liposome,283.7,Poly(lactic acid),-13.1,7.2,76.4,6.7,45.0,157.0,Fetal bovine serum 10%,None (bare)
+NM-000434,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,399.3,PEG-PLA,-10.5,13.3,67.4,6.5,55.6,140.0,Water,None (bare)
+NM-000435,Paracetamol,PARACETAMOL,Lipid nanoparticle,239.4,Poly(lactic acid),-36.5,4.0,75.0,7.7,12.9,122.0,Plasma-like buffer,None (bare)
+NM-000436,Paracetamol,PARACETAMOL,PLGA nanoparticle,206.9,Albumin,-9.2,9.9,64.8,7.1,14.6,166.0,Fetal bovine serum 10%,PEGylation
+NM-000437,Paracetamol,PARACETAMOL,Protein nanoparticle,154.1,Liposome (DPPC),-32.9,7.1,73.2,5.7,29.0,65.0,Plasma-like buffer,None (bare)
+NM-000438,Paracetamol,PARACETAMOL,PLGA nanoparticle,67.7,Chitosan,-18.1,4.3,74.3,7.1,56.2,87.0,Plasma-like buffer,PEGylation
+NM-000439,Paracetamol,PARACETAMOL,PLGA nanoparticle,290.9,Solid lipid (SLN),25.0,12.3,68.7,8.2,22.9,154.0,Fetal bovine serum 10%,Antibody conjugation
+NM-000440,Paracetamol,PARACETAMOL,Polymeric nanoparticle,147.8,Lipid (DSPC),-55.4,15.4,72.0,7.5,24.1,132.0,Water,PEGylation
+NM-000441,Paracetamol,PARACETAMOL,Chitosan nanoparticle,260.7,Lipid (DSPC),-3.3,12.9,78.5,8.3,13.0,91.0,Plasma-like buffer,PEGylation
+NM-000442,Paracetamol,PARACETAMOL,Polymeric nanoparticle,38.6,Poly(lactic acid),-15.6,15.7,69.0,6.9,31.4,117.0,PBS,Chitosan coating
+NM-000443,Paracetamol,PARACETAMOL,PLGA nanoparticle,329.5,Solid lipid (SLN),-7.3,3.4,89.3,7.8,39.3,64.0,Water,PEGylation
+NM-000444,Paracetamol,PARACETAMOL,Chitosan nanoparticle,34.4,Solid lipid (SLN),35.6,4.5,82.4,5.1,23.9,128.0,Cell culture medium,None (bare)
+NM-000445,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,131.6,Eudragit,-27.0,7.0,80.9,7.0,40.2,63.0,PBS,None (bare)
+NM-000446,Paracetamol,PARACETAMOL,Protein nanoparticle,161.9,Liposome (DPPC),32.8,17.6,72.0,8.2,13.8,171.0,Water,Folic acid targeting
+NM-000447,Paracetamol,PARACETAMOL,Liposome,219.7,Chitosan,-33.5,10.7,66.2,7.8,35.0,135.0,PBS,None (bare)
+NM-000448,Paracetamol,PARACETAMOL,Lipid nanoparticle,235.4,Liposome (DPPC),-39.5,12.4,70.6,6.8,41.6,65.0,Fetal bovine serum 10%,PEGylation
+NM-000449,Paracetamol,PARACETAMOL,Liposome,91.6,Albumin,-21.9,13.4,60.0,6.1,4.4,122.0,Cell culture medium,PEGylation
+NM-000450,Paracetamol,PARACETAMOL,Polymeric nanoparticle,107.4,Liposome (DPPC),27.9,3.8,73.8,7.3,43.0,64.0,Cell culture medium,None (bare)
+NM-000451,Paracetamol,PARACETAMOL,PLGA nanoparticle,127.6,PEG-PLA,-29.0,11.5,68.7,7.7,33.6,104.0,Plasma-like buffer,Folic acid targeting
+NM-000452,Paracetamol,PARACETAMOL,Polymeric nanoparticle,114.3,PEG-PLA,24.2,17.4,68.4,7.1,4.0,172.0,Water,Folic acid targeting
+NM-000453,Paracetamol,PARACETAMOL,Polymeric nanoparticle,43.9,Solid lipid (SLN),16.6,8.5,84.1,8.4,26.6,6.0,Plasma-like buffer,Chitosan coating
+NM-000454,Paracetamol,PARACETAMOL,Lipid nanoparticle,56.6,Lipid (DSPC),-26.9,16.3,71.1,7.1,58.0,46.0,PBS,Surfactant (Tween 80)
+NM-000455,Paracetamol,PARACETAMOL,Polymeric nanoparticle,238.8,Lipid (DSPC),-30.8,23.3,74.4,7.5,45.3,57.0,Cell culture medium,Dextran coating
+NM-000456,Paracetamol,PARACETAMOL,Polymeric nanoparticle,185.0,Eudragit,19.7,1.4,79.7,8.2,22.0,34.0,Cell culture medium,Surfactant (Tween 80)
+NM-000457,Paracetamol,PARACETAMOL,Liposome,258.2,PLGA,30.8,3.4,78.9,6.0,20.5,107.0,Water,Dextran coating
+NM-000458,Paracetamol,PARACETAMOL,PLGA nanoparticle,193.8,Liposome (DPPC),15.8,6.3,82.1,7.7,31.6,2.0,Fetal bovine serum 10%,PEGylation
+NM-000459,Paracetamol,PARACETAMOL,PLGA nanoparticle,90.1,Gold-core,-15.5,5.7,59.5,7.3,16.4,41.0,Cell culture medium,Folic acid targeting
+NM-000460,Paracetamol,PARACETAMOL,PLGA nanoparticle,164.9,PLGA,14.1,3.3,80.2,6.8,58.0,74.0,Cell culture medium,PEGylation
+NM-000461,Paracetamol,PARACETAMOL,Lipid nanoparticle,302.7,Poly(lactic acid),3.8,12.7,73.0,6.9,50.7,175.0,Cell culture medium,Folic acid targeting
+NM-000462,Paracetamol,PARACETAMOL,Lipid nanoparticle,411.6,Solid lipid (SLN),-35.0,13.5,70.2,7.1,55.4,47.0,Plasma-like buffer,Antibody conjugation
+NM-000463,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,376.1,Poly(lactic acid),-2.1,7.5,74.8,6.9,23.2,21.0,Plasma-like buffer,PEGylation
+NM-000464,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,240.9,Solid lipid (SLN),-48.1,1.9,72.3,8.4,7.5,28.0,Fetal bovine serum 10%,Chitosan coating
+NM-000465,Paracetamol,PARACETAMOL,PLGA nanoparticle,31.6,Gold-core,-25.8,7.3,52.4,7.5,34.8,100.0,Fetal bovine serum 10%,Surfactant (Tween 80)
+NM-000466,Paracetamol,PARACETAMOL,PLGA nanoparticle,92.2,Gold-core,33.9,5.8,64.8,7.6,24.8,77.0,PBS,None (bare)
+NM-000467,Paracetamol,PARACETAMOL,Liposome,173.1,Lipid (DSPC),-24.9,13.3,84.3,7.2,43.9,99.0,Cell culture medium,Antibody conjugation
+NM-000468,Paracetamol,PARACETAMOL,PLGA nanoparticle,399.6,PLGA,-52.0,10.1,82.0,6.7,9.7,153.0,PBS,Dextran coating
+NM-000469,Paracetamol,PARACETAMOL,Liposome,102.9,Gold-core,-39.2,4.4,57.5,8.6,26.1,117.0,Plasma-like buffer,PEGylation
+NM-000470,Paracetamol,PARACETAMOL,Liposome,270.9,PLGA,-16.7,3.2,82.7,7.5,35.3,101.0,Fetal bovine serum 10%,Antibody conjugation
+NM-000471,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,271.5,Liposome (DPPC),27.6,6.2,88.9,9.3,46.3,95.0,Fetal bovine serum 10%,Surfactant (Tween 80)
+NM-000472,Paracetamol,PARACETAMOL,Polymeric nanoparticle,39.8,Gold-core,34.6,6.3,59.7,8.9,8.8,54.0,Fetal bovine serum 10%,None (bare)
+NM-000473,Paracetamol,PARACETAMOL,Polymeric nanoparticle,412.4,Eudragit,-29.3,11.6,62.2,6.9,38.3,153.0,Cell culture medium,None (bare)
+NM-000474,Paracetamol,PARACETAMOL,Lipid nanoparticle,42.7,Lipid (DSPC),27.8,11.0,77.0,6.7,37.5,132.0,PBS,None (bare)
+NM-000475,Paracetamol,PARACETAMOL,PLGA nanoparticle,64.7,Gold-core,10.1,7.5,54.4,5.9,50.2,55.0,Plasma-like buffer,Folic acid targeting
+NM-000476,Paracetamol,PARACETAMOL,PLGA nanoparticle,48.4,Solid lipid (SLN),23.2,14.2,71.9,7.3,38.9,26.0,Fetal bovine serum 10%,Dextran coating
+NM-000477,Paracetamol,PARACETAMOL,PLGA nanoparticle,126.0,Solid lipid (SLN),22.2,17.3,67.4,8.2,4.4,44.0,PBS,Dextran coating
+NM-000478,Paracetamol,PARACETAMOL,Lipid nanoparticle,205.6,Eudragit,41.9,9.3,72.1,7.5,16.7,133.0,Cell culture medium,Antibody conjugation
+NM-000479,Paracetamol,PARACETAMOL,Polymeric nanoparticle,325.0,Solid lipid (SLN),2.8,1.2,87.1,7.5,50.6,1.0,Plasma-like buffer,None (bare)
+NM-000480,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,117.2,Liposome (DPPC),19.0,5.2,80.9,7.3,45.0,30.0,Water,Dextran coating
+NM-000481,Paracetamol,PARACETAMOL,Chitosan nanoparticle,344.0,Solid lipid (SLN),-19.3,2.3,82.6,5.5,59.0,158.0,Water,None (bare)
+NM-000482,Paracetamol,PARACETAMOL,Polymeric nanoparticle,261.1,Lipid (DSPC),-37.6,17.5,72.4,6.9,27.6,91.0,Fetal bovine serum 10%,PEGylation
+NM-000483,Paracetamol,PARACETAMOL,Protein nanoparticle,283.5,Liposome (DPPC),18.3,10.0,75.5,5.5,11.3,124.0,Plasma-like buffer,Surfactant (Tween 80)
+NM-000484,Paracetamol,PARACETAMOL,Lipid nanoparticle,389.8,Eudragit,26.5,12.4,72.0,8.8,39.0,69.0,Fetal bovine serum 10%,None (bare)
+NM-000485,Paracetamol,PARACETAMOL,Liposome,106.5,Gold-core,-0.6,7.6,59.4,7.4,21.6,8.0,PBS,Folic acid targeting
+NM-000486,Paracetamol,PARACETAMOL,Liposome,337.3,PLGA,29.2,7.6,76.5,6.7,46.6,134.0,Fetal bovine serum 10%,Surfactant (Tween 80)
+NM-000487,Paracetamol,PARACETAMOL,Solid lipid nanoparticle,18.2,Gold-core,-22.4,4.6,65.1,5.4,21.7,16.0,Water,Surfactant (Tween 80)
+NM-000488,Paracetamol,PARACETAMOL,Liposome,210.4,PEG-PLA,-30.3,8.1,78.8,7.4,55.9,79.0,Water,Antibody conjugation
+NM-000489,Paracetamol,PARACETAMOL,Chitosan nanoparticle,240.0,Poly(lactic acid),-29.4,13.7,68.6,5.3,35.6,132.0,PBS,Folic acid targeting
+NM-000490,Paracetamol,PARACETAMOL,Liposome,90.3,PEG-PLA,-37.1,1.6,75.7,9.6,26.5,123.0,Fetal bovine serum 10%,None (bare)
+NM-000491,Paracetamol,PARACETAMOL,Liposome,191.1,Eudragit,32.2,17.4,68.3,5.7,25.1,62.0,PBS,None (bare)
+NM-000492,Paracetamol,PARACETAMOL,PLGA nanoparticle,372.8,Eudragit,16.7,12.3,65.1,6.4,30.1,169.0,Water,None (bare)
+NM-000493,Paracetamol,PARACETAMOL,PLGA nanoparticle,224.1,Chitosan,-23.0,6.3,67.6,8.0,41.0,86.0,PBS,Antibody conjugation
+NM-000494,Paracetamol,PARACETAMOL,Lipid nanoparticle,294.7,Solid lipid (SLN),36.3,10.0,81.8,8.3,22.4,136.0,Cell culture medium,Chitosan coating
+NM-000495,Paracetamol,PARACETAMOL,Polymeric nanoparticle,356.5,Solid lipid (SLN),21.4,10.3,81.3,6.3,42.4,14.0,Plasma-like buffer,PEGylation
+NM-000496,Paracetamol,PARACETAMOL,PLGA nanoparticle,238.8,PEG-PLA,41.4,10.6,64.2,8.6,53.5,11.0,Water,PEGylation
+NM-000497,Paracetamol,PARACETAMOL,Polymeric nanoparticle,116.3,Liposome (DPPC),22.6,5.2,91.6,6.7,27.6,18.0,Cell culture medium,None (bare)
+NM-000498,Paracetamol,PARACETAMOL,Polymeric nanoparticle,234.0,Eudragit,3.9,8.9,69.3,7.3,41.0,119.0,PBS,Dextran coating
+NM-000499,Paracetamol,PARACETAMOL,Polymeric nanoparticle,100.5,Lipid (DSPC),6.7,9.9,75.0,6.7,58.1,109.0,Fetal bovine serum 10%,Surfactant (Tween 80)
+NM-000500,Paracetamol,PARACETAMOL,Liposome,83.5,Gold-core,42.1,6.4,52.5,8.5,5.4,128.0,PBS,Dextran coating

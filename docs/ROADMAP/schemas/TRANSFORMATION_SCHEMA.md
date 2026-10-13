@@ -1,0 +1,11 @@
+# Transformation Schema (Future)
+- Aggregation
+- Dissolution
+- Degradation
+- Fragmentation
+- Size change
+- Charge change
+- Morphology change
+- Coating loss
+- Ion release
+- Drug leakage

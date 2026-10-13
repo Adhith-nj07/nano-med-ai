@@ -1,0 +1,12 @@
+# Formulation Schema (Future)
+- Core/drug ratio
+- Polymer/drug ratio
+- Lipid ratios
+- Ionizable lipid %
+- Helper lipid %
+- Cholesterol %
+- PEG-lipid %
+- N/P ratio
+- Solvent ratio
+- Buffer
+- Ionic strength

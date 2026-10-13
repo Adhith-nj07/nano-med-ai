@@ -1,0 +1,15 @@
+study_id,doi_pmid,publication_year,formulation_batch_id,primary_source_title,inclusion_decision,exclusion_inclusion_justification
+STU-001,10.1039/C3NR05381A,2014,CLS-NP-01,Nanoscale / Poly(cholesteryl silicate) formulations,Included,Complete physical characterization and in vitro cytotoxicity data
+STU-002,10.1002/term.2890,2019,PHBHHX-GRAD-01,PMC6496505 / Polymeric NP zeta potential gradient,Included,Gradient surface charge control with matched core dimensions
+STU-003,10.3390/nano1522001,2025,CRT-PEG-NE-01,PMC12655768 / Functionalized nanoemulsions,Included,High-precision dynamic light scattering and Korsmeyer-Peppas metrics
+STU-004,10.2147/IJN.S125431,2017,PLGA-CHI-ALG-01,PMC5344431 / Layer-by-layer PLGA anticancer NPs,Included,Complete multi-pH release trajectories and electrokinetic data
+STU-005,10.3390/pharmaceutics,2025,PLGA-EXM-GEL,PMC13441772 / Exemestane thermoresponsive gel,Included,Characterized kinetic modeling metrics and long-term stability
+STU-006,10.3390/pharmaceutics14112394,2022,LPNP-TS-DOX-01,MDPI Pharmaceutics / Hybrid lipid-polymer NPs,Included,Complete longitudinal stability trajectories across multiple media
+STU-007,10.3390/nano17050207,2025,CPSF-PLGA-01,MDPI Nanomaterials / Stimuli PLGA drug carriers,Included,Comparative toxicity profiles between tumor and healthy primary cells
+STU-008,10.1039/D4RA00000X,2024,GFO-SiO2-DOX,RSC Advances / Core-shell mesoporous nanocarriers,Included,Quantitative loading efficiency and hyperthermic release metrics
+STU-009,10.1080/10717544.2025,2025,CBD-HA-pNIPAM,PST Proceedings / CBD lipid-hydrogel delivery,Included,Multi-time-point longitudinal stability trajectory (n=6)
+STU-010,10.22037/ijpr.2022,2022,RAP-NE-STAB,IJPR / Rapanone nanoemulsions long-term,Included,Multi-temperature long-term storage stability data up to 12 months
+STU-011,10.1021/acs.molpharmaceut.0c00321,2020,MPEG-PLGA-DOX,Molecular Pharmaceutics / Tannic Acid-FeIII PLGA NPs,Included,"Physical stability evaluation (endpoint/short trajectory, n=2)"
+STU-012,10.1080/10717544.2022,2022,PLGA-PCL-IMP,Drug Delivery / Subcutaneous HME implants,Included,Hot-melt extruded implant release kinetics and modeling parameters
+STU-013,10.1021/acs.aam.3c,2024,DOX-M-CaP-HA,ACS AMI / Sequential drug delivery core-shell NPs,Included,Dual drug release profiles at physiological and acidic pH
+STU-099,10.3390/pmc9503861,2021,NA,PMC9503861 / Liposome optimization narrative,Excluded,Qualitative review lacking specific numerical tabulations

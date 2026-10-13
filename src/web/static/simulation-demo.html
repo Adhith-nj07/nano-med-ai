@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NanoMedAI - Biophysical Simulation & ML Platform</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body class="dark-theme">
+
+    <!-- TOP BAR (Exact design from uploaded mockup) -->
+    <header class="top-bar">
+        <div class="brand">
+            <h1>NanoMedAI</h1>
+            <span id="sim-mode-badge" class="badge badge-demo">SIMULATION DEMO</span>
+        </div>
+        <div class="disclaimer-banner" id="main-disclaimer">
+            <strong>DEMO ONLY:</strong> This prototype uses mock values for interface demonstration. Connected with live ML models.
+        </div>
+        <div class="top-bar-right">
+            <div id="backend-status-pill" class="backend-indicator" title="FastAPI Backend Health">
+                <span class="dot"></span> <span id="backend-status-text">API: CHECKING...</span>
+            </div>
+            <div class="status-indicator">
+                <span id="sim-status-label" class="status-initialized">● INITIALIZED</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- FEATURE NAVIGATION (Clean, dark IDE aesthetic matching the design) -->
+    <nav class="feature-nav-bar" aria-label="NanoMedAI Platform Modules">
+        <button class="nav-tab-btn active" data-tab="simulation">🧪 Live Simulation</button>
+        <button class="nav-tab-btn" data-tab="prompt">🤖 Experiment Prompt AI</button>
+        <button class="nav-tab-btn" data-tab="predictor">🔬 Model Predictor</button>
+        <button class="nav-tab-btn" data-tab="explorer">📈 Sweep &amp; Heatmap</button>
+        <button class="nav-tab-btn" data-tab="data">📚 Data &amp; Models</button>
+        <button class="nav-tab-btn" data-tab="viewer">🌐 3D Particle</button>
+        <button class="nav-tab-btn" data-tab="report">📋 Research Report</button>
+    </nav>
+
+    <!-- ============================================================== -->
+    <!-- VIEW 1: LIVE SIMULATION WORKSPACE (Exact Uploaded UI Design)   -->
+    <!-- ============================================================== -->
+    <div class="view-container active workspace" id="view-simulation">
+        <!-- LEFT COLUMN: CONFIG & CONTROLS -->
+        <aside class="panel left-panel">
+            <!-- QUICK AI EXPERIMENT RUNNER -->
+            <section class="control-section">
+                <h2>AI EXPERIMENT PROMPT <span class="badge badge-blue">ALL MODELS</span></h2>
+                <div class="form-group" style="margin-bottom: 0.5rem;">
+                    <select id="quick-prompt-example" class="demo-select" style="margin-bottom: 0.4rem;">
+                        <option value="a">Example A: PLGA + Paclitaxel</option>
+                        <option value="b">Example B: PLA + Letrozole</option>
+                        <option value="c">Example C: ZnO + toxicity assay</option>
+                    </select>
+                    <textarea id="quick-prompt-input" class="prompt-textarea" style="min-height: 55px;" placeholder="Describe nanoparticle experiment..."></textarea>
+                    <div style="display:flex; gap:0.4rem;">
+                        <button id="btn-quick-run" class="btn btn-primary" style="flex:1;">RUN AI EXPERIMENT</button>
+                        <button id="btn-open-prompt-tab" class="btn btn-secondary" title="Open Full AI Workflow with Advanced Parameters">ADVANCED</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="control-section">
+                <h2>NANOPARTICLE CONFIGURATION <span class="badge badge-demo" id="cfg-mode-badge">DEMO CONFIG</span></h2>
+                <div class="form-group">
+                    <select id="config-formulation" class="demo-select">
+                        <option value="formulation-a">Demo Formulation A (PLGA + Paclitaxel)</option>
+                        <option value="formulation-b">Demo Formulation B (PLA + Letrozole)</option>
+                        <option value="formulation-c">Demo Formulation C (PLGA + Letrozole)</option>
+                        <option value="nm-paracetamol-plga">NM-000001: Paracetamol + PLGA (335 nm, SLN)</option>
+                        <option value="nm-paracetamol-liposome">NM-000004: Paracetamol + Liposome DPPC (90 nm)</option>
+                        <option value="nm-paracetamol-sln">NM-000012: Paracetamol + Lipid DSPC (235 nm)</option>
+                    </select>
+                </div>
+                
+                <div class="static-config-info">
+                    <div class="info-row"><span>Drug:</span> <strong id="cfg-drug">Paclitaxel</strong></div>
+                    <div class="info-row"><span>Material:</span> <strong id="cfg-material">PLGA</strong></div>
+                    <div class="info-row"><span>Particle Size:</span> <strong id="cfg-size">120 nm</strong></div>
+                    <div class="info-row"><span>Zeta Potential:</span> <strong id="cfg-zeta">-22 mV</strong></div>
+                    <div class="info-row"><span>Drug Loading:</span> <strong id="cfg-loading">8%</strong></div>
+                    <div class="info-row"><span>Coating:</span> <strong id="cfg-coating">PEG</strong></div>
+                </div>
+            </section>
+
+            <section class="control-section">
+                <h2>ENVIRONMENT</h2>
+                <div class="form-group">
+                    <label>Medium</label>
+                    <select id="env-medium" class="demo-select">
+                        <option value="water">Water</option>
+                        <option value="pbs" selected>PBS</option>
+                        <option value="demo-bio">Demo Biological Medium</option>
+                    </select>
+                </div>
+
+                <div class="slider-group">
+                    <label>Temperature <span id="val-temp">37.0</span> °C</label>
+                    <input type="range" id="env-temp" min="20" max="50" step="0.1" value="37">
+                    <div class="slider-labels"><span>20°C</span><span>50°C</span></div>
+                </div>
+
+                <div class="slider-group">
+                    <label>pH <span id="val-ph">7.4</span></label>
+                    <input type="range" id="env-ph" min="3.0" max="9.0" step="0.1" value="7.4">
+                    <div class="slider-labels"><span>3.0</span><span>9.0</span></div>
+                </div>
+
+                <div class="slider-group">
+                    <label>Ionic Strength <span id="val-ionic">0.15</span> M</label>
+                    <input type="range" id="env-ionic" min="0.00" max="0.50" step="0.01" value="0.15">
+                    <div class="slider-labels"><span>0.00 M</span><span>0.50 M</span></div>
+                </div>
+                
+                <div id="env-warning" class="panel-warning hidden">
+                    <strong>⚠ ENVIRONMENT CHANGE</strong><br>
+                    Current scientific NanoMedAI release model does not support causal pH-dependent release.<br>
+                    <span class="badge badge-demo">DEMO RESPONSE ONLY</span>
+                </div>
+            </section>
+
+            <section class="control-section sim-controls">
+                <h2>SIMULATION CONTROLS</h2>
+                
+                <div class="timeline-group">
+                    <label>Demo Simulation Time: <span id="val-time">0</span> h</label>
+                    <input type="range" id="sim-timeline" min="0" max="72" step="1" value="0">
+                    <div class="slider-labels"><span>0h</span><span id="sim-max-label">72h</span></div>
+                </div>
+
+                <div class="speed-control">
+                    <label>DEMO SPEED: <small>1 sec = 1 simulated hour (at 1x)</small></label>
+                    <div class="speed-buttons">
+                        <button class="btn btn-speed" data-speed="0.5">0.5x</button>
+                        <button class="btn btn-speed active" data-speed="1">1x</button>
+                        <button class="btn btn-speed" data-speed="2">2x</button>
+                        <button class="btn btn-speed" data-speed="5">5x</button>
+                        <button class="btn btn-speed" data-speed="10">10x</button>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="btn-start" class="btn btn-primary">START</button>
+                    <button id="btn-pause" class="btn btn-secondary" disabled>PAUSE</button>
+                    <button id="btn-resume" class="btn btn-primary hidden">RESUME</button>
+                    <button id="btn-step" class="btn btn-secondary">STEP</button>
+                    <button id="btn-stop" class="btn btn-secondary" disabled>STOP</button>
+                    <button id="btn-reset" class="btn btn-danger">RESET</button>
+                </div>
+
+                <div style="margin-top: 0.85rem;">
+                    <button id="btn-sync-backend" class="btn btn-secondary btn-wide" style="font-size: 0.7rem;">⚡ SYNC WITH FASTAPI BACKEND</button>
+                </div>
+            </section>
+        </aside>
+
+        <!-- CENTER COLUMN: VISUALIZATION & CHARTS -->
+        <main class="panel center-panel">
+            <section class="visualization-section">
+                <h2>LIVE SIMULATION <span class="badge badge-demo" id="sim-canvas-badge" style="float:right">CONCEPTUAL PARTICLE VIEW</span></h2>
+                <div class="canvas-container">
+                    <canvas id="particle-canvas" width="600" height="350"></canvas>
+                    <div id="canvas-overlay-text">
+                        TEMPERATURE <span id="overlay-temp">37.0</span>°C<br>
+                        pH <span id="overlay-ph">7.4</span><br>
+                        IONIC STRENGTH <span id="overlay-ionic">0.15</span> M<br>
+                        MEDIUM <span id="overlay-env">PBS</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WORKFLOW RESULTS SUMMARY BANNER (Shown when an AI experiment is run) -->
+            <section id="workflow-results" class="control-section hidden" style="background: rgba(0, 122, 204, 0.05);">
+                <h2>AI EXPERIMENT RESULTS <span class="badge badge-live">LIVE OUTPUT</span></h2>
+                <div class="workflow-results-grid">
+                    <div class="workflow-stat-card">
+                        <span>ZETA PREDICTION</span>
+                        <strong id="workflow-zeta">-</strong>
+                        <small id="workflow-zeta-class"></small>
+                    </div>
+                    <div class="workflow-stat-card">
+                        <span>TOXICITY CLASS</span>
+                        <strong id="workflow-toxicity">-</strong>
+                        <small id="workflow-toxicity-risk"></small>
+                    </div>
+                    <div class="workflow-stat-card">
+                        <span>LEARNED RELEASE</span>
+                        <strong id="workflow-release">-</strong>
+                        <small id="workflow-release-time"></small>
+                    </div>
+                </div>
+                <div id="workflow-warnings" class="panel-warning hidden" style="margin-top:0.4rem;"></div>
+                <div id="workflow-assumptions" class="roadmap-note" style="margin-top:0.4rem;"></div>
+            </section>
+
+            <section class="graph-section">
+                <h2>CUMULATIVE DRUG RELEASE <span class="badge badge-demo" id="release-chart-badge" style="float:right">DEMO DATA</span></h2>
+                <div class="chart-container">
+                    <canvas id="release-chart"></canvas>
+                </div>
+            </section>
+
+            <section class="graph-section">
+                <h2>RELEASE RATE <span class="badge badge-blue" style="float:right">DERIVED</span></h2>
+                <div class="chart-container" style="height:140px;">
+                    <canvas id="rate-chart"></canvas>
+                </div>
+            </section>
+            
+            <section class="graph-section">
+                <h2>PARTICLE STATE HISTORY <span class="badge badge-demo" style="float:right">DEMO CONCEPT</span></h2>
+                <div class="chart-container" style="height:140px;">
+                    <canvas id="size-chart"></canvas>
+                </div>
+            </section>
+        </main>
+
+        <!-- RIGHT COLUMN: STATE, EVENTS, LIMITATIONS -->
+        <aside class="panel right-panel">
+            <section class="dashboard-section">
+                <h2>PARTICLE STATE <span class="badge badge-demo" id="particle-state-badge" style="float:right">DEMO VALUES</span></h2>
+                <div class="state-grid">
+                    <div class="state-card">
+                        <div class="state-label">PARTICLE SIZE</div>
+                        <div class="state-value"><span id="state-size">120.0</span> <small>nm</small></div>
+                    </div>
+                    <div class="state-card">
+                        <div class="state-label">HYDRODYNAMIC SIZE</div>
+                        <div class="state-value"><span id="state-hsize">128.0</span> <small>nm</small></div>
+                    </div>
+                    <div class="state-card">
+                        <div class="state-label">PDI</div>
+                        <div class="state-value"><span id="state-pdi">0.16</span></div>
+                    </div>
+                    <div class="state-card">
+                        <div class="state-label">ZETA POTENTIAL</div>
+                        <div class="state-value"><span id="state-zeta">-22.0</span> <small>mV</small></div>
+                    </div>
+                    <div class="state-card highlight-card">
+                        <div class="state-label">DRUG RELEASE</div>
+                        <div class="state-value"><span id="state-release">0.0</span> <small>%</small></div>
+                    </div>
+                    <div class="state-card">
+                        <div class="state-label">DRUG REMAINING</div>
+                        <div class="state-value"><span id="state-remaining">100.0</span> <small>%</small></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="events-section">
+                <h2>EVENTS TIMELINE</h2>
+                <div class="events-list" id="events-list">
+                    <!-- Events injected dynamically -->
+                </div>
+            </section>
+            
+            <section class="roadmap-section">
+                <h2>SCIENTIFIC STATUS</h2>
+                <div class="model-status-panel">
+                    <div class="ms-row"><span>Zeta Potential</span> <span class="ms-demo" id="ms-zeta-status">ML surrogate concept</span></div>
+                    <div class="ms-row"><span>Drug Release</span> <span class="ms-demo" id="ms-release-status">Korsmeyer-Peppas concept</span></div>
+                    <div class="ms-row"><span>Cytotoxicity Model</span> <span class="ms-demo" id="ms-cyto-status">Random Forest (F1=0.74)</span></div>
+                    <div class="ms-row"><span>Size Dynamics</span> <span class="ms-warn">NOT IMPLEMENTED</span></div>
+                    <div class="ms-row"><span>PDI Dynamics</span> <span class="ms-warn">NOT IMPLEMENTED</span></div>
+                    <div class="ms-row"><span>Aggregation</span> <span class="ms-warn">NOT IMPLEMENTED</span></div>
+                    <div class="ms-row"><span>Environmental Release</span> <span class="ms-warn" id="ms-env-status">DEMO / HEURISTIC</span></div>
+                </div>
+            </section>
+
+            <!-- OCCLUSION FEATURE DRIVERS (Shown when Prompt Workflow is executed) -->
+            <section id="workflow-drivers-section" class="roadmap-section hidden">
+                <h2>MODEL DRIVERS <span class="badge badge-blue">OCCLUSION</span></h2>
+                <div id="workflow-drivers"></div>
+                <p class="roadmap-note">Change from model output when input is replaced by training median/mode.</p>
+            </section>
+
+            <!-- GROUPED VALIDATION METRICS -->
+            <section id="workflow-metrics-section" class="roadmap-section hidden">
+                <h2>GROUPED CV VALIDATION</h2>
+                <div id="workflow-metrics" class="model-status-panel"></div>
+            </section>
+
+            <section class="roadmap-section">
+                <h2>BIOLOGICAL STAGE</h2>
+                <ul class="locked-features">
+                    <li>Protein Corona <span class="badge badge-locked">FUTURE</span></li>
+                    <li>Cell Interaction <span class="badge badge-locked">LOCKED</span></li>
+                    <li>Cellular Uptake <span class="badge badge-locked">LOCKED</span></li>
+                    <li>Distribution <span class="badge badge-locked">LOCKED</span></li>
+                    <li>Toxicity <span class="badge badge-locked">LOCKED</span></li>
+                    <li>Human Body <span class="badge badge-locked">LOCKED</span></li>
+                </ul>
+                <p class="roadmap-note">Future research phase</p>
+            </section>
+        </aside>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- VIEW 2: AI EXPERIMENT PROMPT WORKFLOW                          -->
+    <!-- ============================================================== -->
+    <div class="view-container-single" id="view-prompt">
+        <div class="content-max-width">
+            <div class="view-header">
+                <h2>AI Experiment Prompt Workflow</h2>
+                <p>Natural language parsing into biophysical parameters, cross-model domain validation, stability regressor, cytotoxicity classification, and longitudinal drug release prediction.</p>
+            </div>
+
+            <div class="card-panel">
+                <h3>Prompt Runner <span class="badge badge-blue">MULTI-MODEL PIPELINE</span></h3>
+                <div class="form-group">
+                    <label>Load Example Prompt</label>
+                    <select id="prompt-example" class="demo-select" style="margin-bottom: 0.6rem;">
+                        <option value="a">Example A: PLGA + Paclitaxel in PBS</option>
+                        <option value="b">Example B: PLA + Letrozole</option>
+                        <option value="c">Example C: ZnO Nanoparticle Cytotoxicity</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Experiment Description</label>
+                    <textarea id="experiment-prompt" class="prompt-textarea" placeholder="e.g. Silver spherical nanoparticle, 20 nm, PEG coating, PBS, pH 7.4, 37 C"></textarea>
+                </div>
+
+                <!-- ── KEY SAMPLE FIELDS (always visible) ── -->
+                <div class="key-fields-bar">
+                    <label class="key-field-item">
+                        <span class="key-field-label">Sample Name</span>
+                        <input id="prompt-sample-name" class="demo-select" type="text" placeholder="e.g. Sample-001 / Batch-A">
+                    </label>
+                    <label class="key-field-item">
+                        <span class="key-field-label">Particle Size (nm)</span>
+                        <input id="prompt-particle-size" class="demo-select" type="number" min="0.1" step="0.1" placeholder="e.g. 120">
+                    </label>
+                    <label class="key-field-item">
+                        <span class="key-field-label">Drug Loading (%)</span>
+                        <input id="prompt-loading" class="demo-select" type="number" min="0" step="0.001" placeholder="e.g. 8">
+                    </label>
+                    <label class="key-field-item">
+                        <span class="key-field-label">pH</span>
+                        <input id="prompt-ph" class="demo-select" type="number" min="0" max="14" step="0.1" placeholder="7.4">
+                    </label>
+                </div>
+
+                <details class="details-collapsible">
+                    <summary>▶ Advanced Model Overrides &amp; Parameters</summary>
+                    <div class="advanced-grid">
+                        <label class="tool-field-label">Core Material <select id="prompt-core" class="demo-select"></select></label>
+                        <label class="tool-field-label">Particle Shape <select id="prompt-shape" class="demo-select"></select></label>
+                        <label class="tool-field-label">Core Size (nm) <input id="prompt-core-size" type="number" step="0.1"></label>
+                        <label class="tool-field-label">Hydrodynamic Size (nm) <input id="prompt-hydro-size" type="number" step="0.1"></label>
+                        <label class="tool-field-label">Surface Ligand <select id="prompt-ligand" class="demo-select"></select></label>
+                        <label class="tool-field-label">Surface Area (m²/g) <input id="prompt-surface-area" type="number" step="0.1"></label>
+                        <label class="tool-field-label">Surface Area Source 
+                            <select id="prompt-surface-area-source" class="demo-select">
+                                <option value="">Choose source</option>
+                                <option value="measured">Measured</option>
+                                <option value="estimated">Estimated</option>
+                            </select>
+                        </label>
+                        <label class="tool-field-label">Measured Zeta Potential (mV) <input id="prompt-surface-charge" type="number" step="0.1"></label>
+                        <label class="tool-field-label">Material Type (Toxicity) <select id="prompt-material" class="demo-select"></select></label>
+                        <label class="tool-field-label">Assay <select id="prompt-assay" class="demo-select"></select></label>
+                        <label class="tool-field-label">Cell Line <select id="prompt-cell" class="demo-select"></select></label>
+                        <label class="tool-field-label">Exposure Time (h) <input id="prompt-exposure" type="number" min="0.1" step="0.1"></label>
+                        <label class="tool-field-label">Mass Dose (µg/mL) <input id="prompt-dose" type="number" min="0" step="0.1"></label>
+                        <label class="tool-field-label">Release Drug 
+                            <div class="searchable-select-wrapper">
+                                <input id="prompt-drug" class="demo-select" type="text" placeholder="Select or search drug..." autocomplete="off">
+                                <div id="prompt-drug-dropdown" class="searchable-dropdown-menu"></div>
+                            </div>
+                        </label>
+                        <label class="tool-field-label">Release Polymer <select id="prompt-polymer" class="demo-select"></select></label>
+                        <label class="tool-field-label">Drug MW (g/mol) <input id="prompt-drug-mw" type="number" min="0.1" step="0.01"></label>
+                        <label class="tool-field-label">Polymer MW (g/mol) <input id="prompt-polymer-mw" type="number" min="0.1" step="1"></label>
+                        <label class="tool-field-label">LA:GA Ratio <input id="prompt-la-ga-ratio" type="number" min="0" step="0.01"></label>
+                        <label class="tool-field-label">Release Duration (h) <input id="prompt-duration" type="number" min="0.1" step="0.1"></label>
+                    </div>
+                    <label class="tool-field-label" style="margin-top:0.4rem;">Custom SMILES (Optional) <input id="prompt-ligand-smiles" type="text" placeholder="e.g. C(C(C(=O)O)O)(C(=O)O)O"></label>
+                </details>
+
+                <div style="display:flex; gap:0.75rem; margin-top:0.8rem;">
+                    <button id="run-workflow" class="btn btn-primary" style="flex:2; font-size: 0.8rem; padding: 0.7rem;">RUN COMPLETE AI PIPELINE</button>
+                    <button id="btn-apply-to-sim" class="btn btn-secondary" style="flex:1;">VIEW IN LIVE SIMULATION</button>
+                </div>
+                <div id="prompt-status" class="roadmap-note" style="margin-top:0.6rem;">Status: Ready.</div>
+            </div>
+
+            <!-- RESULT DETAILS PANEL -->
+            <div id="prompt-results-container" class="card-panel">
+                <h3>Pipeline Outputs &amp; Scientific Audit</h3>
+                <div class="workflow-results-grid">
+                    <div class="workflow-stat-card">
+                        <span>COLLOIDAL STABILITY</span>
+                        <strong id="tab-workflow-zeta">-</strong>
+                        <small id="tab-workflow-zeta-desc">Run experiment prompt</small>
+                    </div>
+                    <div class="workflow-stat-card">
+                        <span>CYTOTOXICITY CLASSIFICATION</span>
+                        <strong id="tab-workflow-tox">-</strong>
+                        <small id="tab-workflow-tox-desc">Run experiment prompt</small>
+                    </div>
+                    <div class="workflow-stat-card">
+                        <span>BIOPHYSICAL DRUG RELEASE</span>
+                        <strong id="tab-workflow-rel">-</strong>
+                        <small id="tab-workflow-rel-desc">Run experiment prompt</small>
+                    </div>
+                </div>
+
+                <div id="tab-workflow-warnings" class="panel-warning hidden"></div>
+                <div id="tab-workflow-assumptions" class="roadmap-note" style="margin: 0.75rem 0;"></div>
+
+                <div style="margin-top: 1rem;">
+                    <h4 style="font-size:0.75rem; color:var(--text-secondary); text-transform:uppercase; margin-bottom:0.5rem;">Feature Occlusion Drivers</h4>
+                    <div id="tab-workflow-drivers">No driver data available yet.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- VIEW 3: MODEL PREDICTOR (Zeta & Cytotoxicity Inference)        -->
+    <!-- ============================================================== -->
+    <div class="view-container-single" id="view-predictor">
+        <div class="content-max-width">
+            <div class="view-header">
+                <h2>Model Predictor</h2>
+                <p>Direct machine learning inference endpoints for Colloidal Stability (Zeta Potential Regressor) and Cytotoxicity (Random Forest Classifier) with domain applicability validation.</p>
+            </div>
+
+            <div class="card-panel">
+                <h3>Prediction Configuration</h3>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.75rem; margin-bottom:1rem;">
+                    <div>
+                        <label class="tool-field-label">Prediction Target</label>
+                        <select id="prediction-task" class="demo-select">
+                            <option value="stability">Zeta Potential Stability (mV)</option>
+                            <option value="cytotoxicity">Cytotoxicity (Toxic / Nontoxic)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="tool-field-label">Observed Training Example</label>
+                        <select id="prediction-preset" class="demo-select">
+                            <option value="">Choose an observed example</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="prediction-fields" class="input-matrix-grid">
+                    <!-- Injected dynamically based on selected task -->
+                </div>
+
+                <details class="details-collapsible" style="margin-bottom:1rem;">
+                    <summary>▶ Advanced SMILES String</summary>
+                    <label class="tool-field-label">Surface Ligand SMILES <input id="prediction-ligand-smiles" type="text" placeholder="e.g. OCCO"></label>
+                </details>
+
+                <button id="run-prediction" class="btn btn-primary" style="padding: 0.65rem 1.25rem;">RUN MODEL PREDICTION</button>
+            </div>
+
+            <div class="card-panel">
+                <h3>Prediction Output &amp; Metadata</h3>
+                <div id="prediction-result" class="result-terminal">Select parameters and click "Run Model Prediction" to evaluate against the trained scikit-learn models.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- VIEW 4: ENVIRONMENT EXPLORER (Parameter Sweep & Heatmap Matrix)-->
+    <!-- ============================================================== -->
+    <div class="view-container-single" id="view-explorer">
+        <div class="content-max-width">
+            <div class="view-header">
+                <h2>Environment Explorer</h2>
+                <p>Simulate parametric sensitivity sweeps across validated training ranges and compute biophysical DLVO colloidal stability heatmaps across temperature and pH.</p>
+            </div>
+
+            <div class="card-panel">
+                <h3>Parameter Sensitivity Sweep <span class="badge badge-live">LIVE INFERENCE</span></h3>
+                <div style="display:grid; grid-template-columns: 1fr 1fr auto; gap:0.75rem; align-items:end; margin-bottom:1rem;">
+                    <div>
+                        <label class="tool-field-label">Model Target</label>
+                        <select id="sweep-task" class="demo-select">
+                            <option value="stability">Zeta potential stability</option>
+                            <option value="cytotoxicity">Cytotoxicity</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="tool-field-label">Sweep Variable</label>
+                        <select id="sweep-variable" class="demo-select"></select>
+                    </div>
+                    <button id="run-sweep" class="btn btn-primary" style="height:36px;">RUN SWEEP</button>
+                </div>
+
+                <div class="chart-container" style="height: 250px;">
+                    <canvas id="sweep-chart"></canvas>
+                </div>
+                <div id="sweep-message" class="roadmap-note" style="margin-top:0.6rem;">Evaluates 11 points across the training range while holding other inputs at predictor form values.</div>
+            </div>
+
+            <div class="card-panel">
+                <h3>Formulation Stability Matrix Heatmap <span class="badge badge-demo">DLVO APPROX</span></h3>
+                <div style="display:grid; grid-template-columns: 1fr 1fr 1.5fr auto; gap:0.75rem; align-items:end; margin-bottom:1rem;">
+                    <div>
+                        <label class="tool-field-label">Core Material</label>
+                        <select id="matrix-core" class="demo-select"></select>
+                    </div>
+                    <div>
+                        <label class="tool-field-label">Particle Size (nm)</label>
+                        <input id="matrix-size" type="number" value="30" min="5" max="200" step="1">
+                    </div>
+                    <div>
+                        <label class="tool-field-label">Ligand SMILES</label>
+                        <input id="matrix-smiles" type="text" value="OCCO">
+                    </div>
+                    <button id="run-matrix" class="btn btn-primary" style="height:36px;">CALCULATE MATRIX</button>
+                </div>
+
+                <div class="chart-container" style="height: 250px;">
+                    <canvas id="matrix-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- VIEW 5: DATA CATALOG & MODEL REGISTRY                          -->
+    <!-- ============================================================== -->
+    <div class="view-container-single" id="view-data">
+        <div class="content-max-width">
+            <div class="view-header">
+                <h2>Data Catalog &amp; Model Registry</h2>
+                <p>Live registry of serialized machine learning models, cross-validation performance benchmarks, and raw harmonized datasets.</p>
+            </div>
+
+            <div class="card-panel">
+                <h3>Platform Model Registry <span class="badge badge-live">SERIALIZED ARTIFACTS</span></h3>
+                <div id="model-status">Loading model registry...</div>
+            </div>
+
+            <div class="card-panel">
+                <h3>Dataset Preview</h3>
+                <div style="display:flex; gap:0.75rem; align-items:flex-end; margin-bottom: 0.8rem;">
+                    <div style="flex:1;">
+                        <label class="tool-field-label">Select Dataset</label>
+                        <select id="dataset-task" class="demo-select">
+                            <option value="stability">Nanoparticle Colloidal Stability (288 NPs, 24 Features)</option>
+                            <option value="cytotoxicity">Nanoparticle Cytotoxicity Meta-Analysis (Excel Dataset)</option>
+                            <option value="nano_drug">Nano Drug 10,000 Formulations (10,000 records, 88 features)</option>
+                        </select>
+                    </div>
+                    <button id="load-dataset" class="btn btn-primary" style="height:36px;">LOAD PREVIEW</button>
+                </div>
+
+                <div id="dataset-info" class="roadmap-note" style="margin-bottom:0.6rem;"></div>
+                <div id="dataset-preview" class="table-responsive"></div>
+            </div>
+
+            <!-- NANO DRUG 10,000 DATASET & PRE-TRAINED MODELS -->
+            <div class="card-panel">
+                <h3>Nano Drug 10,000 Formulation Dataset &amp; Pre-trained Models <span class="badge badge-live">EXTRACTED BUNDLE</span></h3>
+                <div class="workflow-results-grid" style="margin-bottom:1rem;">
+                    <div class="workflow-stat-card">
+                        <span>RECORDS &amp; FEATURES</span>
+                        <strong>10,000 NPs · 88 Cols</strong>
+                        <small>10 Drugs · 11 Carrier Materials</small>
+                    </div>
+                    <div class="workflow-stat-card">
+                        <span>RELEASE MODEL ACCURACY</span>
+                        <strong>96.7% (F1 0.911)</strong>
+                        <small>Random Forest Classifier</small>
+                    </div>
+                    <div class="workflow-stat-card">
+                        <span>STABILITY ACCURACY</span>
+                        <strong>81.1% (F1 0.612)</strong>
+                        <small>Random Forest Classifier</small>
+                    </div>
+                    <div class="workflow-stat-card">
+                        <span>RISK ACCURACY</span>
+                        <strong>83.85% (F1 0.692)</strong>
+                        <small>Random Forest Classifier</small>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:1rem;">
+                    <label class="tool-field-label">Model Analysis &amp; Feature Visualizations</label>
+                    <div style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.75rem;">
+                        <button class="btn btn-secondary nano-img-btn active" data-img="/static/nano_drug/confusion_predicted_release_class.png">Release Confusion Matrix</button>
+                        <button class="btn btn-secondary nano-img-btn" data-img="/static/nano_drug/confusion_predicted_stability_class.png">Stability Confusion Matrix</button>
+                        <button class="btn btn-secondary nano-img-btn" data-img="/static/nano_drug/confusion_predicted_risk_class.png">Risk Confusion Matrix</button>
+                        <button class="btn btn-secondary nano-img-btn" data-img="/static/nano_drug/feature_importance_predicted_release_class.png">Release Feature Importance</button>
+                        <button class="btn btn-secondary nano-img-btn" data-img="/static/nano_drug/feature_importance_predicted_stability_class.png">Stability Feature Importance</button>
+                        <button class="btn btn-secondary nano-img-btn" data-img="/static/nano_drug/feature_importance_predicted_risk_class.png">Risk Feature Importance</button>
+                        <button class="btn btn-secondary nano-img-btn" data-img="/static/nano_drug/illustrative_release_curves.png">Illustrative Release Curves</button>
+                        <button class="btn btn-secondary nano-img-btn" data-img="/static/nano_drug/release_pred_vs_actual.png">Release Pred vs Actual</button>
+                    </div>
+                    <div style="background:#141414; border:1px solid var(--panel-border); padding:0.75rem; text-align:center; border-radius:2px;">
+                        <img id="nano-model-img" src="/static/nano_drug/confusion_predicted_release_class.png" alt="Model Analysis Plot" style="max-width:100%; max-height:420px; border-radius:2px;">
+                    </div>
+                </div>
+
+                <!-- FORMULATION BROWSER -->
+                <div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
+                        <label class="tool-field-label" style="font-weight:600; color:#fff;">Formulation Browser (Search 10,000 Records)</label>
+                        <div style="display:flex; gap:0.4rem;">
+                            <input id="nano-search-input" type="text" placeholder="Filter drug / material / type..." style="width:220px; padding:0.35rem 0.5rem;">
+                            <button id="btn-nano-search" class="btn btn-primary" style="padding:0.35rem 0.8rem;">FILTER</button>
+                        </div>
+                    </div>
+                    <div id="nano-records-table" class="table-responsive">Loading formulation records...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- VIEW 6: 3D NANOPARTICLE VIEWER                                 -->
+    <!-- ============================================================== -->
+    <div class="view-container-single" id="view-viewer">
+        <div class="content-max-width">
+            <div class="view-header" style="margin-bottom:1.5rem;">
+                <h2>3D Nanoparticle Viewer</h2>
+                <p>Live schematic of core, coating, and drug release. Updates as you change the controls.</p>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1.25fr; gap:1.2rem; align-items:start;">
+                <div class="card-panel">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; border-bottom:1px solid rgba(139,120,255,0.15); padding-bottom:0.6rem;">
+                        <h3 style="margin:0; font-size:0.85rem; color:#fff; text-transform:uppercase; letter-spacing:1.2px;">Live Controls</h3>
+                        <span class="badge badge-live">Schematic</span>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0.75rem;">
+                        <label class="tool-field-label">Core Material
+                            <select id="v3Core" class="demo-select" onchange="applyCtl3D()">
+                                <option value="Ag">Ag (silver)</option>
+                                <option value="Au">Au (gold)</option>
+                                <option value="Fe3O4">Fe3O4 (magnetite)</option>
+                                <option value="ZnO">ZnO</option>
+                                <option value="CeO2">CeO2 (ceria)</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0.75rem;">
+                        <label class="tool-field-label">Shape
+                            <select id="v3Shape" class="demo-select" onchange="applyCtl3D()">
+                                <option value="Spherical">Spherical</option>
+                                <option value="Rod">Rod</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0.75rem;">
+                        <label class="tool-field-label">Coating Charge
+                            <select id="v3Coat" class="demo-select" onchange="applyCtl3D()">
+                                <option value="anionic">Anionic</option>
+                                <option value="cationic">Cationic</option>
+                                <option value="neutral">Neutral</option>
+                                <option value="uncoated">Uncoated</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0.75rem;">
+                        <label class="tool-field-label">Diameter (nm)
+                            <input id="v3Size" type="range" min="3" max="400" value="52" oninput="applyCtl3D()">
+                            <span class="hint" style="font-size:0.75rem; color:var(--text-secondary); display:block; margin-top:0.25rem;"><span id="v3SizeLbl" style="color:#22d3ee; font-weight:600;">52</span> nm · illustrative scale</span>
+                        </label>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0.75rem;">
+                        <label class="tool-field-label">Release Formulation
+                            <select id="v3Kp" class="demo-select" onchange="applyCtl3D()">
+                                <option value="0.22|0.30">Paracetamol (PLGA)</option>
+                                <option value="0.12|0.36">Ciprofloxacin (PLGA)</option>
+                                <option value="0.07|0.42">Rifampicin (PLGA-PEG)</option>
+                                <option value="0.05|0.45">Vancomycin (PLGA-PEG)</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0.75rem;">
+                        <label class="tool-field-label">Release Time
+                            <input id="v3Hour" type="range" min="0" max="72" step="0.1" value="0" oninput="scrubHour3D(this.value)">
+                            <span class="hint" style="font-size:0.75rem; color:var(--text-secondary); display:block; margin-top:0.25rem;"><span id="v3HourLbl" style="color:#22d3ee; font-weight:600;">0.0 h</span> · scrub or let it play</span>
+                        </label>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0.75rem;">
+                        <label class="tool-field-label">Playback Speed
+                            <input id="v3Speed" type="range" min="0.5" max="10" step="0.5" value="1.5" oninput="setSpeed3D(this.value)">
+                            <span class="hint" style="font-size:0.75rem; color:var(--text-secondary); display:block; margin-top:0.25rem;"><span id="v3SpeedLbl" style="color:#22d3ee; font-weight:600;">1.5</span> h per second</span>
+                        </label>
+                    </div>
+                    <div style="display:flex; gap:0.6rem; margin-top:1rem; flex-wrap:wrap;">
+                        <button class="btn btn-primary" id="v3PlayBtn" onclick="togglePlay3D()">Pause</button>
+                        <button class="btn btn-secondary" onclick="syncFromPredictor()">Sync from Predictor</button>
+                    </div>
+                    <p id="v3Status" style="font-size:0.78rem; color:#f59e0b; margin-top:0.5rem;"></p>
+                </div>
+
+                <div class="card-panel">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; border-bottom:1px solid rgba(139,120,255,0.15); padding-bottom:0.6rem;">
+                        <h3 style="margin:0; font-size:0.85rem; color:#fff; text-transform:uppercase; letter-spacing:1.2px;">Live Model View</h3>
+                        <span class="badge badge-blue">Drag · Scroll to zoom</span>
+                    </div>
+                    <div class="v3-stage" id="stage">
+                        <div id="three-viewer" style="display:none;"></div>
+                        <div class="v3-label">Schematic only. Not an atomic structure. Size and coating are illustrative.</div>
+                    </div>
+                    <div class="v3-chips" id="v3Chips"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- VIEW 7: RESEARCH REPORT GENERATOR                              -->
+    <!-- ============================================================== -->
+    <div class="view-container-single" id="view-report">
+        <div class="content-max-width">
+            <div class="view-header">
+                <h2>Research Session Report Generator</h2>
+                <p>Export an audit trail of all model predictions, domain applicability boundaries, simulation kinetics, and experimental prompts executed during this session.</p>
+            </div>
+
+            <div class="card-panel">
+                <h3>Report Actions</h3>
+                <div style="display:flex; gap:0.6rem; margin-bottom: 0.85rem;">
+                    <button id="generate-report" class="btn btn-primary">GENERATE AUDIT REPORT</button>
+                    <button id="download-report" class="btn btn-secondary">DOWNLOAD AS .TXT</button>
+                </div>
+                <textarea id="report-output" class="report-textbox" placeholder="Click 'Generate Audit Report' to compile session telemetry and prediction data."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="/static/app.js"></script>
+</body>
+</html>

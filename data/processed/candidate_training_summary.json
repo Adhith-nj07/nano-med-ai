@@ -1,0 +1,36 @@
+{
+  "stability": {
+    "task": "zeta_potential",
+    "samples": 288,
+    "groups": 32,
+    "metrics": {
+      "MAE_mV": 18.897997841901216,
+      "RMSE_mV": 25.90577889623189,
+      "R2": 0.10814758576495291
+    },
+    "model_path": "C:\\Users\\User\\Downloads\\nanomedai-project (2)\\nanomedai-project\\models\\stability_model_final.joblib"
+  },
+  "cytotoxicity": {
+    "task": "cytotoxicity",
+    "samples": 666,
+    "groups": 17,
+    "metrics": {
+      "Accuracy": 0.7564296850453939,
+      "Precision": 0.6033333333333334,
+      "Recall": 0.6050507284253415,
+      "F1": 0.48176291453010595
+    },
+    "model_path": "C:\\Users\\User\\Downloads\\nanomedai-project (2)\\nanomedai-project\\models\\cytotoxicity_model.joblib"
+  },
+  "drug_release": {
+    "task": "drug_release",
+    "samples": 115,
+    "groups": 9,
+    "metrics": {
+      "MAE_pct_points": 8.315450461618326,
+      "RMSE": 10.359320783630253,
+      "R2": 0.7793869532129494
+    },
+    "model_path": "C:\\Users\\User\\Downloads\\nanomedai-project (2)\\nanomedai-project\\models\\drug_release_model.joblib"
+  }
+}

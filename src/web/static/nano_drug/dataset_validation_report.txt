@@ -1,0 +1,27 @@
+======================================================================
+NANOMEDAI SYNTHETIC DATASET - VALIDATION REPORT
+======================================================================
+Records: 10000 | Columns: 88 | Seed: 42
+
+SCIENTIFIC LIMITATION: All records are SYNTHETIC/SIMULATED.
+Not clinical evidence. Not dosing guidance. Not human-safety data.
+
+CHECKS:
+  [PASS] Duplicate record_ids: 0
+  [PASS] Duplicate full rows: 0
+  [PASS] Missing record_id: 0
+  [PASS] Invalid pH (<0 or >14): 0
+  [PASS] Invalid PDI (<=0 or >1): 0
+  [PASS] Percentages outside 0-100: 0
+  [PASS] Negative concentrations: 0
+  [PASS] Negative particle size: 0
+  [PASS] Particle size outside 10-1000 nm: 0
+  [PASS] Zeta outside -60..60 mV: 0
+  [PASS] Release 24h > 48h > 72h ordering violations: 0
+  [PASS] Free-drug rows with encapsulation >95%: 0
+  [REVIEW] All synthetic_record == TRUE: True
+
+Missing values overall: 1.28%
+Data leakage check: TARGET columns are derived from nonlinear, noisy, interaction-
+based generators (not simple linear formulas of single input features).
+Validation status: DATASET READY FOR ML RESEARCH (synthetic only).

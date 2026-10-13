@@ -1,0 +1,13 @@
+# Environment Schema (Future)
+- pH
+- Temperature
+- Ionic strength
+- Medium
+- Buffer
+- Serum
+- Protein concentration
+- Plasma
+- ROS
+- Redox state
+- Enzyme environment
+- Exposure time

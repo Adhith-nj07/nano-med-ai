@@ -1,0 +1,11 @@
+# Missing Features (Advanced Architecture)
+- Payload/Drug representation.
+- Manufacturing/Formulation ratios and processes.
+- Transformation Engine (Aggregation, Dissolution, etc.).
+- Protein Corona formation modeling.
+- Temporal (Time-series) modeling for release kinetics.
+- Multimodal modeling (Image, Spectra).
+- Advanced Uncertainty and OOD Detection in inference.
+- Digital Twin Counterfactual and What-if simulation.
+- Active Learning experiment recommendation loop.
+- Relational Database / Knowledge Graph infrastructure.

@@ -1,0 +1,218 @@
+{
+  "created_by": "scripts/collect_public_candidates.py",
+  "curation_only": true,
+  "raw_source_files_unchanged": true,
+  "datasets": {
+    "zeta_potential_69": {
+      "source_file": "data/raw/zeta_potential_69_enms.xlsx",
+      "source_doi": "10.5281/zenodo.14864383",
+      "license": "CC-BY-4.0 per Zenodo record",
+      "rows": 69,
+      "duplicate_full_rows": 0,
+      "zeta_target_missing": 0,
+      "target_min": -57.9,
+      "target_max": 64.3,
+      "selected_field_quality": {
+        "core_material": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 14
+        },
+        "surface_coating": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 21
+        },
+        "coating_charge_class": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 5
+        },
+        "ageing_status": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 2
+        },
+        "core_diameter_nm": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 51
+        },
+        "shape": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 9
+        },
+        "geometric_surface_area_nm2": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 53
+        },
+        "zeta_potential_mv": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 64
+        }
+      }
+    },
+    "zeta_potential_198_water_plus_90_pbs": {
+      "source_file": "data/processed/stability_combined.csv",
+      "source_dois": [
+        "10.5281/zenodo.14866284",
+        "10.5281/zenodo.14866297"
+      ],
+      "license": "CC-BY-4.0 per project source log; preserve medium distinction",
+      "rows": 288,
+      "duplicate_full_rows": 0,
+      "target_missing": 0,
+      "medium_counts": {
+        "Millipore Water": 198,
+        "PBS pH 7.4": 90
+      },
+      "study_groups": 32
+    },
+    "cytotoxicity_meox_iiib": {
+      "source_file": "data/raw/cytotoxicity_meta_analysis.xlsx",
+      "source_doi": "10.5281/zenodo.15300193",
+      "license": "Verify exact Rights field on Zenodo before redistribution",
+      "rows": 666,
+      "duplicate_full_rows": 0,
+      "study_count": 17,
+      "study_group_sizes": {
+        "21255821": 61,
+        "21664489": 6,
+        "21681618": 164,
+        "22138173": 12,
+        "22303956": 7,
+        "22419868": 18,
+        "22502734": 178,
+        "22931364": 5,
+        "22983807": 20,
+        "22985735": 16,
+        "23103338": 51,
+        "23142470": 19,
+        "23274916": 24,
+        "24078789": 17,
+        "24144420": 19,
+        "24211531": 5,
+        "24983896": 44
+      },
+      "viability_out_of_0_100": 101,
+      "source_label_threshold_mismatches_at_50pct": 0,
+      "toxicity_class_counts": {
+        "Nontoxic": 487,
+        "Toxic": 179
+      },
+      "selected_field_quality": {
+        "study_pubmed_id": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 17
+        },
+        "material_type": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 12
+        },
+        "core_size_nm": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 36
+        },
+        "hydrodynamic_size_nm": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 56
+        },
+        "surface_charge_mv": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 44
+        },
+        "surface_area_m2_g": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 43
+        },
+        "assay": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 12
+        },
+        "cell_line": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 16
+        },
+        "cell_species": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 3
+        },
+        "exposure_time_h_raw": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 7
+        },
+        "mass_dose_ug_ml": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 54
+        },
+        "cell_viability_pct": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 517
+        },
+        "source_toxicity_label": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 2
+        },
+        "source_average_quality_score": {
+          "missing": 0,
+          "missing_pct": 0.0,
+          "unique_nonmissing": 2
+        }
+      },
+      "use_note": "Keep paper/study groups together in evaluation; do not use study_pubmed_id as a model feature. Preserve continuous viability and source class as separate targets. Do not clip observations outside 0-100 without source review; these may be control-relative assay values."
+    },
+    "drug_release_bannigan_subset": {
+      "source_file": "data/processed/drug_release_longitudinal.csv",
+      "source_publication_doi": "10.1038/s41467-022-35343-w",
+      "source_data_zenodo_doi": "10.5281/zenodo.7309020",
+      "license": "CC-BY-4.0 per existing project dataset card; verify Zenodo record Rights before redistribution",
+      "rows": 115,
+      "trajectory_count": 9,
+      "formulation_count": 9,
+      "study_count": 1,
+      "duplicate_full_rows": 0,
+      "time_range_hours": [
+        0.0,
+        723.7494366831888
+      ],
+      "release_range_pct": [
+        0.0,
+        90.1123595505618
+      ],
+      "missing_fields": {
+        "hydrodynamic_size_nm": 115,
+        "pdi": 115,
+        "zeta_potential_mv": 115,
+        "encapsulation_efficiency_pct": 115,
+        "temperature_c": 115,
+        "pH": 115,
+        "ionic_strength_m": 115,
+        "surfactant_pct": 115
+      },
+      "use_note": "Only 9 trajectories from one study; suitable for exploratory kinetic fitting, not a generalizable multi-study release model. Group by trajectory_id."
+    }
+  },
+  "not_included_in_candidate_exports": {
+    "data/raw/zeta_potential_198_enms_millipore.xlsx": "Included in the separate 288-row candidate export; Millipore-water condition is preserved.",
+    "data/raw/zeta_potential_90_enms_phosphate.xlsx": "Included in the separate 288-row candidate export; PBS pH 7.4 condition is preserved.",
+    "data/raw/cytotoxicity_14_metal_oxides.xlsx": "494-row source has no PubMed grouping field in its primary sheet and a non-data second sheet; hold pending provenance/grouping audit.",
+    "data/raw/user_submitted_20261010/": "Prior reconciliation has unresolved source/value conflicts; do not train from these rows yet.",
+    "physical stability longitudinal data": "data/processed/nanoparticle_physical_stability_longitudinal.csv currently has zero rows; no sourced stability trajectories are ready."
+  }
+}

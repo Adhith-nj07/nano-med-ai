@@ -1,0 +1,89 @@
+column_name,description,data_type,unit,allowed_range,categorical_values,role,source_type
+record_id,record id,categorical,,,NM-000001 | NM-000002 | NM-000003 | NM-000004 | NM-000005 | NM-000006 | NM-000007 | NM-000008 | NM-000009 | NM-000010 | NM-000011 | NM-000012 | NM-000013 | NM-000014 | NM-000015,METADATA,synthetic_simulation
+drug_name,drug name,categorical,,,Amoxicillin | Azithromycin | Ciprofloxacin | Doxorubicin | Doxycycline | Gentamicin | Ibuprofen | Methotrexate | Paclitaxel | Paracetamol,METADATA,synthetic_simulation
+drug_class,drug class,categorical,,,Analgesic/Antipyretic | Antibiotic | Antimetabolite | Antineoplastic | NSAID,METADATA,synthetic_simulation
+drug_category,drug category,categorical,,,ANTIBIOTIC | HIGH_POTENCY_RESEARCH_CATEGORY | LIQUID_FORMULATION | PARACETAMOL,METADATA,synthetic_simulation
+formulation_type,formulation type,categorical,,,Chitosan nanoparticle | Free drug reference | Lipid nanoparticle | Liposome | PLGA nanoparticle | Polymeric nanoparticle | Protein nanoparticle | Solid lipid nanoparticle,FEATURE,synthetic_simulation
+nanoparticle_material,nanoparticle material,categorical,,,Albumin | Chitosan | Eudragit | Gold-core | Lipid (DSPC) | Liposome (DPPC) | None (free drug) | PEG-PLA | PLGA | Poly(lactic acid) | Solid lipid (SLN),FEATURE,synthetic_simulation
+nanoparticle_platform,nanoparticle platform,categorical,,,Free drug | Inorganic NP | Lipid NP | Liposome | Polymeric NP | Protein NP,FEATURE,synthetic_simulation
+molecular_weight_g_mol,molecular weight g mol,numerical,g/mol,148 to 867,,FEATURE,synthetic_simulation
+logP,logP,numerical,,-3.1 to 4.02,,FEATURE,synthetic_simulation
+pKa,pKa,numerical,,2.4 to 11,,FEATURE,synthetic_simulation
+aqueous_solubility_mg_mL,aqueous solubility mg mL,numerical,mg/mL,0.0002 to 76.7,,FEATURE,synthetic_simulation
+melting_point_C,melting point C,numerical,degC,76 to 319,,FEATURE,synthetic_simulation
+hydrogen_bond_donor_count,hydrogen bond donor count,numerical,,1 to 8,,FEATURE,synthetic_simulation
+hydrogen_bond_acceptor_count,hydrogen bond acceptor count,numerical,,2 to 14,,FEATURE,synthetic_simulation
+polar_surface_area_A2,polar surface area A2,numerical,A^2,37.3 to 221,,FEATURE,synthetic_simulation
+particle_size_nm,particle size nm,numerical,nm,15.1 to 420,,TARGET,synthetic_simulation
+particle_size_distribution_nm,particle size distribution nm,numerical,nm,3.6 to 403,,FEATURE,synthetic_simulation
+polydispersity_index,polydispersity index,numerical,,0.05 to 0.547,,TARGET,synthetic_simulation
+zeta_potential_mV,zeta potential mV,numerical,mV,-60 to 60,,TARGET,synthetic_simulation
+surface_area_m2_g,surface area m2 g,numerical,m2/g,8.5 to 383,,FEATURE,synthetic_simulation
+shape,shape,categorical,,,Cuboidal | Irregular | Rod-like | Spherical | Unknown | Vesicular,FEATURE,synthetic_simulation
+core_shell_structure,core shell structure,categorical,,,Core-shell | Matrix | Monolithic | Multicore | None (free drug) | Unknown,FEATURE,synthetic_simulation
+surface_modification,surface modification,categorical,,,Antibody conjugation | Chitosan coating | Dextran coating | Folic acid targeting | None (bare) | PEGylation | Surfactant (Tween 80),FEATURE,synthetic_simulation
+surface_charge_type,surface charge type,categorical,,,Near-neutral | Negative | Positive,FEATURE,synthetic_simulation
+drug_loading_percent,drug loading percent,numerical,,1 to 32,,FEATURE,synthetic_simulation
+encapsulation_efficiency_percent,encapsulation efficiency percent,numerical,,41.2 to 96.6,,FEATURE,synthetic_simulation
+polymer_lipid_ratio,polymer lipid ratio,numerical,,0.2 to 5,,FEATURE,synthetic_simulation
+drug_to_carrier_ratio,drug to carrier ratio,numerical,,0.05 to 0.5,,FEATURE,synthetic_simulation
+carrier_concentration_mg_mL,carrier concentration mg mL,numerical,mg/mL,0.5 to 24,,FEATURE,synthetic_simulation
+formulation_pH,formulation pH,numerical,pH units,2.5 to 9.5,,FEATURE,synthetic_simulation
+ionic_strength_mM,ionic strength mM,numerical,mM,5 to 300,,FEATURE,synthetic_simulation
+temperature_C,temperature C,numerical,degC,4 to 60,,FEATURE,synthetic_simulation
+environment_pH,environment pH,numerical,,3.7 to 10,,FEATURE,synthetic_simulation
+humidity_percent,humidity percent,numerical,%,10 to 95,,FEATURE,synthetic_simulation
+storage_time_days,storage time days,numerical,days,0 to 180,,FEATURE,synthetic_simulation
+light_exposure,light exposure,categorical,,,Ambient | LED-visible | None | UV | Unknown,FEATURE,synthetic_simulation
+oxygen_exposure,oxygen exposure,categorical,,,Ambient air | Nitrogen-purged | None | Oxygen-rich | Unknown,FEATURE,synthetic_simulation
+serum_or_buffer,serum or buffer,categorical,,,Cell culture medium | Fetal bovine serum 10% | PBS | Plasma-like buffer | Water,FEATURE,synthetic_simulation
+ionic_environment,ionic environment,categorical,,,High (300-500 mM) | Low (5-50 mM) | Physiological (150 mM) | Unknown,FEATURE,synthetic_simulation
+aggregation_index,aggregation index,numerical,,0.02 to 1,,TARGET,synthetic_simulation
+particle_growth_percent,particle growth percent,numerical,,0.9 to 40.8,,TARGET,synthetic_simulation
+surface_charge_change_percent,surface charge change percent,numerical,,-24 to 19.4,,TARGET,synthetic_simulation
+structural_integrity_percent,structural integrity percent,numerical,,65.7 to 97.8,,TARGET,synthetic_simulation
+degradation_percent,degradation percent,numerical,,3 to 100,,TARGET,synthetic_simulation
+chemical_stability_percent,chemical stability percent,numerical,,0 to 97,,TARGET,synthetic_simulation
+physical_stability_percent,physical stability percent,numerical,,32.2 to 100,,TARGET,synthetic_simulation
+release_time_h,release time h,numerical,hours,24 to 168,,FEATURE,synthetic_simulation
+initial_burst_release_percent,initial burst release percent,numerical,,2 to 60,,FEATURE,synthetic_simulation
+release_24h_percent,release 24h percent,numerical,,12.6 to 81.4,,TARGET,synthetic_simulation
+release_48h_percent,release 48h percent,numerical,,21.4 to 91.6,,TARGET,synthetic_simulation
+release_72h_percent,release 72h percent,numerical,,29.4 to 95.8,,TARGET,synthetic_simulation
+release_7d_percent,release 7d percent,numerical,,53.9 to 99.2,,TARGET,synthetic_simulation
+release_rate,release rate,numerical,,0.45 to 3.79,,FEATURE,synthetic_simulation
+release_mechanism,release mechanism,categorical,,,Anomalous transport | Burst + diffusion | Case-II transport | Erosion-controlled | Fickian diffusion | Swelling-controlled | Unknown,FEATURE,synthetic_simulation
+drug_particle_interaction_score,drug particle interaction score,numerical,,0.133 to 1,,FEATURE,synthetic_simulation
+protein_adsorption_score,protein adsorption score,numerical,,0 to 1,,FEATURE,synthetic_simulation
+surface_reactivity_score,surface reactivity score,numerical,,0.164 to 1,,FEATURE,synthetic_simulation
+environmental_sensitivity_score,environmental sensitivity score,numerical,,0.218 to 1,,FEATURE,synthetic_simulation
+nanoparticle_transformation_score,nanoparticle transformation score,numerical,,0.236 to 1,,FEATURE,synthetic_simulation
+drug_degradation_risk,drug degradation risk,numerical,,0.053 to 0.757,,FEATURE,synthetic_simulation
+stability_score,stability score,numerical,,0.09 to 0.943,,TARGET,synthetic_simulation
+release_control_score,release control score,numerical,,0.377 to 1,,TARGET,synthetic_simulation
+aggregation_risk_score,aggregation risk score,numerical,,0.02 to 1,,TARGET,synthetic_simulation
+toxicity_risk_indicator,toxicity risk indicator,numerical,,0.209 to 1,,TARGET,synthetic_simulation
+overall_nanoparticle_risk_score,overall nanoparticle risk score,numerical,,0.15 to 0.951,,TARGET,synthetic_simulation
+predicted_performance_score,predicted performance score,numerical,,0.306 to 0.976,,TARGET,synthetic_simulation
+predicted_stability_class,predicted stability class,categorical,,,MODERATELY_STABLE | STABLE | UNSTABLE,TARGET,synthetic_simulation
+predicted_release_class,predicted release class,categorical,,,CONTROLLED_RELEASE | FAST_RELEASE | SLOW_RELEASE,TARGET,synthetic_simulation
+predicted_risk_class,predicted risk class,categorical,,,HIGH_INDICATOR | LOW_INDICATOR | MODERATE_INDICATOR,TARGET,synthetic_simulation
+predicted_behavior_class,predicted behavior class,categorical,,,MODERATELY_STABLE | STABLE | UNSTABLE,TARGET,synthetic_simulation
+data_source_type,data source type,categorical,,,SYNTHETIC_SIMULATION,METADATA,synthetic_simulation
+measurement_type,measurement type,categorical,,,In-silico simulation | Simulated assay,METADATA,synthetic_simulation
+uncertainty_percent,uncertainty percent,numerical,%,3 to 18,,METADATA,synthetic_simulation
+synthetic_record,synthetic record,boolean_flag,,,TRUE,METADATA,synthetic_simulation
+confidence_level,confidence level,categorical,,,High | Low | Moderate,METADATA,synthetic_simulation
+INPUT_drug_name,INPUT drug name,categorical,,,Amoxicillin | Azithromycin | Ciprofloxacin | Doxorubicin | Doxycycline | Gentamicin | Ibuprofen | Methotrexate | Paclitaxel | Paracetamol,INPUT,synthetic_simulation
+INPUT_drug_category,INPUT drug category,categorical,,,ANTIBIOTIC | HIGH_POTENCY_RESEARCH_CATEGORY | LIQUID_FORMULATION | PARACETAMOL,INPUT,synthetic_simulation
+INPUT_formulation_type,INPUT formulation type,categorical,,,Chitosan nanoparticle | Free drug reference | Lipid nanoparticle | Liposome | PLGA nanoparticle | Polymeric nanoparticle | Protein nanoparticle | Solid lipid nanoparticle,INPUT,synthetic_simulation
+INPUT_particle_size_nm,INPUT particle size nm,numerical,,15.1 to 420,,INPUT,synthetic_simulation
+INPUT_nanoparticle_material,INPUT nanoparticle material,categorical,,,Albumin | Chitosan | Eudragit | Gold-core | Lipid (DSPC) | Liposome (DPPC) | None (free drug) | PEG-PLA | PLGA | Poly(lactic acid) | Solid lipid (SLN),INPUT,synthetic_simulation
+INPUT_zeta_potential_mV,INPUT zeta potential mV,numerical,,-60 to 60,,INPUT,synthetic_simulation
+INPUT_drug_loading_percent,INPUT drug loading percent,numerical,,1 to 32,,INPUT,synthetic_simulation
+INPUT_encapsulation_efficiency_percent,INPUT encapsulation efficiency percent,numerical,,41.2 to 96.6,,INPUT,synthetic_simulation
+INPUT_pH,INPUT pH,numerical,,3.7 to 10,,INPUT,synthetic_simulation
+INPUT_temperature_C,INPUT temperature C,numerical,,4 to 60,,INPUT,synthetic_simulation
+INPUT_storage_time_days,INPUT storage time days,numerical,,0 to 180,,INPUT,synthetic_simulation
+INPUT_environment,INPUT environment,categorical,,,Cell culture medium | Fetal bovine serum 10% | PBS | Plasma-like buffer | Water,INPUT,synthetic_simulation
+INPUT_surface_modification,INPUT surface modification,categorical,,,Antibody conjugation | Chitosan coating | Dextran coating | Folic acid targeting | None (bare) | PEGylation | Surfactant (Tween 80),INPUT,synthetic_simulation

@@ -1,0 +1,8 @@
+"study_id","formulation_id","storage_temp_c","medium_environment","total_time_points","time_range_span","trajectory_eligibility_status","primary_reason_for_ineligibility","reviewed_track","review_status"
+"STU-002","PHBHHX-SYS-1","37.0","Aqueous Medium","5","0 to 72 Hours","Eligible (>=3 Points)","N/A - Complete Trajectory","physical_stability","CANDIDATE_REQUIRES_SOURCE_CHECK"
+"STU-006","LPNP-TS-DOX-01","4.0","PBS Buffer","4","0 to 30 Days","Eligible (>=3 Points)","N/A - Complete Trajectory","physical_stability","CANDIDATE_REQUIRES_SOURCE_CHECK"
+"STU-009","CBD-HA-pNIPAM","4.0","Hydrogel Matrix","6","0 to 30 Days","Eligible (>=3 Points)","N/A - Complete Trajectory","physical_stability","CANDIDATE_REQUIRES_SOURCE_CHECK"
+"STU-010","RAP-NE-STAB","4.0","Aqueous Emulsion","3","0 to 12 Months","Eligible (>=3 Points)","N/A - Complete Trajectory","physical_stability","CANDIDATE_REQUIRES_SOURCE_CHECK"
+"STU-004","PLGA-CHI-ALG-3","37.0","Isotonic PBS (Release)","5","1 to 48 Hours","Eligible (>=3 Points)","N/A - Release Trajectory","drug_release","EXCLUDE_FROM_PHYSICAL_STABILITY_TRAJECTORY_AUDIT"
+"STU-011","MPEG-PLGA-DOX","4.0","Solid Sealed State","2","0 to 28 Days","Ineligible (<3 Points)","Insufficient sampling points (n=2)","physical_stability","EXCLUDE_N_LT_3_TIMEPOINTS"
+"STU-014","DOCETAXEL-LBNP","4.0","Aqueous Solution","2","0 to 120 Days","Ineligible (<3 Points)","Endpoint study only (n=2)","unresolved","QUARANTINE_MISSING_STUDY_REGISTRY_SOURCE"

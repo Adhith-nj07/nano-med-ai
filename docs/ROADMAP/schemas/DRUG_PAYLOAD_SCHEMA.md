@@ -1,0 +1,11 @@
+# Drug / Payload Schema (Future)
+- Drug name
+- Drug class
+- Molecular weight
+- LogP
+- pKa
+- Solubility
+- Dose
+- Drug loading
+- Encapsulation efficiency
+- Drug/NP ratio

@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+.pytest_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Environment variables
+.env
+.env.local
+*.env
+
+# Data & large files
+data_backup_*.zip
+*.zip
+*.tar.gz
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Claude / AI tools
+.claude/
+
+# Scratch / temp
+scratch/
+
+# Logs
+*.log
+logs/
+
+# Models (large binary files)
+models/*.bin
+models/*.pkl
+models/*.h5
+models/*.pt
+models/*.pth

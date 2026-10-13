@@ -1,0 +1,38 @@
+[
+  {
+    "study_id": "epmc_42654111",
+    "title": "Membrane Interfacial Organization Determines the Functional Performance of Liposomal Linezolid.",
+    "authors": "TBD",
+    "year": 2026,
+    "doi": "TBD",
+    "repository": "EuropePMC",
+    "source_url": "https://europepmc.org/article/MED/42654111",
+    "license_access": "OpenAccess",
+    "data_type": "PDF Figure",
+    "measurement_type": "HYDRODYNAMIC_SIZE_DLS",
+    "trajectory_count": 0,
+    "digitized": true,
+    "nanoparticle_scope": "MEDICINAL_NANOPARTICLE",
+    "drug": "Linezolid",
+    "material": "Liposome",
+    "rejection_reason": "Data locked in complex multi-panel figure, no numerical supplement."
+  },
+  {
+    "study_id": "epmc_42345324",
+    "title": "In-Depth Characterization of PEGylated Liposomes: Using AF4 and HPLC-CAD in Tandem as a Strategy for Composition Assessment and Postinsertion Optimization.",
+    "authors": "TBD",
+    "year": 2026,
+    "doi": "TBD",
+    "repository": "EuropePMC",
+    "source_url": "https://europepmc.org/article/MED/42345324",
+    "license_access": "OpenAccess",
+    "data_type": "Figure",
+    "measurement_type": "HYDRODYNAMIC_SIZE_DLS",
+    "trajectory_count": 0,
+    "digitized": false,
+    "nanoparticle_scope": "MEDICINAL_NANOPARTICLE",
+    "drug": "Various",
+    "material": "PEGylated Liposome",
+    "rejection_reason": "No longitudinal time series found beyond t=0 and t=final."
+  }
+]

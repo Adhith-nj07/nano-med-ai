@@ -1,0 +1,16 @@
+{
+    "Ridge": {
+        "best_params": {
+            "model__alpha": 10.0
+        },
+        "best_score": 0.10814758576495295
+    },
+    "RandomForest": {
+        "best_params": {
+            "model__max_depth": 3,
+            "model__min_samples_leaf": 5,
+            "model__n_estimators": 100
+        },
+        "best_score": 0.10677479342195886
+    }
+}

@@ -1,0 +1,146 @@
+{
+  "dataset_name": "NanoMedAI Synthetic Nanoparticle Drug Dataset",
+  "synthetic_record": "ALL ROWS SYNTHETIC/SIMULATED - NOT clinical, NOT experimental evidence",
+  "random_seed": 42,
+  "n_records": 10000,
+  "n_columns": 88,
+  "n_input_columns": 13,
+  "n_target_variables": 20,
+  "n_drugs": 10,
+  "n_nanoparticle_materials": 11,
+  "n_formulation_types": 8,
+  "missing_value_percent_overall": 1.28,
+  "class_distribution": {
+    "predicted_stability_class": {
+      "MODERATELY_STABLE": 7603,
+      "STABLE": 1850,
+      "UNSTABLE": 547
+    },
+    "predicted_release_class": {
+      "CONTROLLED_RELEASE": 7009,
+      "SLOW_RELEASE": 2720,
+      "FAST_RELEASE": 271
+    },
+    "predicted_risk_class": {
+      "MODERATE_INDICATOR": 7601,
+      "LOW_INDICATOR": 1584,
+      "HIGH_INDICATOR": 815
+    },
+    "drug_category": {
+      "ANTIBIOTIC": 3000,
+      "PARACETAMOL": 2500,
+      "HIGH_POTENCY_RESEARCH_CATEGORY": 2500,
+      "LIQUID_FORMULATION": 2000
+    }
+  },
+  "numerical_feature_stats": {
+    "particle_size_nm": {
+      "mean": 207.18,
+      "std": 110.428,
+      "min": 15.1,
+      "max": 419.8
+    },
+    "polydispersity_index": {
+      "mean": 0.16,
+      "std": 0.087,
+      "min": 0.05,
+      "max": 0.547
+    },
+    "zeta_potential_mV": {
+      "mean": -7.725,
+      "std": 26.136,
+      "min": -60.0,
+      "max": 60.0
+    },
+    "drug_loading_percent": {
+      "mean": 9.01,
+      "std": 5.026,
+      "min": 1.0,
+      "max": 32.0
+    },
+    "encapsulation_efficiency_percent": {
+      "mean": 72.15,
+      "std": 8.034,
+      "min": 41.2,
+      "max": 96.6
+    },
+    "temperature_C": {
+      "mean": 31.963,
+      "std": 16.243,
+      "min": 4.0,
+      "max": 60.0
+    },
+    "environment_pH": {
+      "mean": 7.191,
+      "std": 0.988,
+      "min": 3.7,
+      "max": 10.0
+    },
+    "storage_time_days": {
+      "mean": 88.844,
+      "std": 51.81,
+      "min": 0.0,
+      "max": 180.0
+    },
+    "release_72h_percent": {
+      "mean": 64.133,
+      "std": 12.296,
+      "min": 29.4,
+      "max": 95.8
+    },
+    "stability_score": {
+      "mean": 0.593,
+      "std": 0.115,
+      "min": 0.09,
+      "max": 0.943
+    },
+    "overall_nanoparticle_risk_score": {
+      "mean": 0.52,
+      "std": 0.121,
+      "min": 0.15,
+      "max": 0.951
+    }
+  },
+  "strongest_correlations": {
+    "release_48h_percent__release_72h_percent": 0.993,
+    "release_24h_percent__release_48h_percent": 0.972,
+    "release_72h_percent__release_7d_percent": 0.972,
+    "hydrogen_bond_acceptor_count__polar_surface_area_A2": 0.963,
+    "release_48h_percent__release_7d_percent": 0.94,
+    "release_24h_percent__release_72h_percent": 0.939,
+    "molecular_weight_g_mol__hydrogen_bond_acceptor_count": 0.929,
+    "aggregation_index__physical_stability_percent": 0.917,
+    "physical_stability_percent__aggregation_risk_score": 0.917,
+    "hydrogen_bond_donor_count__polar_surface_area_A2": 0.896,
+    "molecular_weight_g_mol__polar_surface_area_A2": 0.892,
+    "release_72h_percent__release_rate": 0.884,
+    "hydrogen_bond_donor_count__hydrogen_bond_acceptor_count": 0.868,
+    "release_7d_percent__release_rate": 0.867,
+    "release_48h_percent__release_rate": 0.851
+  },
+  "recommended_ml_targets": {
+    "classification": [
+      "predicted_stability_class",
+      "predicted_release_class",
+      "predicted_risk_class",
+      "drug_category",
+      "drug_name"
+    ],
+    "regression": [
+      "particle_size_nm",
+      "stability_score",
+      "release_72h_percent",
+      "overall_nanoparticle_risk_score",
+      "encapsulation_efficiency_percent",
+      "zeta_potential_mV",
+      "predicted_performance_score"
+    ]
+  },
+  "recommended_split": {
+    "train": 0.7,
+    "validation": 0.15,
+    "test": 0.15,
+    "method": "stratify on drug_category",
+    "note": "use group split by drug_name to test generalization to unseen drugs"
+  }
+}

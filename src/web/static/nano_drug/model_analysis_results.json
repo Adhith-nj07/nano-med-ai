@@ -1,0 +1,149 @@
+{
+  "predicted_stability_class": {
+    "model": "RandomForestClassifier",
+    "accuracy": 0.811,
+    "f1_macro": 0.6123,
+    "n_features": 50,
+    "report": {
+      "0": {
+        "precision": 0.8305378831694621,
+        "recall": 0.9441157133464826,
+        "f1-score": 0.8836923076923077,
+        "support": 1521.0
+      },
+      "1": {
+        "precision": 0.6801801801801802,
+        "recall": 0.4081081081081081,
+        "f1-score": 0.5101351351351351,
+        "support": 370.0
+      },
+      "2": {
+        "precision": 0.7142857142857143,
+        "recall": 0.3211009174311927,
+        "f1-score": 0.4430379746835443,
+        "support": 109.0
+      },
+      "accuracy": 0.811,
+      "macro avg": {
+        "precision": 0.7416679258784522,
+        "recall": 0.5577749129619278,
+        "f1-score": 0.6122884725036623,
+        "support": 2000.0
+      },
+      "weighted avg": {
+        "precision": 0.7963859649122808,
+        "recall": 0.811,
+        "f1-score": 0.7905685696202531,
+        "support": 2000.0
+      }
+    }
+  },
+  "predicted_release_class": {
+    "model": "RandomForestClassifier",
+    "accuracy": 0.967,
+    "f1_macro": 0.9111,
+    "n_features": 50,
+    "report": {
+      "0": {
+        "precision": 0.9704225352112676,
+        "recall": 0.9828815977175464,
+        "f1-score": 0.9766123316796598,
+        "support": 1402.0
+      },
+      "1": {
+        "precision": 0.926829268292683,
+        "recall": 0.7037037037037037,
+        "f1-score": 0.8,
+        "support": 54.0
+      },
+      "2": {
+        "precision": 0.961038961038961,
+        "recall": 0.9522058823529411,
+        "f1-score": 0.9566020313942751,
+        "support": 544.0
+      },
+      "accuracy": 0.967,
+      "macro avg": {
+        "precision": 0.9527635881809706,
+        "recall": 0.8795970612580638,
+        "f1-score": 0.9110714543579782,
+        "support": 2000.0
+      },
+      "weighted avg": {
+        "precision": 0.9666931848295984,
+        "recall": 0.967,
+        "f1-score": 0.9664009970466844,
+        "support": 2000.0
+      }
+    }
+  },
+  "predicted_risk_class": {
+    "model": "RandomForestClassifier",
+    "accuracy": 0.8385,
+    "f1_macro": 0.6924,
+    "n_features": 50,
+    "report": {
+      "0": {
+        "precision": 0.8037383177570093,
+        "recall": 0.5276073619631901,
+        "f1-score": 0.6370370370370371,
+        "support": 163.0
+      },
+      "1": {
+        "precision": 0.7674418604651163,
+        "recall": 0.416403785488959,
+        "f1-score": 0.5398773006134969,
+        "support": 317.0
+      },
+      "2": {
+        "precision": 0.8477629285299244,
+        "recall": 0.9598684210526316,
+        "f1-score": 0.900339401419315,
+        "support": 1520.0
+      },
+      "accuracy": 0.8385,
+      "macro avg": {
+        "precision": 0.80631436891735,
+        "recall": 0.6346265228349269,
+        "f1-score": 0.692417913023283,
+        "support": 2000.0
+      },
+      "weighted avg": {
+        "precision": 0.8314440334636597,
+        "recall": 0.8385,
+        "f1-score": 0.8217470157444372,
+        "support": 2000.0
+      }
+    }
+  },
+  "particle_size_nm": {
+    "model": "RandomForestRegressor",
+    "MAE": 13.1066,
+    "R2": 0.9615,
+    "n": 10000
+  },
+  "stability_score": {
+    "model": "RandomForestRegressor",
+    "MAE": 0.0557,
+    "R2": 0.6572,
+    "n": 10000
+  },
+  "release_72h_percent": {
+    "model": "RandomForestRegressor",
+    "MAE": 0.2057,
+    "R2": 0.9991,
+    "n": 10000
+  },
+  "overall_nanoparticle_risk_score": {
+    "model": "RandomForestRegressor",
+    "MAE": 0.0465,
+    "R2": 0.763,
+    "n": 10000
+  },
+  "encapsulation_efficiency_percent": {
+    "model": "RandomForestRegressor",
+    "MAE": 0.0022,
+    "R2": 1.0,
+    "n": 10000
+  }
+}
