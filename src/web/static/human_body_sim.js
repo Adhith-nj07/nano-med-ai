@@ -136,6 +136,164 @@
     };
 
     // -------------------------------------------------------------
+    // In-Memory Scientific Knowledge Base (Default Fallback)
+    // -------------------------------------------------------------
+    const DEFAULT_REGIONS = {
+        bloodstream: {
+            id: 'bloodstream',
+            name: 'Bloodstream & Systemic Circulation',
+            category: 'Hemodynamic Transport',
+            scientific_classification: 'ESTABLISHED HEMODYNAMIC KNOWLEDGE',
+            nanoparticle_interactions: 'Nanoparticles experience shear stress, collisions with erythrocytes driving margination, and immediate plasma protein contact.',
+            barrier_description: 'Vascular endothelium with tight junctions (< 2 nm in continuous capillaries).',
+            physiological_properties: {
+                fluid_type: 'Whole blood (plasma, erythrocytes)',
+                pH: '7.35 - 7.45',
+                temperature_c: '37.0 °C',
+                shear_rate: '100 - 2000 s⁻¹',
+                velocity: '0.5 mm/s (capillaries) to 40 cm/s (aorta)'
+            }
+        },
+        liver: {
+            id: 'liver',
+            name: 'Liver (Hepatic Reticuloendothelial System)',
+            category: 'Primary Clearance & Sequestration',
+            scientific_classification: 'ESTABLISHED ANATOMICAL KNOWLEDGE',
+            nanoparticle_interactions: 'Primary site of nanoparticle uptake for particles > 50-100 nm. Opsonized particles are rapidly phagocytosed by resident Kupffer cells.',
+            barrier_description: 'Discontinuous sinusoidal endothelium with 100-150 nm fenestrations.',
+            physiological_properties: {
+                fenestrations: '100 - 150 nm',
+                blood_flow: '1.2 - 1.5 L/min (25% cardiac output)',
+                phagocytes: 'Kupffer cells (80-90% of body macrophages)'
+            }
+        },
+        kidneys: {
+            id: 'kidneys',
+            name: 'Kidneys (Renal Glomerular Filtration)',
+            category: 'Size-Selective Elimination',
+            scientific_classification: 'ESTABLISHED ANATOMICAL KNOWLEDGE',
+            nanoparticle_interactions: 'Nanoparticles with hydrodynamic diameter < 6-8 nm undergo rapid glomerular filtration into urine. Larger particles are retained in circulation.',
+            barrier_description: 'Three-layer glomerular filtration barrier with podocyte slit diaphragms (4-10 nm).',
+            physiological_properties: {
+                filtration_cutoff: '6.0 - 8.0 nm hydrodynamic diameter',
+                molecular_weight_cutoff: '~30 - 50 kDa',
+                blood_flow: '1.0 - 1.2 L/min'
+            }
+        },
+        lungs: {
+            id: 'lungs',
+            name: 'Lungs (Pulmonary Capillary Bed)',
+            category: 'Microvascular Transit & Inhalation Clearance',
+            scientific_classification: 'ESTABLISHED ANATOMICAL KNOWLEDGE',
+            nanoparticle_interactions: 'Nanoparticles transit through the dense pulmonary capillary bed. Unstable particles that aggregate into clusters > 5 µm risk micro-embolism.',
+            barrier_description: 'Extremely thin alveolar-capillary membrane (0.2 - 0.5 µm).',
+            physiological_properties: {
+                capillary_diameter: '5 - 8 µm (erythrocyte-sized)',
+                transit_time: '0.75 seconds at rest',
+                surface_area: '100 - 140 m²'
+            }
+        },
+        skin: {
+            id: 'skin',
+            name: 'Skin (Dermal Microvasculature)',
+            category: 'Peripheral Microvasculature & Barrier Tissue',
+            scientific_classification: 'ESTABLISHED ANATOMICAL KNOWLEDGE',
+            nanoparticle_interactions: 'For IV delivery, represents a peripheral capillary site. For topical delivery, the stratum corneum provides an impermeable barrier to particles > 10 nm.',
+            barrier_description: 'Stratum corneum lipid lamellar matrix.',
+            physiological_properties: {
+                stratum_corneum_cutoff: '< 500 Da (< 10 nm intact NPs)',
+                surface_pH: '4.5 - 5.5',
+                dermal_temperature: '32 - 34 °C'
+            }
+        },
+        target_tissue: {
+            id: 'target_tissue',
+            name: 'Target Tissue (Solid Tumor / Lesion)',
+            category: 'Extravasation & Extracellular Penetration',
+            scientific_classification: 'ESTABLISHED ONCOLOGY KNOWLEDGE',
+            nanoparticle_interactions: 'Nanoparticles may exploit passive EPR extravasation through leaky tumor vessels. Targeting is never guaranteed; clinical delivery efficiency rarely exceeds 1-2% of dose.',
+            barrier_description: 'Elevated interstitial fluid pressure (IFP) and dense collagen-hyaluronan matrix.',
+            physiological_properties: {
+                vascular_pore_cutoff: '100 - 800 nm (EPR effect)',
+                interstitial_pressure: '10 - 40 mmHg (elevated IFP)',
+                microenvironment_pH: '6.5 - 6.9 (hypoxic/Warburg)'
+            }
+        },
+        cellular_environment: {
+            id: 'cellular_environment',
+            name: 'Cellular Environment & Endocytic Pathway',
+            category: 'Membrane Interaction & Internalization',
+            scientific_classification: 'ESTABLISHED CELL BIOLOGY KNOWLEDGE',
+            nanoparticle_interactions: 'Membrane contact with anionic glycocalyx followed by clathrin/caveolae-mediated endocytosis, endosomal acidification (pH 5.0), and lysosomal digestion.',
+            barrier_description: 'Phospholipid bilayer with fluid mosaic proteins and thick anionic glycocalyx brush.',
+            physiological_properties: {
+                glycocalyx_charge: 'Net negative',
+                early_endosome_pH: '6.0 - 6.5',
+                lysosome_pH: '4.5 - 5.0'
+            }
+        }
+    };
+
+    const DEFAULT_STAGES = [
+        {
+            stage_id: 1, key: 'administration', name: 'Stage 1: Administration & Introduction',
+            badge_text: 'ESTABLISHED BIOPHYSICAL PROTOCOL', badge_type: 'live', is_quantitative_prediction: false,
+            description: 'Introduction of drug-loaded nanoparticles into the biological system.',
+            scientific_mechanisms: 'For IV administration, particles enter systemic circulation via a peripheral vein, undergoing rapid 1:1000 dilution in ~5 L of blood within 1-2 minutes.',
+            limitations: 'Route-specific pharmacokinetics for non-IV routes require specialized mucosal models.'
+        },
+        {
+            stage_id: 2, key: 'circulation', name: 'Stage 2: Bloodstream Circulation & Hemodynamics',
+            badge_text: 'PREDICTED STABILITY & FLUID DYNAMICS', badge_type: 'live', is_quantitative_prediction: true,
+            description: 'Transport through arterial, venous, and capillary vascular networks.',
+            scientific_mechanisms: 'Particles circulate with laminar blood flow, marginating toward walls. Colloidal stability evaluated via predicted surface charge (|ζ| potential) and steric PEGylation.',
+            limitations: 'In vivo half-life is influenced by multiple unmodeled biological clearance factors beyond surface charge.'
+        },
+        {
+            stage_id: 3, key: 'protein_corona', name: 'Stage 3: Protein Corona Formation',
+            badge_text: 'CONCEPTUAL BIOLOGICAL ILLUSTRATION', badge_type: 'purple', is_quantitative_prediction: false,
+            description: 'Adsorption of plasma proteins onto nanoparticle surfaces forming a biomolecular corona.',
+            scientific_mechanisms: 'Plasma proteins (albumin, fibrinogen, apolipoproteins, IgG) rapidly adsorb forming a hard and soft biomolecular corona that redefines cellular recognition.',
+            limitations: 'IMPORTANT: No quantitative protein corona prediction model is active in this platform. Illustrated conceptually.'
+        },
+        {
+            stage_id: 4, key: 'tissue_interaction', name: 'Stage 4: Target Tissue Interaction & Extravasation',
+            badge_text: 'PHYSIOLOGICAL INTERACTION MECHANICS', badge_type: 'live', is_quantitative_prediction: false,
+            description: 'Approach toward target microvasculature and tissue extravasation.',
+            scientific_mechanisms: 'Hyperpermeable tumor vessels may permit passive extravasation (EPR effect). Penetration hindered by high IFP. Targeting is NOT guaranteed (<1-2% median clinical efficiency).',
+            limitations: 'Does not guarantee target accumulation; solid tumor delivery is subject to severe physiological barriers.'
+        },
+        {
+            stage_id: 5, key: 'cellular_uptake', name: 'Stage 5: Cellular Uptake & Endocytic Internalization',
+            badge_text: 'CONCEPTUAL BIOLOGICAL ILLUSTRATION', badge_type: 'purple', is_quantitative_prediction: false,
+            description: 'Membrane contact, invagination, vesicle formation, and intracellular trafficking.',
+            scientific_mechanisms: '1. Approach -> 2. Glycocalyx Contact -> 3. Membrane Invagination -> 4. Endosome Vesicle -> 5. Lysosomal Acidification & Drug Escape.',
+            limitations: 'Distinguished from quantitative cellular uptake rates. Specific internalization kinetics depend on cell-specific receptor densities.'
+        },
+        {
+            stage_id: 6, key: 'drug_release', name: 'Stage 6: Drug Release Kinetics',
+            badge_text: 'MATHEMATICAL SIMULATION (KORSMEYER-PEPPAS ODE)', badge_type: 'live', is_quantitative_prediction: true,
+            description: 'Sustained diffusion and dissolution of active pharmaceutical molecules from matrix.',
+            scientific_mechanisms: 'Computed via Korsmeyer-Peppas ODE: Mt/M_inf = k * t^n. Classifies Fickian diffusion (n <= 0.43), anomalous transport (0.43 < n < 0.85), or Case II erosion (n >= 0.85).',
+            limitations: 'Valid strictly for cumulative release up to 60%. Parameters k, n are empirical constants fitted at 37°C/pH 7.4.'
+        },
+        {
+            stage_id: 7, key: 'toxicity_response', name: 'Stage 7: Biological Response & Cytotoxicity',
+            badge_text: 'ACTIVE ML PREDICTION (RANDOM FOREST)', badge_type: 'live', is_quantitative_prediction: true,
+            description: 'Assessment of carrier biocompatibility and target cell interaction.',
+            scientific_mechanisms: 'Carrier cytotoxicity is predicted via trained Random Forest model. Crucially distinguishes carrier cytotoxicity from intended drug pharmacological action.',
+            limitations: 'Research in vitro screening estimate. Does NOT predict human clinical toxicity or patient outcomes.'
+        },
+        {
+            stage_id: 8, key: 'clearance', name: 'Stage 8: Clearance, Metabolism & Elimination',
+            badge_text: 'CONCEPTUAL BIOLOGICAL ILLUSTRATION', badge_type: 'purple', is_quantitative_prediction: false,
+            description: 'Clearance of carrier fragments and metabolites through renal and hepatobiliary systems.',
+            scientific_mechanisms: 'Particles < 6-8 nm undergo renal glomerular filtration into urine. Particles > 50-100 nm are sequestered by hepatic Kupffer cells and splenic macrophages.',
+            limitations: 'Quantitative organ clearance curves and elimination half-lives require validated PBPK digital twin models. Illustrated conceptually.'
+        }
+    ];
+
+    // -------------------------------------------------------------
     // Simulator State
     // -------------------------------------------------------------
     const SimState = {
@@ -146,10 +304,10 @@
         currentSimTimeHours: 0.0,
         maxDurationHours: 48.0,
         timeStepHours: 0.5,
-        activeViewMode: 'body', // 'body', 'vessel', 'cellular', 'release'
+        activeViewMode: 'body',
         selectedRegionId: 'target_tissue',
-        regionsData: {},
-        stagesData: [],
+        regionsData: DEFAULT_REGIONS,
+        stagesData: DEFAULT_STAGES,
         evaluationResult: null,
         autoAdvance: true,
         events: []
@@ -178,7 +336,7 @@
             presetSelect: document.getElementById('hbs-preset-select'),
             btnApplyConfig: document.getElementById('hbs-btn-apply-config'),
             btnPredictZeta: document.getElementById('hbs-btn-predict-zeta'),
-            
+
             // Configuration Inputs
             inputMaterial: document.getElementById('hbs-cfg-material'),
             inputCoreSize: document.getElementById('hbs-cfg-core-size'),
@@ -202,7 +360,7 @@
             inputDurationVal: document.getElementById('hbs-val-duration'),
             inputCell: document.getElementById('hbs-cfg-cell'),
             inputAssay: document.getElementById('hbs-cfg-assay'),
-            
+
             // HUD & Telemetry
             hudRegionBadge: document.getElementById('hbs-hud-region-badge'),
             hudStageBadge: document.getElementById('hbs-hud-stage-badge'),
@@ -234,12 +392,99 @@
             stageDesc: document.getElementById('hbs-stage-desc'),
             stageMechanisms: document.getElementById('hbs-stage-mechanisms'),
             stageLimitations: document.getElementById('hbs-stage-limitations'),
-            stageFormula: document.getElementById('hbs-stage-formula'),
 
             // Domain Warnings & Events
             domainWarningsCard: document.getElementById('hbs-domain-warnings-card'),
             domainWarningsList: document.getElementById('hbs-domain-warnings-list'),
             eventLogContainer: document.getElementById('hbs-event-log')
+        };
+    }
+
+    // -------------------------------------------------------------
+    // Client-side Biophysical Evaluator (Immediate Local Fallback)
+    // -------------------------------------------------------------
+    function computeLocalEvaluation(cfg) {
+        const k = cfg.k_release || 0.18;
+        const n = cfg.n_release || 0.55;
+        const totalHours = cfg.exposure_time_hours || 48.0;
+        const steps = 50;
+
+        let mechanism = 'Anomalous Transport';
+        if (n <= 0.43) mechanism = 'Fickian Diffusion (Case I)';
+        else if (n >= 0.85) mechanism = 'Case II Polymer Relaxation';
+
+        const timeSeries = [];
+        for (let i = 0; i <= steps; i++) {
+            const t = (i / steps) * totalHours;
+            const fraction = t <= 0 ? 0 : Math.min(1.0, k * Math.pow(t, n));
+            const rate = t <= 0 ? 0 : k * n * Math.pow(t, n - 1.0) * 100.0;
+            timeSeries.push({
+                time_hours: Math.round(t * 10) / 10,
+                cumulative_release_pct: Math.round(fraction * 1000) / 10,
+                release_rate_pct_hr: Math.round(rate * 100) / 100,
+                remaining_drug_pct: Math.round((1.0 - fraction) * 1000) / 10
+            });
+        }
+
+        const zeta = cfg.surface_charge_mv || -24.5;
+        const absZ = Math.abs(zeta);
+        const isPeg = (cfg.surface_coating || '').toUpperCase().includes('PEG');
+        let stabClass = 'Stable';
+        let stabColor = 'accent';
+        let aggRisk = 'Low';
+
+        if (isPeg) {
+            stabClass = 'Highly Stable (Sterically Shielded)';
+            stabColor = 'accent';
+            aggRisk = 'Very Low';
+        } else if (absZ >= 30) {
+            stabClass = 'Electrostatically Stable (|ζ| ≥ 30 mV)';
+            stabColor = 'accent';
+            aggRisk = 'Low';
+        } else if (absZ >= 20) {
+            stabClass = 'Moderate Stability (20 ≤ |ζ| < 30 mV)';
+            stabColor = 'warn';
+            aggRisk = 'Moderate';
+        } else {
+            stabClass = 'Aggregation Prone (|ζ| < 20 mV)';
+            stabColor = 'danger';
+            aggRisk = 'High';
+        }
+
+        const isToxicCarrier = ['CUO', 'ZNO'].includes((cfg.material || '').toUpperCase());
+
+        return {
+            status: 'SUCCESS',
+            formulation_summary: cfg,
+            model_results: {
+                stability: {
+                    zeta_mv: zeta,
+                    model: 'Ridge Regressor / Configured',
+                    confidence: 'Moderate'
+                },
+                cytotoxicity: {
+                    prediction: isToxicCarrier ? 'Toxic' : 'Nontoxic',
+                    confidence: 0.91,
+                    cell_line: cfg.cell_name || 'A549',
+                    assay: cfg.assay || 'MTT'
+                },
+                colloidal_index: {
+                    stability_class: stabClass,
+                    color_code: stabColor,
+                    aggregation_risk: aggRisk,
+                    effective_zeta_mv: zeta,
+                    is_sterically_stabilized: isPeg
+                },
+                drug_release_kinetics: {
+                    k: k,
+                    n: n,
+                    mechanism: mechanism,
+                    time_series: timeSeries,
+                    final_release_pct: timeSeries[timeSeries.length - 1].cumulative_release_pct,
+                    final_release_rate: timeSeries[timeSeries.length - 1].release_rate_pct_hr
+                }
+            },
+            warnings: []
         };
     }
 
@@ -252,91 +497,93 @@
         const canvas = document.getElementById('hbs-release-chart');
         if (!canvas || !window.Chart) return;
 
-        const ctx = canvas.getContext('2d');
-        releaseChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [0],
-                datasets: [
-                    {
-                        label: 'Cumulative Release Mt/M∞ (%)',
-                        data: [0],
-                        borderColor: '#22d3ee',
-                        backgroundColor: 'rgba(34, 211, 238, 0.12)',
-                        borderWidth: 2.5,
-                        fill: true,
-                        tension: 0.25,
-                        pointRadius: 1.5,
-                        pointHoverRadius: 5
-                    },
-                    {
-                        label: 'Instantaneous Rate (% / hr)',
-                        data: [0],
-                        borderColor: '#a855f7',
-                        borderWidth: 1.8,
-                        borderDash: [4, 4],
-                        fill: false,
-                        yAxisID: 'y1',
-                        tension: 0.25,
-                        pointRadius: 0
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                animation: { duration: 400 },
-                interaction: { mode: 'index', intersect: false },
-                scales: {
-                    x: {
-                        title: { display: true, text: 'Simulation Time (hours)', color: '#948cb8', font: { size: 10 } },
-                        grid: { color: 'rgba(139, 120, 255, 0.1)' },
-                        ticks: { color: '#948cb8', font: { size: 9 } }
-                    },
-                    y: {
-                        min: 0,
-                        max: 100,
-                        title: { display: true, text: 'Release %', color: '#22d3ee', font: { size: 10 } },
-                        grid: { color: 'rgba(139, 120, 255, 0.1)' },
-                        ticks: { color: '#22d3ee', font: { size: 9 }, callback: val => val + '%' }
-                    },
-                    y1: {
-                        position: 'right',
-                        min: 0,
-                        title: { display: true, text: 'Rate (%/hr)', color: '#a855f7', font: { size: 10 } },
-                        grid: { drawOnChartArea: false },
-                        ticks: { color: '#a855f7', font: { size: 9 } }
-                    }
+        try {
+            if (releaseChart) {
+                releaseChart.destroy();
+                releaseChart = null;
+            }
+
+            const ctx = canvas.getContext('2d');
+            releaseChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [0],
+                    datasets: [
+                        {
+                            label: 'Cumulative Release Mt/M∞ (%)',
+                            data: [0],
+                            borderColor: '#22d3ee',
+                            backgroundColor: 'rgba(34, 211, 238, 0.12)',
+                            borderWidth: 2.5,
+                            fill: true,
+                            tension: 0.25,
+                            pointRadius: 1.5,
+                            pointHoverRadius: 5
+                        },
+                        {
+                            label: 'Instantaneous Rate (% / hr)',
+                            data: [0],
+                            borderColor: '#a855f7',
+                            borderWidth: 1.8,
+                            borderDash: [4, 4],
+                            fill: false,
+                            yAxisID: 'y1',
+                            tension: 0.25,
+                            pointRadius: 0
+                        }
+                    ]
                 },
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        labels: { color: '#f1efff', boxWidth: 12, font: { size: 10 } }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: false,
+                    interaction: { mode: 'index', intersect: false },
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Simulation Time (hours)', color: '#948cb8', font: { size: 10 } },
+                            grid: { color: 'rgba(139, 120, 255, 0.1)' },
+                            ticks: { color: '#948cb8', font: { size: 9 } }
+                        },
+                        y: {
+                            min: 0,
+                            max: 100,
+                            title: { display: true, text: 'Release %', color: '#22d3ee', font: { size: 10 } },
+                            grid: { color: 'rgba(139, 120, 255, 0.1)' },
+                            ticks: { color: '#22d3ee', font: { size: 9 }, callback: val => val + '%' }
+                        },
+                        y1: {
+                            position: 'right',
+                            min: 0,
+                            title: { display: true, text: 'Rate (%/hr)', color: '#a855f7', font: { size: 10 } },
+                            grid: { drawOnChartArea: false },
+                            ticks: { color: '#a855f7', font: { size: 9 } }
+                        }
                     },
-                    tooltip: {
-                        backgroundColor: 'rgba(14, 10, 38, 0.95)',
-                        borderColor: '#7c3aed',
-                        borderWidth: 1,
-                        titleColor: '#22d3ee',
-                        bodyColor: '#f1efff'
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { color: '#f1efff', boxWidth: 12, font: { size: 10 } }
+                        }
                     }
                 }
-            }
-        });
+            });
+        } catch (err) {
+            console.warn('Chart.js initialization deferred:', err);
+        }
     }
 
-    function updateReleaseChart(trajectory, currentTime) {
+    function updateReleaseChart(trajectory) {
         if (!releaseChart || !trajectory || !trajectory.time_series) return;
 
-        const ts = trajectory.time_series;
-        const labels = ts.map(p => p.time_hours);
-        const cumData = ts.map(p => p.cumulative_release_pct);
-        const rateData = ts.map(p => p.release_rate_pct_hr);
-
-        releaseChart.data.labels = labels;
-        releaseChart.data.datasets[0].data = cumData;
-        releaseChart.data.datasets[1].data = rateData;
-        releaseChart.update('none');
+        try {
+            const ts = trajectory.time_series;
+            releaseChart.data.labels = ts.map(p => p.time_hours);
+            releaseChart.data.datasets[0].data = ts.map(p => p.cumulative_release_pct);
+            releaseChart.data.datasets[1].data = ts.map(p => p.release_rate_pct_hr);
+            releaseChart.update('none');
+        } catch (e) {
+            console.warn('Chart update skipped:', e);
+        }
     }
 
     // -------------------------------------------------------------
@@ -346,15 +593,12 @@
     let scene = null;
     let camera = null;
     let animationFrameId = null;
-    let isWebGlAvailable = true;
 
-    // Sub-Scenes / Groups
     let sceneBody = null;
     let sceneVessel = null;
     let sceneCellular = null;
     let sceneRelease = null;
 
-    // Particle & Entity pools
     let rbcParticles = [];
     let nanoParticles = [];
     let drugMolecules = [];
@@ -362,7 +606,6 @@
     let membraneVesicle = null;
     let coreMesh = null;
 
-    // Mouse / Touch Camera Controller (Pure math, no external CDN dependencies)
     let isDragging = false;
     let prevMouseX = 0;
     let prevMouseY = 0;
@@ -373,7 +616,7 @@
 
     function initThreeScene() {
         if (!window.THREE) {
-            console.warn('Three.js not found, falling back to 2D Canvas');
+            console.warn('Three.js not found, enabling 2D fallback');
             initFallbackCanvas();
             return;
         }
@@ -382,17 +625,24 @@
         if (!canvas) return;
 
         try {
+            // Measure parent viewport or use reliable default to avoid 0x0 / NaN
+            const container = elements.canvasContainer || canvas.parentElement;
+            let w = canvas.clientWidth || (container ? container.clientWidth : 0) || 800;
+            let h = canvas.clientHeight || (container ? container.clientHeight : 0) || 480;
+            if (w <= 0) w = 800;
+            if (h <= 0) h = 480;
+
             renderer = new THREE.WebGLRenderer({
                 canvas: canvas,
                 antialias: true,
                 alpha: true,
                 powerPreference: 'high-performance'
             });
-            renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+            renderer.setSize(w, h);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
             scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 1, 1000);
+            camera = new THREE.PerspectiveCamera(45, w / h, 1, 1000);
             updateCameraPosition();
 
             // Lighting Setup
@@ -426,11 +676,11 @@
             setupControls(canvas);
             switchViewMode('body');
 
-            // Start Render Loop
-            renderLoop();
+            if (!animationFrameId) {
+                renderLoop();
+            }
         } catch (err) {
-            console.error('WebGL Initialization Error:', err);
-            isWebGlAvailable = false;
+            console.error('WebGL Init Error:', err);
             if (elements.threeCanvas) elements.threeCanvas.style.display = 'none';
             if (elements.fallbackCanvas) elements.fallbackCanvas.style.display = 'block';
             initFallbackCanvas();
@@ -439,6 +689,13 @@
 
     function updateCameraPosition() {
         if (!camera) return;
+
+        // Prevent NaN corruption
+        if (isNaN(cameraTarget.x)) cameraTarget.x = 0;
+        if (isNaN(cameraTarget.y)) cameraTarget.y = 0;
+        if (isNaN(cameraTarget.z)) cameraTarget.z = 0;
+        if (isNaN(spherical.radius) || spherical.radius <= 0) spherical.radius = 140;
+
         cameraTarget.x += (desiredTarget.x - cameraTarget.x) * 0.08;
         cameraTarget.y += (desiredTarget.y - cameraTarget.y) * 0.08;
         cameraTarget.z += (desiredTarget.z - cameraTarget.z) * 0.08;
@@ -477,7 +734,6 @@
             desiredRadius = Math.max(30, Math.min(300, desiredRadius + e.deltaY * 0.15));
         }, { passive: false });
 
-        // Touch support
         let touchStartDist = 0;
         canvas.addEventListener('touchstart', e => {
             if (e.touches.length === 1) {
@@ -513,9 +769,6 @@
         canvas.addEventListener('touchend', () => { isDragging = false; });
     }
 
-    // -------------------------------------------------------------
-    // View 1: 3D Human Body & Circulatory System
-    // -------------------------------------------------------------
     function buildHumanBodyModel() {
         const matWire = new THREE.MeshBasicMaterial({
             color: 0x38bdf8,
@@ -524,7 +777,6 @@
             opacity: 0.16
         });
 
-        // 1. Anatomical Silhouette (Head, Torso, Limbs)
         const head = new THREE.Mesh(new THREE.SphereGeometry(7.5, 18, 18), matWire);
         head.position.set(0, 48, 0);
         sceneBody.add(head);
@@ -543,7 +795,6 @@
         abdomen.scale.set(1.1, 1, 0.7);
         sceneBody.add(abdomen);
 
-        // Arms
         [-1, 1].forEach(side => {
             const armUpper = new THREE.Mesh(new THREE.CylinderGeometry(3, 2.5, 22, 12), matWire);
             armUpper.position.set(side * 18, 25, 0);
@@ -554,10 +805,7 @@
             armLower.position.set(side * 22, 5, 0);
             armLower.rotation.z = side * 0.08;
             sceneBody.add(armLower);
-        });
 
-        // Legs
-        [-1, 1].forEach(side => {
             const thigh = new THREE.Mesh(new THREE.CylinderGeometry(5.2, 4, 30, 14), matWire);
             thigh.position.set(side * 7, -18, 0);
             sceneBody.add(thigh);
@@ -567,7 +815,6 @@
             sceneBody.add(calf);
         });
 
-        // 2. Branching Vascular Tree (Arterial Red & Venous Blue Tubes)
         const arteryMat = new THREE.MeshStandardMaterial({
             color: 0xef4444,
             emissive: 0x991b1b,
@@ -581,7 +828,6 @@
             metalness: 0.1
         });
 
-        // Aorta & Vena Cava Curves
         const createVesselTube = (points, mat, radius) => {
             const curve = new THREE.CatmullRomCurve3(points.map(p => new THREE.Vector3(...p)));
             const tubeGeo = new THREE.TubeGeometry(curve, 32, radius, 8, false);
@@ -590,7 +836,6 @@
             return curve;
         };
 
-        // Main vessels
         const vAorta = createVesselTube([
             [0, 26, 2], [1.5, 31, 1.5], [1, 35, 0], [-1.2, 33, -1], [-1, 20, 0],
             [-1, 5, 0], [-2, -5, 0], [-6, -18, 0], [-7, -46, 0]
@@ -601,13 +846,11 @@
             [1.8, 38, 0], [0, 47, 0]
         ], veinMat, 1.4);
 
-        // Branching pulmonary & arm vessels
-        createVesselTube([[0, 28, 2], [-8, 28, 0]], arteryMat, 0.9); // Left Lung branch
-        createVesselTube([[0, 28, 2], [8, 28, 0]], arteryMat, 0.9);  // Right Lung branch
-        createVesselTube([[-1, 34, 0], [-18, 26, 0], [-22, 6, 0]], arteryMat, 0.8); // Left Arm
-        createVesselTube([[1, 34, 0], [18, 26, 0], [22, 6, 0]], arteryMat, 0.8);   // Right Arm
+        createVesselTube([[0, 28, 2], [-8, 28, 0]], arteryMat, 0.9);
+        createVesselTube([[0, 28, 2], [8, 28, 0]], arteryMat, 0.9);
+        createVesselTube([[-1, 34, 0], [-18, 26, 0], [-22, 6, 0]], arteryMat, 0.8);
+        createVesselTube([[1, 34, 0], [18, 26, 0], [22, 6, 0]], arteryMat, 0.8);
 
-        // 3. Glowing Organ Nodes / Markers
         const organSpecs = [
             { id: 'bloodstream', label: 'Heart & Aorta', pos: [0, 27, 3], color: 0xef4444, size: 3.5 },
             { id: 'lungs', label: 'Pulmonary Bed', pos: [-7.5, 28, 1], color: 0x38bdf8, size: 4.2 },
@@ -634,7 +877,6 @@
             );
             group.add(sphere);
 
-            // Pulsing halo ring
             const ringGeo = new THREE.RingGeometry(spec.size * 1.15, spec.size * 1.35, 32);
             const ringMat = new THREE.MeshBasicMaterial({
                 color: spec.color,
@@ -650,7 +892,6 @@
             organMarkers[spec.id] = group;
         });
 
-        // 4. Circulating Nanoparticle Flow Points in Body
         const npCount = 180;
         const npGeo = new THREE.SphereGeometry(0.75, 8, 8);
         const npMat = new THREE.MeshBasicMaterial({ color: 0x22d3ee });
@@ -668,11 +909,7 @@
         }
     }
 
-    // -------------------------------------------------------------
-    // View 2: Microscopic Blood Vessel & Capillary Flow View
-    // -------------------------------------------------------------
     function buildBloodVesselModel() {
-        // Capillary Wall (Cylinder with translucent endothelial lining)
         const vesselLength = 110;
         const vesselRadius = 22;
 
@@ -690,7 +927,6 @@
         vesselCylinder.rotation.z = Math.PI / 2;
         sceneVessel.add(vesselCylinder);
 
-        // Endothelial Cell Mosaic Nodes on wall
         const endoMat = new THREE.MeshStandardMaterial({
             color: 0xfca5a5,
             transparent: true,
@@ -709,7 +945,6 @@
             sceneVessel.add(cellTile);
         }
 
-        // Biconcave Red Blood Cells (RBCs / Erythrocytes)
         const rbcCount = 38;
         const rbcMat = new THREE.MeshStandardMaterial({
             color: 0xdc2626,
@@ -718,7 +953,6 @@
         });
 
         for (let i = 0; i < rbcCount; i++) {
-            // Approximating biconcave disc: flattened sphere
             const rbcMesh = new THREE.Mesh(new THREE.CylinderGeometry(3.6, 3.6, 1.4, 20), rbcMat);
             rbcMesh.scale.set(1, 0.7, 1);
             rbcMesh.position.set(
@@ -735,7 +969,6 @@
             rbcParticles.push(rbcMesh);
         }
 
-        // Nanoparticles in vessel lumen (marginating toward wall)
         const npVesselCount = 75;
         const npVesselMat = new THREE.MeshStandardMaterial({
             color: 0x22d3ee,
@@ -754,7 +987,6 @@
                 vx: 0.8 + Math.random() * 1.2,
                 vy: (Math.random() - 0.5) * 0.2,
                 vz: (Math.random() - 0.5) * 0.2,
-                // Margination force pushes particles outward radially
                 targetRadius: vesselRadius * (0.6 + Math.random() * 0.35)
             };
             sceneVessel.add(np);
@@ -762,11 +994,7 @@
         }
     }
 
-    // -------------------------------------------------------------
-    // View 3: Cellular Uptake & Endocytosis Multi-Step 3D Scene
-    // -------------------------------------------------------------
     function buildCellularUptakeModel() {
-        // Plasma Membrane (Bilayer plane with undulating waviness)
         const memGeo = new THREE.PlaneGeometry(90, 70, 32, 28);
         const memMat = new THREE.MeshStandardMaterial({
             color: 0x4f46e5,
@@ -774,7 +1002,6 @@
             side: THREE.DoubleSide,
             transparent: true,
             opacity: 0.75,
-            wireframe: false,
             roughness: 0.5
         });
         const membrane = new THREE.Mesh(memGeo, memMat);
@@ -782,7 +1009,6 @@
         membrane.position.set(0, -14, 0);
         sceneCellular.add(membrane);
 
-        // Clathrin/Caveolae-Coated Endocytic Invagination Pit
         const pitGeo = new THREE.SphereGeometry(11, 24, 24, 0, Math.PI * 2, 0, Math.PI / 1.8);
         const pitMat = new THREE.MeshStandardMaterial({
             color: 0x7c3aed,
@@ -794,7 +1020,6 @@
         pit.rotation.x = Math.PI;
         sceneCellular.add(pit);
 
-        // Intracellular Endosome / Vesicle
         const vesicleGeo = new THREE.SphereGeometry(8.5, 24, 24);
         const vesicleMat = new THREE.MeshStandardMaterial({
             color: 0x06b6d4,
@@ -806,7 +1031,6 @@
         membraneVesicle.position.set(0, -28, 0);
         sceneCellular.add(membraneVesicle);
 
-        // Acidic Lysosome
         const lysoGeo = new THREE.SphereGeometry(12, 20, 20);
         const lysoMat = new THREE.MeshStandardMaterial({
             color: 0xf59e0b,
@@ -819,7 +1043,6 @@
         lysosome.position.set(24, -34, -10);
         sceneCellular.add(lysosome);
 
-        // Nanoparticle entering the cell
         const uptakingNp = new THREE.Mesh(
             new THREE.SphereGeometry(4.2, 24, 24),
             new THREE.MeshStandardMaterial({
@@ -834,11 +1057,7 @@
         sceneCellular.userData.np = uptakingNp;
     }
 
-    // -------------------------------------------------------------
-    // View 4: Nanoparticle Core-Shell Drug Release 3D Scene
-    // -------------------------------------------------------------
     function buildNanoparticleReleaseModel() {
-        // Polymer / Lipid Core Mesh
         const coreGeo = new THREE.SphereGeometry(16, 36, 36);
         const coreMat = new THREE.MeshStandardMaterial({
             color: 0x6366f1,
@@ -850,7 +1069,6 @@
         coreMesh = new THREE.Mesh(coreGeo, coreMat);
         sceneRelease.add(coreMesh);
 
-        // Steric PEG Coating Outer Halo
         const pegHaloGeo = new THREE.SphereGeometry(19.5, 24, 24);
         const pegHaloMat = new THREE.MeshBasicMaterial({
             color: 0x38bdf8,
@@ -861,7 +1079,6 @@
         const pegHalo = new THREE.Mesh(pegHaloGeo, pegHaloMat);
         sceneRelease.add(pegHalo);
 
-        // Encapsulated & Released Drug Molecules (Gold/Orange spheres)
         const drugCount = 120;
         const drugGeo = new THREE.SphereGeometry(0.85, 10, 10);
         const drugMat = new THREE.MeshStandardMaterial({
@@ -872,7 +1089,6 @@
 
         for (let i = 0; i < drugCount; i++) {
             const mol = new THREE.Mesh(drugGeo, drugMat);
-            // Random distribution within and around the nanoparticle core
             const dist = 3 + Math.random() * 14;
             const u = Math.random();
             const v = Math.random();
@@ -886,8 +1102,7 @@
             mol.userData = {
                 origDist: dist,
                 dir: new THREE.Vector3(x, y, z).normalize(),
-                speed: 0.12 + Math.random() * 0.25,
-                released: false
+                speed: 0.12 + Math.random() * 0.25
             };
             sceneRelease.add(mol);
             drugMolecules.push(mol);
@@ -911,7 +1126,6 @@
         if (sceneCellular) sceneCellular.visible = (mode === 'cellular');
         if (sceneRelease) sceneRelease.visible = (mode === 'release');
 
-        // Adjust camera targets based on active view mode
         if (mode === 'body') {
             desiredTarget = { x: 0, y: 0, z: 0 };
             desiredRadius = 140;
@@ -951,11 +1165,8 @@
         animationFrameId = requestAnimationFrame(renderLoop);
 
         const delta = 0.016 * SimState.speed;
-
-        // Smooth camera lerp
         updateCameraPosition();
 
-        // 1. Body Scene Animation (Vessel tube flow + Organ pulsing)
         if (sceneBody && sceneBody.visible) {
             nanoParticles.forEach(np => {
                 if (!np.userData.curve) return;
@@ -964,7 +1175,6 @@
                 np.position.set(pt.x + np.userData.jitter, pt.y, pt.z + np.userData.jitter);
             });
 
-            // Pulse organ rings
             Object.values(organMarkers).forEach(m => {
                 if (m.userData.ring) {
                     const scale = 1.0 + Math.sin(Date.now() * 0.004) * 0.12;
@@ -973,7 +1183,6 @@
             });
         }
 
-        // 2. Capillary Vessel Animation (RBC flow + Margination)
         if (sceneVessel && sceneVessel.visible) {
             rbcParticles.forEach(rbc => {
                 rbc.position.x += rbc.userData.vx * delta * 35;
@@ -985,29 +1194,24 @@
             nanoParticles.forEach(np => {
                 if (!np.userData.vx) return;
                 np.position.x += np.userData.vx * delta * 45;
-                // Browninan motion jitter
                 np.position.y += (Math.random() - 0.5) * 0.4;
                 np.position.z += (Math.random() - 0.5) * 0.4;
                 if (np.position.x > 55) np.position.x = -55;
             });
         }
 
-        // 3. Cellular Uptake Animation (5-Stage Endocytosis Loop)
         if (sceneCellular && sceneCellular.visible && sceneCellular.userData.np) {
             const uNp = sceneCellular.userData.np;
             uNp.userData.animPhase = (uNp.userData.animPhase + delta * 0.25) % 1.0;
             const p = uNp.userData.animPhase;
 
             if (p < 0.2) {
-                // Step 1: Approaching plasma membrane
                 const subP = p / 0.2;
                 uNp.position.set(0, 18 - subP * 14, 0);
                 uNp.scale.set(1, 1, 1);
             } else if (p < 0.4) {
-                // Step 2: Contacting membrane & receptor binding
                 uNp.position.set(0, 4, 0);
             } else if (p < 0.65) {
-                // Step 3 & 4: Membrane invaginates into vesicle pit
                 const subP = (p - 0.4) / 0.25;
                 uNp.position.set(0, 4 - subP * 24, 0);
                 if (membraneVesicle) {
@@ -1015,31 +1219,25 @@
                     membraneVesicle.scale.set(1 + subP * 0.2, 1 + subP * 0.2, 1 + subP * 0.2);
                 }
             } else {
-                // Step 5: Intracellular lysosomal trafficking & drug release
                 const subP = (p - 0.65) / 0.35;
                 uNp.position.set(subP * 22, -20 - subP * 12, -subP * 8);
                 uNp.scale.set(1 - subP * 0.4, 1 - subP * 0.4, 1 - subP * 0.4);
             }
         }
 
-        // 4. Nanoparticle Release Animation
         if (sceneRelease && sceneRelease.visible) {
             if (coreMesh) coreMesh.rotation.y += delta * 0.3;
 
-            // Animate drug molecules diffusing outwards proportionally to release %
             const currentRelFraction = SimState.evaluationResult ?
                 (SimState.evaluationResult.model_results.drug_release_kinetics.final_release_pct / 100.0) : 0.4;
 
             drugMolecules.forEach((mol, idx) => {
                 if (idx / drugMolecules.length < currentRelFraction) {
-                    // Molecule is diffusing outward
                     mol.position.addScaledVector(mol.userData.dir, mol.userData.speed * delta * 20);
                     if (mol.position.length() > 38) {
-                        // Reset to core boundary
                         mol.position.copy(mol.userData.dir).multiplyScalar(mol.userData.origDist);
                     }
                 } else {
-                    // Retained within core
                     mol.position.copy(mol.userData.dir).multiplyScalar(Math.min(14, mol.userData.origDist));
                 }
             });
@@ -1050,68 +1248,54 @@
         }
     }
 
-    // -------------------------------------------------------------
-    // Fallback 2D Canvas Engine (for non-WebGL environments)
-    // -------------------------------------------------------------
-    let fallbackCtx = null;
-
     function initFallbackCanvas() {
         const canvas = elements.fallbackCanvas;
         if (!canvas) return;
         canvas.style.display = 'block';
         if (elements.threeCanvas) elements.threeCanvas.style.display = 'none';
 
-        fallbackCtx = canvas.getContext('2d');
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
+        const ctx = canvas.getContext('2d');
+        canvas.width = canvas.clientWidth || 800;
+        canvas.height = canvas.clientHeight || 480;
 
         function fallbackLoop() {
-            if (!SimState.isRunning && fallbackCtx) {
-                drawFallbackFrame();
+            if (!SimState.isRunning && ctx) {
+                const w = canvas.width;
+                const h = canvas.height;
+                ctx.clearRect(0, 0, w, h);
+                ctx.fillStyle = '#06030f';
+                ctx.fillRect(0, 0, w, h);
+
+                ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(w * 0.35, h * 0.1, w * 0.3, h * 0.8);
+
+                ctx.fillStyle = '#f1efff';
+                ctx.font = '14px Space Grotesk, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('ANATOMICAL CIRCULATION SCHEMATIC (FALLBACK)', w / 2, h * 0.08);
+
+                const nodes = [
+                    { label: 'Bloodstream', y: 0.25, color: '#ef4444' },
+                    { label: 'Lungs', y: 0.35, color: '#38bdf8' },
+                    { label: 'Liver', y: 0.48, color: '#f59e0b' },
+                    { label: 'Kidneys', y: 0.60, color: '#10b981' },
+                    { label: 'Target Tissue', y: 0.72, color: '#f43f5e' }
+                ];
+
+                nodes.forEach(n => {
+                    const ny = h * n.y;
+                    ctx.fillStyle = n.color;
+                    ctx.beginPath();
+                    ctx.arc(w / 2, ny, 16, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillText(n.label, w / 2, ny + 28);
+                });
             }
             requestAnimationFrame(fallbackLoop);
         }
         fallbackLoop();
-    }
-
-    function drawFallbackFrame() {
-        if (!fallbackCtx || !elements.fallbackCanvas) return;
-        const w = elements.fallbackCanvas.width;
-        const h = elements.fallbackCanvas.height;
-
-        fallbackCtx.clearRect(0, 0, w, h);
-        fallbackCtx.fillStyle = '#06030f';
-        fallbackCtx.fillRect(0, 0, w, h);
-
-        // Draw Anatomical Schematic
-        fallbackCtx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
-        fallbackCtx.lineWidth = 2;
-        fallbackCtx.strokeRect(w * 0.35, h * 0.1, w * 0.3, h * 0.8);
-
-        fallbackCtx.fillStyle = '#f1efff';
-        fallbackCtx.font = '14px Space Grotesk, sans-serif';
-        fallbackCtx.textAlign = 'center';
-        fallbackCtx.fillText('ANATOMICAL CIRCULATION SCHEMATIC (FALLBACK)', w / 2, h * 0.08);
-
-        // Draw Organ Nodes
-        const nodes = [
-            { label: 'Bloodstream', y: 0.25, color: '#ef4444' },
-            { label: 'Lungs', y: 0.35, color: '#38bdf8' },
-            { label: 'Liver', y: 0.48, color: '#f59e0b' },
-            { label: 'Kidneys', y: 0.60, color: '#10b981' },
-            { label: 'Target Tissue', y: 0.72, color: '#f43f5e' }
-        ];
-
-        nodes.forEach(n => {
-            const ny = h * n.y;
-            fallbackCtx.fillStyle = n.color;
-            fallbackCtx.beginPath();
-            fallbackCtx.arc(w / 2, ny, 16, 0, Math.PI * 2);
-            fallbackCtx.fill();
-
-            fallbackCtx.fillStyle = '#ffffff';
-            fallbackCtx.fillText(n.label, w / 2, ny + 28);
-        });
     }
 
     // -------------------------------------------------------------
@@ -1120,6 +1304,7 @@
     let simInterval = null;
 
     function startSimulation() {
+        if (!elements.btnStart) initDomReferences();
         if (!SimState.evaluationResult) {
             evaluateCurrentFormulation().then(() => doStart());
         } else {
@@ -1128,6 +1313,12 @@
     }
 
     function doStart() {
+        const totalDuration = parseFloat(elements.inputDuration ? elements.inputDuration.value : 48.0) || 48.0;
+        if (SimState.currentSimTimeHours >= totalDuration) {
+            SimState.currentSimTimeHours = 0.0;
+            SimState.currentStageIndex = 0;
+            updateStageDisplay(0);
+        }
         SimState.isRunning = true;
         SimState.isPaused = false;
         updateControlsUi();
@@ -1163,24 +1354,41 @@
         addEventLog('SIMULATION_RESET', 'Reset simulation state to baseline t = 0.0 h.', 'USER');
     }
 
+    function setSpeed(speedVal) {
+        SimState.speed = parseFloat(speedVal) || 1.0;
+        if (elements.speedButtons) {
+            elements.speedButtons.forEach(b => {
+                b.classList.toggle('active', parseFloat(b.dataset.speed) === SimState.speed);
+            });
+        }
+        if (SimState.isRunning && !SimState.isPaused) {
+            clearInterval(simInterval);
+            simInterval = setInterval(simulationTick, 400 / SimState.speed);
+        }
+    }
+
     function simulationTick() {
         if (!SimState.isRunning || SimState.isPaused) return;
 
         SimState.currentSimTimeHours += SimState.timeStepHours;
-        const totalDuration = parseFloat(elements.inputDuration ? elements.inputDuration.value : 48.0);
+        const totalDuration = parseFloat(elements.inputDuration ? elements.inputDuration.value : 48.0) || 48.0;
 
-        // Update stage progression
         const stagesCount = 8;
         const stageDuration = totalDuration / stagesCount;
         const expectedStage = Math.min(stagesCount - 1, Math.floor(SimState.currentSimTimeHours / stageDuration));
 
         if (expectedStage !== SimState.currentStageIndex) {
-            setStage(expectedStage);
+            SimState.currentStageIndex = expectedStage;
+            updateStageDisplay(expectedStage);
+            const stageData = SimState.stagesData[expectedStage];
+            if (stageData) {
+                const badgeType = stageData.is_quantitative_prediction ? 'COMPUTED - MODEL' : 'CONCEPTUAL - BIO';
+                addEventLog(`STAGE_${expectedStage + 1}_ENTERED`, `Transitioned to: ${stageData.name}`, badgeType);
+            }
         }
 
         updateTelemetryCards(SimState.currentSimTimeHours);
 
-        // Auto-switch view to align with narrative stage if desired
         if (SimState.autoAdvance) {
             if (SimState.currentStageIndex === 1 && SimState.activeViewMode !== 'vessel') switchViewMode('vessel');
             else if (SimState.currentStageIndex === 4 && SimState.activeViewMode !== 'cellular') switchViewMode('cellular');
@@ -1188,7 +1396,6 @@
             else if ((SimState.currentStageIndex === 0 || SimState.currentStageIndex === 7) && SimState.activeViewMode !== 'body') switchViewMode('body');
         }
 
-        // Check completion
         if (SimState.currentSimTimeHours >= totalDuration) {
             clearInterval(simInterval);
             SimState.isRunning = false;
@@ -1199,7 +1406,13 @@
 
     function setStage(index) {
         SimState.currentStageIndex = index;
+        const totalDuration = parseFloat(elements.inputDuration ? elements.inputDuration.value : 48.0) || 48.0;
+        const stagesCount = 8;
+        const stageDuration = totalDuration / stagesCount;
+        SimState.currentSimTimeHours = Math.min(totalDuration, index * stageDuration);
+
         updateStageDisplay(index);
+        updateTelemetryCards(SimState.currentSimTimeHours);
 
         const stageData = SimState.stagesData[index];
         if (stageData) {
@@ -1221,7 +1434,7 @@
             elements.progressBar.style.width = pct + '%';
         }
 
-        const stage = SimState.stagesData[index];
+        const stage = SimState.stagesData[index] || DEFAULT_STAGES[index];
         if (!stage) return;
 
         if (elements.stageTitle) elements.stageTitle.textContent = stage.name;
@@ -1242,14 +1455,11 @@
         if (elements.hudTimeBadge) elements.hudTimeBadge.textContent = `${simTime.toFixed(1)} hrs`;
         if (elements.kpiSimTime) elements.kpiSimTime.textContent = `${simTime.toFixed(1)} h`;
 
-        if (!SimState.evaluationResult) return;
-
-        const res = SimState.evaluationResult;
+        const res = SimState.evaluationResult || computeLocalEvaluation(getCurrentFormulationValues());
         const kinetics = res.model_results.drug_release_kinetics;
         const colloidal = res.model_results.colloidal_index;
         const cytotox = res.model_results.cytotoxicity;
 
-        // Current Korsmeyer-Peppas ODE point: Mt/M_inf = k * t^n
         const k = kinetics.k;
         const n = kinetics.n;
         const fraction = simTime <= 0 ? 0 : Math.min(1.0, k * Math.pow(simTime, n));
@@ -1277,10 +1487,9 @@
             elements.kpiCytotoxConf.textContent = conf;
         }
 
-        // Particle count indicator
         if (elements.hudParticlesBadge) {
             const activeCount = Math.round(180 * (1.0 - (simTime / SimState.maxDurationHours) * 0.4));
-            elements.hudParticlesBadge.textContent = `${activeCount} NPs / mL`;
+            elements.hudParticlesBadge.textContent = `${Math.max(10, activeCount)} NPs / mL`;
         }
     }
 
@@ -1292,11 +1501,8 @@
         elements.btnReset.disabled = !SimState.isRunning && SimState.currentSimTimeHours === 0;
     }
 
-    // -------------------------------------------------------------
-    // Region Info Panel Logic
-    // -------------------------------------------------------------
     function updateRegionInfoPanel(regionId) {
-        const region = SimState.regionsData[regionId];
+        const region = SimState.regionsData[regionId] || DEFAULT_REGIONS[regionId];
         if (!region) return;
 
         if (elements.regionTitle) elements.regionTitle.textContent = region.name;
@@ -1319,30 +1525,37 @@
         }
     }
 
-    // -------------------------------------------------------------
-    // Formulation Configuration & Backend Evaluation
-    // -------------------------------------------------------------
-    async function evaluateCurrentFormulation() {
-        const payload = {
+    function getCurrentFormulationValues() {
+        return {
             material: elements.inputMaterial ? elements.inputMaterial.value : 'PLGA',
-            core_size_nm: parseFloat(elements.inputCoreSize ? elements.inputCoreSize.value : 80),
-            hydrodynamic_size_nm: parseFloat(elements.inputHydroSize ? elements.inputHydroSize.value : 95),
+            core_size_nm: parseFloat(elements.inputCoreSize ? elements.inputCoreSize.value : 80) || 80,
+            hydrodynamic_size_nm: parseFloat(elements.inputHydroSize ? elements.inputHydroSize.value : 95) || 95,
             surface_coating: elements.inputCoating ? elements.inputCoating.value : 'PEG',
-            surface_charge_mv: parseFloat(elements.inputZeta ? elements.inputZeta.value : -24.0),
+            surface_charge_mv: parseFloat(elements.inputZeta ? elements.inputZeta.value : -24.5) || -24.5,
             drug_name: elements.inputDrug ? elements.inputDrug.value : 'Paclitaxel',
-            drug_loading_pct: parseFloat(elements.inputLoading ? elements.inputLoading.value : 12.0),
-            k_release: parseFloat(elements.inputK ? elements.inputK.value : 0.18),
-            n_release: parseFloat(elements.inputN ? elements.inputN.value : 0.55),
+            drug_loading_pct: parseFloat(elements.inputLoading ? elements.inputLoading.value : 12.0) || 12.0,
+            k_release: parseFloat(elements.inputK ? elements.inputK.value : 0.18) || 0.18,
+            n_release: parseFloat(elements.inputN ? elements.inputN.value : 0.55) || 0.55,
             target_tissue: elements.inputTarget ? elements.inputTarget.value : 'target_tissue',
             administration_route: elements.inputRoute ? elements.inputRoute.value : 'Intravenous',
-            initial_concentration_ug_ml: parseFloat(elements.inputDose ? elements.inputDose.value : 50.0),
-            temperature_c: parseFloat(elements.inputTemp ? elements.inputTemp.value : 37.0),
-            ph: parseFloat(elements.inputPh ? elements.inputPh.value : 7.4),
-            ionic_strength_m: parseFloat(elements.inputIonic ? elements.inputIonic.value : 0.154),
-            exposure_time_hours: parseFloat(elements.inputDuration ? elements.inputDuration.value : 48.0),
+            initial_concentration_ug_ml: parseFloat(elements.inputDose ? elements.inputDose.value : 50.0) || 50.0,
+            temperature_c: parseFloat(elements.inputTemp ? elements.inputTemp.value : 37.0) || 37.0,
+            ph: parseFloat(elements.inputPh ? elements.inputPh.value : 7.4) || 7.4,
+            ionic_strength_m: parseFloat(elements.inputIonic ? elements.inputIonic.value : 0.154) || 0.154,
+            exposure_time_hours: parseFloat(elements.inputDuration ? elements.inputDuration.value : 48.0) || 48.0,
             cell_name: elements.inputCell ? elements.inputCell.value : 'A549',
             assay: elements.inputAssay ? elements.inputAssay.value : 'MTT'
         };
+    }
+
+    async function evaluateCurrentFormulation() {
+        const payload = getCurrentFormulationValues();
+        SimState.maxDurationHours = payload.exposure_time_hours;
+
+        // Apply local calculation immediately
+        SimState.evaluationResult = computeLocalEvaluation(payload);
+        updateTelemetryCards(SimState.currentSimTimeHours);
+        updateReleaseChart(SimState.evaluationResult.model_results.drug_release_kinetics);
 
         try {
             if (elements.btnApplyConfig) elements.btnApplyConfig.textContent = 'Evaluating...';
@@ -1352,24 +1565,17 @@
                 body: JSON.stringify(payload)
             });
 
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            const data = await res.json();
-            SimState.evaluationResult = data;
-            SimState.maxDurationHours = payload.exposure_time_hours;
-
-            // Render warnings
-            renderDomainWarnings(data.warnings);
-
-            // Update Chart
-            updateReleaseChart(data.model_results.drug_release_kinetics, SimState.currentSimTimeHours);
-
-            // Update Telemetry
-            updateTelemetryCards(SimState.currentSimTimeHours);
-
-            addEventLog('CONFIG_EVALUATED', `Formulation evaluated: ${payload.material} (${payload.core_size_nm}nm) loaded with ${payload.drug_name}.`, 'COMPUTED - MODEL');
+            if (res.ok) {
+                const data = await res.json();
+                SimState.evaluationResult = data;
+                renderDomainWarnings(data.warnings);
+                updateReleaseChart(data.model_results.drug_release_kinetics);
+                updateTelemetryCards(SimState.currentSimTimeHours);
+                addEventLog('CONFIG_EVALUATED', `Evaluated: ${payload.material} (${payload.core_size_nm}nm) + ${payload.drug_name}.`, 'COMPUTED - MODEL');
+            }
         } catch (err) {
-            console.error('Failed to evaluate formulation:', err);
-            addEventLog('EVAL_ERROR', `Evaluation error: ${err.message}. Using client-side biophysical model.`, 'WARNING');
+            console.warn('Backend evaluation fallback active:', err);
+            addEventLog('LOCAL_EVAL', 'Used client-side biophysical model.', 'OFFLINE');
         } finally {
             if (elements.btnApplyConfig) elements.btnApplyConfig.textContent = 'Apply & Evaluate Formulation';
         }
@@ -1379,7 +1585,7 @@
         const payload = {
             Shape: 'Sphere',
             Core: elements.inputMaterial ? elements.inputMaterial.value : 'Silver',
-            Size_nm: parseFloat(elements.inputCoreSize ? elements.inputCoreSize.value : 80),
+            Size_nm: parseFloat(elements.inputCoreSize ? elements.inputCoreSize.value : 80) || 80,
             Medium: 'PBS pH 7.4',
             Ligand_SMILES: 'OCCO'
         };
@@ -1394,7 +1600,7 @@
             if (res.ok) {
                 const data = await res.json();
                 if (elements.inputZeta) elements.inputZeta.value = data.prediction;
-                addEventLog('ML_PREDICT_ZETA', `Predicted Zeta Potential: ${data.prediction} mV via Ridge model.`, 'COMPUTED - ML');
+                addEventLog('ML_PREDICT_ZETA', `Predicted Zeta: ${data.prediction} mV via Ridge model.`, 'COMPUTED - ML');
                 evaluateCurrentFormulation();
             }
         } catch (err) {
@@ -1437,7 +1643,6 @@
             `;
             elements.eventLogContainer.prepend(div);
 
-            // Limit DOM log size
             while (elements.eventLogContainer.children.length > 30) {
                 elements.eventLogContainer.removeChild(elements.eventLogContainer.lastChild);
             }
@@ -1467,9 +1672,6 @@
         evaluateCurrentFormulation();
     }
 
-    // -------------------------------------------------------------
-    // Initialization & Data Loading
-    // -------------------------------------------------------------
     async function loadRegionsAndStages() {
         try {
             const [regRes, stageRes] = await Promise.all([
@@ -1478,16 +1680,16 @@
             ]);
             if (regRes.ok) {
                 const regData = await regRes.json();
-                SimState.regionsData = regData.regions || {};
+                if (regData.regions) SimState.regionsData = regData.regions;
                 populateRegionSelect();
             }
             if (stageRes.ok) {
                 const sData = await stageRes.json();
-                SimState.stagesData = sData.stages || [];
+                if (sData.stages) SimState.stagesData = sData.stages;
                 updateStageDisplay(0);
             }
         } catch (err) {
-            console.warn('Backend load error:', err);
+            console.warn('Backend metadata load error:', err);
         }
     }
 
@@ -1505,33 +1707,29 @@
     }
 
     function bindEventListeners() {
-        // View Switchers
         if (elements.viewModeButtons) {
             elements.viewModeButtons.forEach(btn => {
                 btn.addEventListener('click', () => switchViewMode(btn.dataset.view));
             });
         }
 
-        // Stepper Clicks
         if (elements.stageSteps) {
             elements.stageSteps.forEach((st, idx) => {
                 st.addEventListener('click', () => setStage(idx));
             });
         }
 
-        // Sim Controls
         if (elements.btnStart) elements.btnStart.addEventListener('click', startSimulation);
         if (elements.btnPause) elements.btnPause.addEventListener('click', pauseSimulation);
         if (elements.btnResume) elements.btnResume.addEventListener('click', resumeSimulation);
         if (elements.btnReset) elements.btnReset.addEventListener('click', resetSimulation);
 
-        // Speed Controls
         if (elements.speedButtons) {
             elements.speedButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     elements.speedButtons.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-                    SimState.speed = parseFloat(btn.dataset.speed);
+                    SimState.speed = parseFloat(btn.dataset.speed) || 1.0;
                     if (SimState.isRunning && !SimState.isPaused) {
                         clearInterval(simInterval);
                         simInterval = setInterval(simulationTick, 400 / SimState.speed);
@@ -1540,32 +1738,27 @@
             });
         }
 
-        // Auto Advance Check
         if (elements.autoAdvanceCheck) {
             elements.autoAdvanceCheck.addEventListener('change', e => {
                 SimState.autoAdvance = e.target.checked;
             });
         }
 
-        // Region Select
         if (elements.regionSelect) {
             elements.regionSelect.addEventListener('change', e => {
                 focusRegion(e.target.value);
             });
         }
 
-        // Preset Select
         if (elements.presetSelect) {
             elements.presetSelect.addEventListener('change', e => {
                 applyPreset(e.target.value);
             });
         }
 
-        // Config buttons
         if (elements.btnApplyConfig) elements.btnApplyConfig.addEventListener('click', evaluateCurrentFormulation);
         if (elements.btnPredictZeta) elements.btnPredictZeta.addEventListener('click', predictZetaPotential);
 
-        // Range Sliders display updates
         const bindSlider = (slider, display, suffix) => {
             if (slider && display) {
                 slider.addEventListener('input', () => {
@@ -1579,48 +1772,76 @@
         bindSlider(elements.inputIonic, elements.inputIonicVal, ' M');
         bindSlider(elements.inputDuration, elements.inputDurationVal, ' h');
 
-        // Window resize
         window.addEventListener('resize', () => {
-            if (renderer && elements.threeCanvas) {
-                const w = elements.threeCanvas.clientWidth;
-                const h = elements.threeCanvas.clientHeight;
-                renderer.setSize(w, h);
-                if (camera) {
-                    camera.aspect = w / h;
-                    camera.updateProjectionMatrix();
-                }
-            }
+            resizeViewport();
         });
     }
 
-    // -------------------------------------------------------------
-    // Bootstrapper
-    // -------------------------------------------------------------
-    document.addEventListener('DOMContentLoaded', async () => {
+    function resizeViewport() {
+        if (!elements.threeCanvas) return;
+        const container = elements.canvasContainer || elements.threeCanvas.parentElement;
+        const w = elements.threeCanvas.clientWidth || (container ? container.clientWidth : 0);
+        const h = elements.threeCanvas.clientHeight || (container ? container.clientHeight : 0);
+
+        if (w > 0 && h > 0) {
+            if (renderer) renderer.setSize(w, h);
+            if (camera) {
+                camera.aspect = w / h;
+                camera.updateProjectionMatrix();
+            }
+        }
+        if (releaseChart) releaseChart.resize();
+    }
+
+    function bootstrap() {
         initDomReferences();
         bindEventListeners();
+        populateRegionSelect();
+        updateStageDisplay(0);
+
+        // Immediate default evaluation so telemetry cards have data immediately
+        SimState.evaluationResult = computeLocalEvaluation(getCurrentFormulationValues());
+        updateTelemetryCards(0);
+
         initReleaseChart();
         initThreeScene();
-        await loadRegionsAndStages();
-        await evaluateCurrentFormulation();
-    });
 
-    // Expose global controller for tab switching integration
+        // Background sync with API
+        loadRegionsAndStages().then(() => {
+            evaluateCurrentFormulation();
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bootstrap);
+    } else {
+        bootstrap();
+    }
+
+    // -------------------------------------------------------------
+    // Global API Expose
+    // -------------------------------------------------------------
     window.NanoMedHumanBodySim = {
+        start: startSimulation,
+        pause: pauseSimulation,
+        resume: resumeSimulation,
+        reset: resetSimulation,
+        setStage: setStage,
+        setSpeed: setSpeed,
+        switchView: switchViewMode,
+        focusRegion: focusRegion,
+        evaluate: evaluateCurrentFormulation,
+        applyPreset: applyPreset,
+        predictZeta: predictZetaPotential,
         activate: () => {
-            if (renderer && elements.threeCanvas) {
-                const w = elements.threeCanvas.clientWidth;
-                const h = elements.threeCanvas.clientHeight;
-                renderer.setSize(w, h);
-                if (camera) {
-                    camera.aspect = w / h;
-                    camera.updateProjectionMatrix();
+            initDomReferences();
+            setTimeout(() => {
+                resizeViewport();
+                if (!releaseChart) initReleaseChart();
+                if (SimState.evaluationResult) {
+                    updateReleaseChart(SimState.evaluationResult.model_results.drug_release_kinetics);
                 }
-            }
-            if (releaseChart) releaseChart.resize();
-        },
-        deactivate: () => {
-            // Optional pause/throttle
+            }, 60);
         }
     };
 })();

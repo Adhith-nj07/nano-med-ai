@@ -794,35 +794,35 @@
                     <div class="hbs-stepper-progress-bg">
                         <div class="hbs-stepper-progress-fill" id="hbs-stage-progress-bar"></div>
                     </div>
-                    <button class="hbs-stage-step active" data-stage="0" title="Stage 1: Administration">
+                    <button class="hbs-stage-step active" data-stage="0" title="Stage 1: Administration" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.setStage(0)">
                         <div class="hbs-step-circle">1</div>
                         <div class="hbs-step-label">💉 Administration</div>
                     </button>
-                    <button class="hbs-stage-step" data-stage="1" title="Stage 2: Circulation">
+                    <button class="hbs-stage-step" data-stage="1" title="Stage 2: Circulation" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.setStage(1)">
                         <div class="hbs-step-circle">2</div>
                         <div class="hbs-step-label">🩸 Circulation</div>
                     </button>
-                    <button class="hbs-stage-step" data-stage="2" title="Stage 3: Protein Corona">
+                    <button class="hbs-stage-step" data-stage="2" title="Stage 3: Protein Corona" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.setStage(2)">
                         <div class="hbs-step-circle">3</div>
                         <div class="hbs-step-label">🛡️ Protein Corona</div>
                     </button>
-                    <button class="hbs-stage-step" data-stage="3" title="Stage 4: Target Tissue">
+                    <button class="hbs-stage-step" data-stage="3" title="Stage 4: Target Tissue" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.setStage(3)">
                         <div class="hbs-step-circle">4</div>
                         <div class="hbs-step-label">🎯 Target Tissue</div>
                     </button>
-                    <button class="hbs-stage-step" data-stage="4" title="Stage 5: Cellular Uptake">
+                    <button class="hbs-stage-step" data-stage="4" title="Stage 5: Cellular Uptake" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.setStage(4)">
                         <div class="hbs-step-circle">5</div>
                         <div class="hbs-step-label">🧫 Cellular Uptake</div>
                     </button>
-                    <button class="hbs-stage-step" data-stage="5" title="Stage 6: Drug Release">
+                    <button class="hbs-stage-step" data-stage="5" title="Stage 6: Drug Release" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.setStage(5)">
                         <div class="hbs-step-circle">6</div>
                         <div class="hbs-step-label">💊 Drug Release</div>
                     </button>
-                    <button class="hbs-stage-step" data-stage="6" title="Stage 7: Cytotoxicity">
+                    <button class="hbs-stage-step" data-stage="6" title="Stage 7: Cytotoxicity" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.setStage(6)">
                         <div class="hbs-step-circle">7</div>
                         <div class="hbs-step-label">⚠️ Cytotoxicity</div>
                     </button>
-                    <button class="hbs-stage-step" data-stage="7" title="Stage 8: Clearance">
+                    <button class="hbs-stage-step" data-stage="7" title="Stage 8: Clearance" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.setStage(7)">
                         <div class="hbs-step-circle">8</div>
                         <div class="hbs-step-label">🧹 Clearance</div>
                     </button>
@@ -830,19 +830,19 @@
 
                 <div class="hbs-controls-bar">
                     <div class="hbs-btn-group">
-                        <button id="hbs-btn-start" class="btn btn-primary">▶ START JOURNEY</button>
-                        <button id="hbs-btn-pause" class="btn btn-secondary" disabled>⏸ PAUSE</button>
-                        <button id="hbs-btn-resume" class="btn btn-secondary" disabled>▶ RESUME</button>
-                        <button id="hbs-btn-reset" class="btn btn-secondary">🔄 RESET</button>
+                        <button id="hbs-btn-start" class="btn btn-primary" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.start()">▶ START JOURNEY</button>
+                        <button id="hbs-btn-pause" class="btn btn-secondary" disabled onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.pause()">⏸ PAUSE</button>
+                        <button id="hbs-btn-resume" class="btn btn-secondary" disabled onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.resume()">▶ RESUME</button>
+                        <button id="hbs-btn-reset" class="btn btn-secondary" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.reset()">🔄 RESET</button>
                     </div>
 
                     <div style="display:flex; gap:1.2rem; align-items:center; flex-wrap:wrap;">
                         <div class="hbs-speed-group">
                             <span style="font-size:0.7rem; color:var(--text-muted); margin-right:0.2rem;">SPEED:</span>
-                            <button class="hbs-speed-btn" data-speed="0.5">0.5x</button>
-                            <button class="hbs-speed-btn active" data-speed="1.0">1.0x</button>
-                            <button class="hbs-speed-btn" data-speed="2.0">2.0x</button>
-                            <button class="hbs-speed-btn" data-speed="5.0">5.0x</button>
+                            <button class="hbs-speed-btn" data-speed="0.5" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.setSpeed(0.5)">0.5x</button>
+                            <button class="hbs-speed-btn active" data-speed="1.0" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.setSpeed(1.0)">1.0x</button>
+                            <button class="hbs-speed-btn" data-speed="2.0" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.setSpeed(2.0)">2.0x</button>
+                            <button class="hbs-speed-btn" data-speed="5.0" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.setSpeed(5.0)">5.0x</button>
                         </div>
 
                         <label class="hbs-auto-advance-label">
@@ -859,10 +859,10 @@
                 <div class="hbs-canvas-card">
                     <div class="hbs-canvas-toolbar">
                         <div class="hbs-view-switcher">
-                            <button class="hbs-view-btn active" data-view="body">🫀 Human Body (3D)</button>
-                            <button class="hbs-view-btn" data-view="vessel">🩸 Capillary Flow</button>
-                            <button class="hbs-view-btn" data-view="cellular">🧫 Cellular Uptake</button>
-                            <button class="hbs-view-btn" data-view="release">💊 NP Release</button>
+                            <button class="hbs-view-btn active" data-view="body" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.switchView('body')">🫀 Human Body (3D)</button>
+                            <button class="hbs-view-btn" data-view="vessel" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.switchView('vessel')">🩸 Capillary Flow</button>
+                            <button class="hbs-view-btn" data-view="cellular" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.switchView('cellular')">🧫 Cellular Uptake</button>
+                            <button class="hbs-view-btn" data-view="release" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.switchView('release')">💊 NP Release</button>
                         </div>
                         <span class="hbs-canvas-stage-badge" id="hbs-hud-stage-badge">STAGE 1: ADMINISTRATION</span>
                     </div>
@@ -905,7 +905,7 @@
                             <span class="badge badge-blue" id="hbs-region-nature-badge">ESTABLISHED ANATOMICAL KNOWLEDGE</span>
                         </div>
                         <div class="hbs-region-selector-row">
-                            <select id="hbs-region-select" class="demo-select">
+                            <select id="hbs-region-select" class="demo-select" onchange="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.focusRegion(this.value)">
                                 <option value="bloodstream">Bloodstream &amp; Systemic Circulation</option>
                                 <option value="liver">Liver (Hepatic Reticuloendothelial System)</option>
                                 <option value="kidneys">Kidneys (Renal Glomerular Filtration)</option>
@@ -963,7 +963,7 @@
 
                     <div style="margin-bottom:0.8rem;">
                         <label class="form-label" style="font-size:0.72rem; color:var(--text-secondary);">Benchmark Formulation Preset:</label>
-                        <select id="hbs-preset-select" class="demo-select">
+                        <select id="hbs-preset-select" class="demo-select" onchange="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.applyPreset(this.value)">
                             <option value="plga-paclitaxel" selected>PLGA + Paclitaxel (Oncology Benchmark)</option>
                             <option value="doxorubicin-liposome">PEGylated Liposome + Doxorubicin (Doxil Analog)</option>
                             <option value="mrna-lnp">mRNA Lipid Nanoparticle (LNP Formulation)</option>
@@ -1009,7 +1009,7 @@
                             <label class="form-label">Surface Zeta (mV)</label>
                             <div style="display:flex; gap:0.3rem;">
                                 <input type="number" id="hbs-cfg-zeta" class="text-input" value="-24.5" step="0.5" style="flex:1;">
-                                <button id="hbs-btn-predict-zeta" class="btn btn-secondary" style="font-size:0.68rem; padding:0.3rem 0.5rem;" title="Predict Zeta potential via ML Ridge Regressor">⚡ ML</button>
+                                <button id="hbs-btn-predict-zeta" class="btn btn-secondary" style="font-size:0.68rem; padding:0.3rem 0.5rem;" title="Predict Zeta potential via ML Ridge Regressor" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.predictZeta()">⚡ ML</button>
                             </div>
                         </div>
                         <div class="form-group">
@@ -1104,7 +1104,7 @@
                     </div>
 
                     <div style="margin-top:1rem;">
-                        <button id="hbs-btn-apply-config" class="btn btn-primary" style="width:100%;">
+                        <button id="hbs-btn-apply-config" class="btn btn-primary" style="width:100%;" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.evaluate()">
                             Apply &amp; Evaluate Formulation
                         </button>
                     </div>
