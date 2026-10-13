@@ -883,13 +883,51 @@
                                     <strong id="hbs-hud-time-badge" style="font-family:var(--font-mono);">0.0 hrs</strong>
                                 </div>
                             </div>
+
+                            <!-- Floating 3D Navigation Controls Widget -->
+                            <div class="hbs-3d-gizmo">
+                                <div class="hbs-gizmo-modes">
+                                    <button id="hbs-btn-mode-orbit" class="hbs-gizmo-mode-btn active" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.setControlMode('orbit')" title="Orbit / Rotate View (Left Drag)">
+                                        🔄 Rotate
+                                    </button>
+                                    <button id="hbs-btn-mode-pan" class="hbs-gizmo-mode-btn" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.setControlMode('pan')" title="Pan / Move View (Right Drag or Shift+Drag)">
+                                        ✛ Move
+                                    </button>
+                                </div>
+                                <div class="hbs-gizmo-cluster">
+                                    <button class="hbs-gizmo-tool-btn hbs-pad-up" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.nudgeCamera(0, 1)" title="Tilt / Move Up">▲</button>
+                                    <div class="hbs-pad-row">
+                                        <button class="hbs-gizmo-tool-btn hbs-pad-left" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.nudgeCamera(-1, 0)" title="Rotate / Pan Left">◀</button>
+                                        <button class="hbs-gizmo-tool-btn hbs-pad-center" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.resetCamera()" title="Center & Reset View">🎯</button>
+                                        <button class="hbs-gizmo-tool-btn hbs-pad-right" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.nudgeCamera(1, 0)" title="Rotate / Pan Right">▶</button>
+                                    </div>
+                                    <button class="hbs-gizmo-tool-btn hbs-pad-down" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.nudgeCamera(0, -1)" title="Tilt / Move Down">▼</button>
+                                </div>
+                                <div class="hbs-gizmo-actions">
+                                    <div style="display:flex; gap:0.25rem; width:100%;">
+                                        <button class="hbs-gizmo-action-btn" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.zoomCamera(0.85)" title="Zoom In (Scroll Up)" style="flex:1;">
+                                            ➕ In
+                                        </button>
+                                        <button class="hbs-gizmo-action-btn" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.zoomCamera(1.18)" title="Zoom Out (Scroll Down)" style="flex:1;">
+                                            ➖ Out
+                                        </button>
+                                    </div>
+                                    <button id="hbs-btn-autorotate" class="hbs-gizmo-action-btn" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.toggleAutoRotate()" title="Cinematic 360° Auto-Spin">
+                                        🪐 Auto-Spin: OFF
+                                    </button>
+                                    <button class="hbs-gizmo-action-btn" onclick="window.NanoMedHumanBodySim && window.NanoMedHumanBodySim.resetCamera()" title="Reset Camera View to Default">
+                                        🔄 Reset View
+                                    </button>
+                                </div>
+                            </div>
+
                             <div class="hbs-hud-bottom">
                                 <div class="hbs-hud-pill">
                                     <span style="color:#10b981;">● CIRCULATING:</span>
                                     <strong id="hbs-hud-particles-badge" style="font-family:var(--font-mono);">180 NPs / mL</strong>
                                 </div>
-                                <div class="hbs-hud-instruction">
-                                    🖱️ Drag to rotate • Scroll to zoom • Select anatomical organ
+                                <div class="hbs-hud-instruction" id="hbs-hud-instruction">
+                                    🖱️ Left Drag: Rotate • Right / Shift Drag: Move • Scroll: Zoom • Or use on-screen controls
                                 </div>
                             </div>
                         </div>

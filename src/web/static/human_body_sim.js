@@ -605,8 +605,19 @@
     let organMarkers = {};
     let membraneVesicle = null;
     let coreMesh = null;
+    let heartMesh = null;
+    let heartPulseTime = 0;
+    let clathrinBasket = null;
+    let aorticCurve = null;
+    let venaCavaCurve = null;
 
+    // -------------------------------------------------------------
+    // 3D Camera & Interactive Navigation State
+    // -------------------------------------------------------------
+    let controlMode = 'orbit'; // 'orbit' or 'pan'
+    let autoRotate = false;
     let isDragging = false;
+    let isPanning = false;
     let prevMouseX = 0;
     let prevMouseY = 0;
     let spherical = { radius: 140, theta: Math.PI / 2, phi: Math.PI / 2 };
@@ -646,16 +657,27 @@
             updateCameraPosition();
 
             // Lighting Setup
-            const ambient = new THREE.AmbientLight(0xffffff, 0.7);
+            const ambient = new THREE.AmbientLight(0xffffff, 0.65);
             scene.add(ambient);
 
-            const dirLight1 = new THREE.DirectionalLight(0x22d3ee, 1.2);
-            dirLight1.position.set(50, 80, 70);
+            const dirLight1 = new THREE.DirectionalLight(0x22d3ee, 1.3);
+            dirLight1.position.set(50, 90, 70);
             scene.add(dirLight1);
 
-            const dirLight2 = new THREE.DirectionalLight(0x7c3aed, 0.9);
+            const dirLight2 = new THREE.DirectionalLight(0xa855f7, 0.95);
             dirLight2.position.set(-60, -40, 50);
             scene.add(dirLight2);
+
+            const dirLight3 = new THREE.DirectionalLight(0xf59e0b, 0.5);
+            dirLight3.position.set(0, 50, -60);
+            scene.add(dirLight3);
+
+            // Ground Holographic Grid for spatial depth
+            const grid = new THREE.GridHelper(180, 24, 0x22d3ee, 0x1e1b4b);
+            grid.position.y = -62;
+            grid.material.opacity = 0.22;
+            grid.material.transparent = true;
+            scene.add(grid);
 
             // Sub-Scene Groups
             sceneBody = new THREE.Group();
@@ -709,14 +731,28 @@
         camera.lookAt(cameraTarget.x, cameraTarget.y, cameraTarget.z);
     }
 
+    // -------------------------------------------------------------
+    // Comprehensive 3D Navigation Controls (Rotate & Move / Pan)
+    // -------------------------------------------------------------
     function setupControls(canvas) {
+        canvas.style.cursor = 'grab';
+
+        canvas.addEventListener('contextmenu', e => e.preventDefault());
+
         canvas.addEventListener('mousedown', e => {
             isDragging = true;
             prevMouseX = e.clientX;
             prevMouseY = e.clientY;
+
+            // Pan if right-click, middle-click, Shift key held, or in 'pan' mode
+            isPanning = (e.button === 2 || e.button === 1 || e.shiftKey || controlMode === 'pan');
+            canvas.style.cursor = 'grabbing';
         });
 
-        window.addEventListener('mouseup', () => { isDragging = false; });
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            canvas.style.cursor = controlMode === 'pan' ? 'move' : 'grab';
+        });
 
         window.addEventListener('mousemove', e => {
             if (!isDragging) return;
@@ -725,139 +761,486 @@
             prevMouseX = e.clientX;
             prevMouseY = e.clientY;
 
-            spherical.theta -= deltaX * 0.008;
-            spherical.phi = Math.max(0.1, Math.min(Math.PI - 0.1, spherical.phi - deltaY * 0.008));
+            if (isPanning) {
+                // Pan / Move camera target in local camera plane
+                panCameraTarget(-deltaX, deltaY);
+            } else {
+                // Orbit / Rotate camera horizontally and vertically
+                spherical.theta -= deltaX * 0.008;
+                spherical.phi = Math.max(0.05, Math.min(Math.PI - 0.05, spherical.phi - deltaY * 0.008));
+            }
         });
 
         canvas.addEventListener('wheel', e => {
             e.preventDefault();
-            desiredRadius = Math.max(30, Math.min(300, desiredRadius + e.deltaY * 0.15));
+            desiredRadius = Math.max(15, Math.min(320, desiredRadius + e.deltaY * 0.12));
         }, { passive: false });
 
+        // Touch support: 1 finger orbit/pan, 2 fingers pinch-to-zoom & two-finger pan
         let touchStartDist = 0;
+        let touchMidX = 0;
+        let touchMidY = 0;
+
         canvas.addEventListener('touchstart', e => {
             if (e.touches.length === 1) {
                 isDragging = true;
+                isPanning = (controlMode === 'pan');
                 prevMouseX = e.touches[0].clientX;
                 prevMouseY = e.touches[0].clientY;
             } else if (e.touches.length === 2) {
+                isDragging = false;
                 touchStartDist = Math.hypot(
                     e.touches[0].clientX - e.touches[1].clientX,
                     e.touches[0].clientY - e.touches[1].clientY
                 );
+                touchMidX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+                touchMidY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
             }
-        });
+        }, { passive: false });
 
         canvas.addEventListener('touchmove', e => {
             if (e.touches.length === 1 && isDragging) {
+                e.preventDefault();
                 const deltaX = e.touches[0].clientX - prevMouseX;
                 const deltaY = e.touches[0].clientY - prevMouseY;
                 prevMouseX = e.touches[0].clientX;
                 prevMouseY = e.touches[0].clientY;
-                spherical.theta -= deltaX * 0.01;
-                spherical.phi = Math.max(0.1, Math.min(Math.PI - 0.1, spherical.phi - deltaY * 0.01));
+
+                if (isPanning) {
+                    panCameraTarget(-deltaX, deltaY);
+                } else {
+                    spherical.theta -= deltaX * 0.01;
+                    spherical.phi = Math.max(0.05, Math.min(Math.PI - 0.05, spherical.phi - deltaY * 0.01));
+                }
             } else if (e.touches.length === 2) {
+                e.preventDefault();
                 const dist = Math.hypot(
                     e.touches[0].clientX - e.touches[1].clientX,
                     e.touches[0].clientY - e.touches[1].clientY
                 );
-                desiredRadius = Math.max(30, Math.min(300, desiredRadius - (dist - touchStartDist) * 0.4));
+                desiredRadius = Math.max(15, Math.min(320, desiredRadius - (dist - touchStartDist) * 0.35));
                 touchStartDist = dist;
+
+                const curMidX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+                const curMidY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+                panCameraTarget(curMidX - touchMidX, curMidY - touchMidY);
+                touchMidX = curMidX;
+                touchMidY = curMidY;
             }
-        });
+        }, { passive: false });
 
         canvas.addEventListener('touchend', () => { isDragging = false; });
+
+        // Keyboard navigation
+        window.addEventListener('keydown', e => {
+            if (document.activeElement && ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
+            if (e.key === 'ArrowLeft') { nudgeCamera(-1, 0); }
+            else if (e.key === 'ArrowRight') { nudgeCamera(1, 0); }
+            else if (e.key === 'ArrowUp') { nudgeCamera(0, 1); }
+            else if (e.key === 'ArrowDown') { nudgeCamera(0, -1); }
+            else if (e.key === '+' || e.key === '=') { zoomCamera(0.85); }
+            else if (e.key === '-' || e.key === '_') { zoomCamera(1.18); }
+            else if (e.key === 'r' || e.key === 'R') { resetCamera(); }
+            else if (e.key === ' ') { e.preventDefault(); toggleAutoRotate(); }
+        });
     }
 
+    function panCameraTarget(deltaX, deltaY) {
+        if (!camera) return;
+        const forward = new THREE.Vector3().subVectors(cameraTarget, camera.position).normalize();
+        const right = new THREE.Vector3().crossVectors(forward, camera.up).normalize();
+        const up = new THREE.Vector3().crossVectors(right, forward).normalize();
+        const panFactor = desiredRadius * 0.0018;
+
+        desiredTarget.x += (right.x * deltaX + up.x * deltaY) * panFactor;
+        desiredTarget.y += (right.y * deltaX + up.y * deltaY) * panFactor;
+        desiredTarget.z += (right.z * deltaX + up.z * deltaY) * panFactor;
+    }
+
+    function setControlMode(mode) {
+        controlMode = mode;
+        const btnOrbit = document.getElementById('hbs-btn-mode-orbit');
+        const btnPan = document.getElementById('hbs-btn-mode-pan');
+        if (btnOrbit) btnOrbit.classList.toggle('active', mode === 'orbit');
+        if (btnPan) btnPan.classList.toggle('active', mode === 'pan');
+
+        if (elements.threeCanvas) {
+            elements.threeCanvas.style.cursor = mode === 'pan' ? 'move' : 'grab';
+        }
+        const instr = document.getElementById('hbs-hud-instruction');
+        if (instr) {
+            instr.textContent = mode === 'pan' ?
+                '✋ MOVE MODE: Drag to pan camera • Use D-Pad or switch to Rotate' :
+                '🔄 ROTATE MODE: Drag to orbit • Right/Shift Drag: Pan • Scroll: Zoom';
+        }
+    }
+
+    function nudgeCamera(dirX, dirY) {
+        if (controlMode === 'pan') {
+            panCameraTarget(dirX * 22, dirY * 22);
+        } else {
+            spherical.theta += dirX * 0.18;
+            spherical.phi = Math.max(0.05, Math.min(Math.PI - 0.05, spherical.phi - dirY * 0.18));
+        }
+    }
+
+    function zoomCamera(factor) {
+        desiredRadius = Math.max(15, Math.min(320, desiredRadius * factor));
+    }
+
+    function toggleAutoRotate() {
+        autoRotate = !autoRotate;
+        const btn = document.getElementById('hbs-btn-autorotate');
+        if (btn) {
+            btn.classList.toggle('active', autoRotate);
+            btn.textContent = autoRotate ? '🪐 Auto-Spin: ON' : '🪐 Auto-Spin: OFF';
+        }
+    }
+
+    function resetCamera() {
+        if (SimState.activeViewMode === 'body') {
+            desiredTarget = { x: 0, y: 0, z: 0 };
+            desiredRadius = 140;
+            spherical.theta = Math.PI / 2;
+            spherical.phi = Math.PI / 2;
+        } else if (SimState.activeViewMode === 'vessel') {
+            desiredTarget = { x: 0, y: 0, z: 0 };
+            desiredRadius = 70;
+            spherical.theta = Math.PI / 2.5;
+            spherical.phi = Math.PI / 2.2;
+        } else if (SimState.activeViewMode === 'cellular') {
+            desiredTarget = { x: 0, y: -12, z: 0 };
+            desiredRadius = 65;
+            spherical.theta = Math.PI / 2;
+            spherical.phi = Math.PI / 2.4;
+        } else if (SimState.activeViewMode === 'release') {
+            desiredTarget = { x: 0, y: 0, z: 0 };
+            desiredRadius = 55;
+            spherical.theta = Math.PI / 2;
+            spherical.phi = Math.PI / 2;
+        }
+    }
+
+    // -------------------------------------------------------------
+    // Parametric Biconcave Erythrocyte (RBC) Geometry
+    // -------------------------------------------------------------
+    function createBiconcaveRbcGeometry() {
+        const points = [];
+        const R = 3.6;
+        const segments = 16;
+        for (let i = 0; i <= segments; i++) {
+            const r = (i / segments) * R;
+            const x = r / R;
+            // Evans-Fung parametric biconcave thickness equation:
+            // h(x) = D * sqrt(1 - x^2) * (c0 + c1 * x^2 + c2 * x^4)
+            const h = 1.15 * Math.sqrt(Math.max(0, 1.0 - x * x)) * (0.18 + 1.15 * x * x - 0.42 * x * x * x * x);
+            points.push(new THREE.Vector2(r, Math.max(0.15, h)));
+        }
+        return new THREE.LatheGeometry(points, 22);
+    }
+
+    // -------------------------------------------------------------
+    // High-Fidelity Anatomical 3D Models (Scientifically Authentic)
+    // -------------------------------------------------------------
     function buildHumanBodyModel() {
-        const matWire = new THREE.MeshBasicMaterial({
+        // Materials with Cyber-Glass holographic aesthetic
+        const matWireCyan = new THREE.MeshBasicMaterial({
             color: 0x38bdf8,
             wireframe: true,
             transparent: true,
-            opacity: 0.16
+            opacity: 0.22
+        });
+        const matBone = new THREE.MeshStandardMaterial({
+            color: 0xe2e8f0,
+            roughness: 0.5,
+            metalness: 0.1,
+            transparent: true,
+            opacity: 0.45
+        });
+        const matGhost = new THREE.MeshBasicMaterial({
+            color: 0x22d3ee,
+            transparent: true,
+            opacity: 0.08,
+            wireframe: false,
+            side: THREE.DoubleSide
         });
 
-        const head = new THREE.Mesh(new THREE.SphereGeometry(7.5, 18, 18), matWire);
-        head.position.set(0, 48, 0);
-        sceneBody.add(head);
+        // 1. Organic Head & Cranium with Internal Bioluminescent Brain
+        const headGroup = new THREE.Group();
+        headGroup.position.set(0, 48, 0);
 
-        const neck = new THREE.Mesh(new THREE.CylinderGeometry(3.5, 4.2, 7, 14), matWire);
-        neck.position.set(0, 41, 0);
-        sceneBody.add(neck);
+        const cranium = new THREE.Mesh(new THREE.SphereGeometry(7.6, 22, 22), matWireCyan);
+        cranium.scale.set(0.95, 1.05, 1.0);
+        headGroup.add(cranium);
 
-        const chest = new THREE.Mesh(new THREE.CylinderGeometry(14, 11, 24, 18), matWire);
-        chest.position.set(0, 27, 0);
-        chest.scale.set(1.15, 1, 0.65);
-        sceneBody.add(chest);
+        const brain = new THREE.Mesh(
+            new THREE.SphereGeometry(5.2, 16, 16),
+            new THREE.MeshStandardMaterial({
+                color: 0xa855f7,
+                emissive: 0x7e22ce,
+                emissiveIntensity: 0.5,
+                roughness: 0.6,
+                transparent: true,
+                opacity: 0.75
+            })
+        );
+        brain.position.set(0, 1.2, -0.4);
+        brain.scale.set(0.9, 0.85, 1.1);
+        headGroup.add(brain);
 
-        const abdomen = new THREE.Mesh(new THREE.CylinderGeometry(11, 12, 18, 18), matWire);
-        abdomen.position.set(0, 7, 0);
-        abdomen.scale.set(1.1, 1, 0.7);
-        sceneBody.add(abdomen);
+        const jaw = new THREE.Mesh(new THREE.ConeGeometry(3.6, 5.0, 12), matWireCyan);
+        jaw.position.set(0, -5.2, 1.4);
+        jaw.rotation.x = Math.PI;
+        headGroup.add(jaw);
 
+        sceneBody.add(headGroup);
+
+        // 2. Segmented Vertebral Spine (18 Discs from Neck to Pelvis)
+        const spineGroup = new THREE.Group();
+        for (let i = 0; i < 18; i++) {
+            const y = 41 - i * 2.5;
+            const disc = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.8, 1.2, 10), matBone);
+            disc.position.set(0, y, -1.8 + Math.sin(i * 0.35) * 0.8);
+            spineGroup.add(disc);
+        }
+        sceneBody.add(spineGroup);
+
+        // 3. Anatomical Thoracic Rib Cage (10 Curved Rib Pairs)
+        const ribGroup = new THREE.Group();
+        for (let i = 0; i < 10; i++) {
+            const y = 37 - i * 1.8;
+            const spread = 8.5 + Math.sin((i / 10) * Math.PI) * 5.5;
+            [-1, 1].forEach(side => {
+                const ribCurve = new THREE.CatmullRomCurve3([
+                    new THREE.Vector3(0, y, -1.8),
+                    new THREE.Vector3(side * (spread * 0.7), y + 0.4, -1.0),
+                    new THREE.Vector3(side * spread, y - 0.5, 1.2),
+                    new THREE.Vector3(side * (spread * 0.5), y - 1.2, 3.4),
+                    new THREE.Vector3(side * 0.8, y - 1.5, 3.8) // sternal junction
+                ]);
+                const ribTube = new THREE.Mesh(
+                    new THREE.TubeGeometry(ribCurve, 16, 0.45, 6, false),
+                    matWireCyan
+                );
+                ribGroup.add(ribTube);
+            });
+        }
+
+        // Sternum (Chest Bone)
+        const sternum = new THREE.Mesh(new THREE.BoxGeometry(1.6, 15, 0.8), matBone);
+        sternum.position.set(0, 28, 4.0);
+        ribGroup.add(sternum);
+        sceneBody.add(ribGroup);
+
+        // 4. Clavicles & Pelvic Girdle
         [-1, 1].forEach(side => {
-            const armUpper = new THREE.Mesh(new THREE.CylinderGeometry(3, 2.5, 22, 12), matWire);
-            armUpper.position.set(side * 18, 25, 0);
-            armUpper.rotation.z = side * 0.15;
+            const clavicle = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 0.8, 14, 8), matBone);
+            clavicle.position.set(side * 7.5, 38, 1.6);
+            clavicle.rotation.z = side * 1.35;
+            clavicle.rotation.y = side * 0.25;
+            sceneBody.add(clavicle);
+        });
+
+        const pelvis = new THREE.Mesh(new THREE.TorusGeometry(8.5, 2.2, 8, 16, Math.PI), matBone);
+        pelvis.position.set(0, -6, 0);
+        pelvis.rotation.x = Math.PI / 2;
+        sceneBody.add(pelvis);
+
+        // 5. Contoured Limbs with Natural Joints
+        [-1, 1].forEach(side => {
+            // Upper Arm & Forearm
+            const armUpper = new THREE.Mesh(new THREE.CylinderGeometry(2.6, 2.1, 20, 12), matWireCyan);
+            armUpper.position.set(side * 17.5, 26, 0);
+            armUpper.rotation.z = side * 0.16;
             sceneBody.add(armUpper);
 
-            const armLower = new THREE.Mesh(new THREE.CylinderGeometry(2.5, 2, 22, 12), matWire);
+            const elbow = new THREE.Mesh(new THREE.SphereGeometry(2.3, 10, 10), matBone);
+            elbow.position.set(side * 19.2, 15, 0);
+            sceneBody.add(elbow);
+
+            const armLower = new THREE.Mesh(new THREE.CylinderGeometry(2.1, 1.6, 20, 12), matWireCyan);
             armLower.position.set(side * 22, 5, 0);
             armLower.rotation.z = side * 0.08;
             sceneBody.add(armLower);
 
-            const thigh = new THREE.Mesh(new THREE.CylinderGeometry(5.2, 4, 30, 14), matWire);
-            thigh.position.set(side * 7, -18, 0);
+            // Femur Thigh & Tibia Lower Leg
+            const thigh = new THREE.Mesh(new THREE.CylinderGeometry(4.8, 3.6, 28, 14), matWireCyan);
+            thigh.position.set(side * 6.8, -18, 0);
             sceneBody.add(thigh);
 
-            const calf = new THREE.Mesh(new THREE.CylinderGeometry(3.8, 2.8, 32, 14), matWire);
-            calf.position.set(side * 7.5, -48, 0);
+            const knee = new THREE.Mesh(new THREE.SphereGeometry(3.5, 12, 12), matBone);
+            knee.position.set(side * 7.0, -32, 0.4);
+            sceneBody.add(knee);
+
+            const calf = new THREE.Mesh(new THREE.CylinderGeometry(3.5, 2.5, 28, 14), matWireCyan);
+            calf.position.set(side * 7.2, -47, 0);
             sceneBody.add(calf);
         });
 
+        // Torso Translucent Hull for organic silhouette
+        const torsoHull = new THREE.Mesh(new THREE.CylinderGeometry(13.5, 11, 38, 22), matGhost);
+        torsoHull.position.set(0, 18, 0);
+        torsoHull.scale.set(1.15, 1, 0.65);
+        sceneBody.add(torsoHull);
+
+        // 6. Cardiovascular Architecture (Pulsing Heart & Systemic Vessel Trees)
         const arteryMat = new THREE.MeshStandardMaterial({
             color: 0xef4444,
-            emissive: 0x991b1b,
+            emissive: 0xdc2626,
+            emissiveIntensity: 0.65,
             roughness: 0.3,
-            metalness: 0.1
+            metalness: 0.2
         });
         const veinMat = new THREE.MeshStandardMaterial({
-            color: 0x3b82f6,
-            emissive: 0x1e3a8a,
+            color: 0x0284c7,
+            emissive: 0x0369a1,
+            emissiveIntensity: 0.55,
             roughness: 0.3,
-            metalness: 0.1
+            metalness: 0.2
         });
 
-        const createVesselTube = (points, mat, radius) => {
-            const curve = new THREE.CatmullRomCurve3(points.map(p => new THREE.Vector3(...p)));
-            const tubeGeo = new THREE.TubeGeometry(curve, 32, radius, 8, false);
-            const tubeMesh = new THREE.Mesh(tubeGeo, mat);
-            sceneBody.add(tubeMesh);
+        // 4-Chamber Anatomical Heart Mass
+        heartMesh = new THREE.Group();
+        heartMesh.position.set(0, 27, 2.6);
+
+        const leftVent = new THREE.Mesh(
+            new THREE.SphereGeometry(3.2, 16, 16),
+            new THREE.MeshStandardMaterial({ color: 0xb91c1c, emissive: 0x991b1b, emissiveIntensity: 0.7 })
+        );
+        leftVent.scale.set(1.1, 1.4, 0.9);
+        leftVent.position.set(-1.0, -1.0, 0);
+        heartMesh.add(leftVent);
+
+        const rightVent = new THREE.Mesh(
+            new THREE.SphereGeometry(2.8, 16, 16),
+            new THREE.MeshStandardMaterial({ color: 0x991b1b, emissive: 0x7f1d1d, emissiveIntensity: 0.6 })
+        );
+        rightVent.scale.set(1.0, 1.3, 0.85);
+        rightVent.position.set(1.2, -0.6, 0.2);
+        heartMesh.add(rightVent);
+
+        const atria = new THREE.Mesh(new THREE.SphereGeometry(2.4, 14, 14), arteryMat);
+        atria.position.set(0, 1.8, -0.2);
+        heartMesh.add(atria);
+        sceneBody.add(heartMesh);
+
+        // Systemic Arterial Highway (Ascending Aorta Arch & Bifurcations)
+        const createTube = (pts, mat, r) => {
+            const curve = new THREE.CatmullRomCurve3(pts.map(p => new THREE.Vector3(...p)));
+            const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 36, r, 8, false), mat);
+            sceneBody.add(tube);
             return curve;
         };
 
-        const vAorta = createVesselTube([
-            [0, 26, 2], [1.5, 31, 1.5], [1, 35, 0], [-1.2, 33, -1], [-1, 20, 0],
-            [-1, 5, 0], [-2, -5, 0], [-6, -18, 0], [-7, -46, 0]
-        ], arteryMat, 1.3);
+        aorticCurve = createTube([
+            [0, 28, 2.4], [1.8, 33, 1.8], [1.2, 36.5, 0], [-1.4, 34, -1.2],
+            [-1.2, 22, -0.8], [-1.0, 8, -0.8], [-1.4, -4, -0.5], [-5.2, -18, 0],
+            [-6.8, -32, 0], [-7.2, -50, 0]
+        ], arteryMat, 1.35);
 
-        const vVenaCava = createVesselTube([
-            [1.5, -46, 0], [2, -18, 0], [1, -5, 0], [1, 10, 0], [2, 26, 1],
-            [1.8, 38, 0], [0, 47, 0]
+        venaCavaCurve = createTube([
+            [1.8, -50, 0], [2.2, -32, 0], [1.8, -18, 0], [1.2, -4, 0],
+            [1.2, 10, 0], [2.2, 26, 1.2], [2.0, 37, 0], [0, 46, 0]
         ], veinMat, 1.4);
 
-        createVesselTube([[0, 28, 2], [-8, 28, 0]], arteryMat, 0.9);
-        createVesselTube([[0, 28, 2], [8, 28, 0]], arteryMat, 0.9);
-        createVesselTube([[-1, 34, 0], [-18, 26, 0], [-22, 6, 0]], arteryMat, 0.8);
-        createVesselTube([[1, 34, 0], [18, 26, 0], [22, 6, 0]], arteryMat, 0.8);
+        // Branching Great Vessels: Carotids to brain & Subclavians to arms
+        createTube([[-1.2, 36.5, 0], [-3.0, 44, 0.5], [-1.5, 50, 0]], arteryMat, 0.75); // L Carotid
+        createTube([[1.2, 36.5, 0], [3.0, 44, 0.5], [1.5, 50, 0]], arteryMat, 0.75);   // R Carotid
+        createTube([[-1.2, 35, 0], [-9, 32, 0], [-18, 25, 0], [-22, 6, 0]], arteryMat, 0.7); // L Subclavian
+        createTube([[1.2, 35, 0], [9, 32, 0], [18, 25, 0], [22, 6, 0]], arteryMat, 0.7);   // R Subclavian
+        createTube([[-1.4, -4, -0.5], [4.8, -18, 0], [6.8, -32, 0], [7.2, -50, 0]], arteryMat, 1.0); // R Iliac/Femoral
 
+        // 7. Anatomical Internal Organs
+        // Lungs: Left & Right Lobes with Branching Bronchial Trees
+        [-1, 1].forEach(side => {
+            const lung = new THREE.Mesh(
+                new THREE.SphereGeometry(4.8, 18, 18),
+                new THREE.MeshStandardMaterial({
+                    color: 0x0284c7,
+                    emissive: 0x0369a1,
+                    emissiveIntensity: 0.35,
+                    transparent: true,
+                    opacity: 0.55
+                })
+            );
+            lung.position.set(side * 6.8, 28, 0.8);
+            lung.scale.set(0.9, 1.6, 0.85);
+            sceneBody.add(lung);
+        });
+
+        // Liver (Hepatic Parenchyma Wedge)
+        const liverGeo = new THREE.ConeGeometry(5.8, 7.5, 16);
+        const liverMesh = new THREE.Mesh(
+            liverGeo,
+            new THREE.MeshStandardMaterial({
+                color: 0xf59e0b,
+                emissive: 0xd97706,
+                emissiveIntensity: 0.45,
+                transparent: true,
+                opacity: 0.78
+            })
+        );
+        liverMesh.position.set(4.6, 15, 1.8);
+        liverMesh.rotation.z = Math.PI / 1.8;
+        liverMesh.scale.set(1.1, 0.9, 0.8);
+        sceneBody.add(liverMesh);
+
+        // Kidneys (Bilateral Bean-shaped Renal Cortex)
+        [-1, 1].forEach(side => {
+            const kidney = new THREE.Mesh(
+                new THREE.SphereGeometry(2.5, 16, 16),
+                new THREE.MeshStandardMaterial({
+                    color: 0x10b981,
+                    emissive: 0x059669,
+                    emissiveIntensity: 0.45,
+                    transparent: true,
+                    opacity: 0.82
+                })
+            );
+            kidney.position.set(side * 4.6, 8, -1.8);
+            kidney.scale.set(0.75, 1.35, 0.85);
+            sceneBody.add(kidney);
+        });
+
+        // Target Tissue: Solid Tumor Mass with Angiogenic Neovascularization (EPR Effect)
+        const tumorGroup = new THREE.Group();
+        tumorGroup.position.set(-6.5, -12, 1.8);
+
+        const tumorCore = new THREE.Mesh(
+            new THREE.DodecahedronGeometry(3.6, 2),
+            new THREE.MeshStandardMaterial({
+                color: 0xf43f5e,
+                emissive: 0xbe123c,
+                emissiveIntensity: 0.8,
+                roughness: 0.6
+            })
+        );
+        tumorGroup.add(tumorCore);
+
+        // Chaotic tortuous tumor microvessels
+        for (let i = 0; i < 6; i++) {
+            const ang = (i / 6) * Math.PI * 2;
+            const neoCurve = new THREE.CatmullRomCurve3([
+                new THREE.Vector3(Math.cos(ang) * 4.2, Math.sin(ang) * 3.5, 0),
+                new THREE.Vector3(Math.cos(ang + 0.4) * 2.5, Math.sin(ang + 0.4) * 2.2, 1.2),
+                new THREE.Vector3(0, 0, 0)
+            ]);
+            const neoTube = new THREE.Mesh(
+                new THREE.TubeGeometry(neoCurve, 12, 0.35, 6, false),
+                new THREE.MeshStandardMaterial({ color: 0xfb7185, emissive: 0xe11d48 })
+            );
+            tumorGroup.add(neoTube);
+        }
+        sceneBody.add(tumorGroup);
+
+        // Interactive Organ Markers & Click Rings
         const organSpecs = [
-            { id: 'bloodstream', label: 'Heart & Aorta', pos: [0, 27, 3], color: 0xef4444, size: 3.5 },
-            { id: 'lungs', label: 'Pulmonary Bed', pos: [-7.5, 28, 1], color: 0x38bdf8, size: 4.2 },
-            { id: 'liver', label: 'Liver (RES)', pos: [4.5, 14, 2], color: 0xf59e0b, size: 4.5 },
-            { id: 'kidneys', label: 'Kidneys (Renal Filter)', pos: [-4.2, 8, -2], color: 0x10b981, size: 3.2 },
-            { id: 'target_tissue', label: 'Target Tissue (Tumor)', pos: [-6.5, -12, 2], color: 0xf43f5e, size: 3.8 },
-            { id: 'skin', label: 'Dermal Microvasculature', pos: [17, 18, 0], color: 0xa855f7, size: 2.8 },
+            { id: 'bloodstream', label: 'Heart & Aorta', pos: [0, 27, 3.2], color: 0xef4444, size: 3.6 },
+            { id: 'lungs', label: 'Pulmonary Bed', pos: [-7.2, 28, 1.2], color: 0x38bdf8, size: 4.2 },
+            { id: 'liver', label: 'Liver (RES)', pos: [4.8, 15, 2.0], color: 0xf59e0b, size: 4.5 },
+            { id: 'kidneys', label: 'Kidneys (Renal Filter)', pos: [-4.6, 8, -1.8], color: 0x10b981, size: 3.2 },
+            { id: 'target_tissue', label: 'Target Tissue (Tumor)', pos: [-6.5, -12, 2.0], color: 0xf43f5e, size: 4.0 },
+            { id: 'skin', label: 'Dermal Microvasculature', pos: [18, 18, 0], color: 0xa855f7, size: 2.8 },
             { id: 'cellular_environment', label: 'Endothelial Cell', pos: [2.5, 4, 1.5], color: 0x06b6d4, size: 2.5 }
         ];
 
@@ -866,23 +1249,23 @@
             group.position.set(...spec.pos);
 
             const sphere = new THREE.Mesh(
-                new THREE.SphereGeometry(spec.size, 20, 20),
+                new THREE.SphereGeometry(spec.size * 0.4, 16, 16),
                 new THREE.MeshStandardMaterial({
                     color: spec.color,
                     emissive: spec.color,
-                    emissiveIntensity: 0.45,
+                    emissiveIntensity: 0.6,
                     transparent: true,
-                    opacity: 0.82
+                    opacity: 0.9
                 })
             );
             group.add(sphere);
 
-            const ringGeo = new THREE.RingGeometry(spec.size * 1.15, spec.size * 1.35, 32);
+            const ringGeo = new THREE.RingGeometry(spec.size * 1.1, spec.size * 1.3, 32);
             const ringMat = new THREE.MeshBasicMaterial({
                 color: spec.color,
                 side: THREE.DoubleSide,
                 transparent: true,
-                opacity: 0.65
+                opacity: 0.7
             });
             const ring = new THREE.Mesh(ringGeo, ringMat);
             group.add(ring);
@@ -892,17 +1275,23 @@
             organMarkers[spec.id] = group;
         });
 
-        const npCount = 180;
-        const npGeo = new THREE.SphereGeometry(0.75, 8, 8);
-        const npMat = new THREE.MeshBasicMaterial({ color: 0x22d3ee });
+        // 8. Dynamic Flowing Nanoparticles Streaming Across Arteries
+        const npCount = 200;
+        const npGeo = new THREE.SphereGeometry(0.85, 10, 10);
+        const npMat = new THREE.MeshStandardMaterial({
+            color: 0x22d3ee,
+            emissive: 0x06b6d4,
+            emissiveIntensity: 0.9
+        });
 
         for (let i = 0; i < npCount; i++) {
             const mesh = new THREE.Mesh(npGeo, npMat);
+            const useAorta = (i % 3 !== 0);
             mesh.userData = {
                 t: Math.random(),
-                speed: 0.003 + Math.random() * 0.004,
-                curve: i % 2 === 0 ? vAorta : vVenaCava,
-                jitter: (Math.random() - 0.5) * 1.8
+                speed: 0.003 + Math.random() * 0.005,
+                curve: useAorta ? aorticCurve : venaCavaCurve,
+                jitter: (Math.random() - 0.5) * 1.5
             };
             sceneBody.add(mesh);
             nanoParticles.push(mesh);
@@ -910,14 +1299,15 @@
     }
 
     function buildBloodVesselModel() {
-        const vesselLength = 110;
+        const vesselLength = 120;
         const vesselRadius = 22;
 
+        // Outer Vascular Tunica Adventitia Wall
         const wallMat = new THREE.MeshStandardMaterial({
-            color: 0x991b1b,
+            color: 0x881337,
             side: THREE.BackSide,
             transparent: true,
-            opacity: 0.45,
+            opacity: 0.42,
             roughness: 0.6
         });
         const vesselCylinder = new THREE.Mesh(
@@ -927,34 +1317,55 @@
         vesselCylinder.rotation.z = Math.PI / 2;
         sceneVessel.add(vesselCylinder);
 
+        // Glycocalyx Layer & Endothelial Cell Monolayer
         const endoMat = new THREE.MeshStandardMaterial({
             color: 0xfca5a5,
             transparent: true,
-            opacity: 0.35,
+            opacity: 0.4,
             roughness: 0.8
         });
-        for (let i = 0; i < 28; i++) {
-            const theta = (i / 28) * Math.PI * 2;
-            const x = (Math.random() - 0.5) * vesselLength * 0.9;
-            const y = Math.cos(theta) * (vesselRadius - 0.6);
-            const z = Math.sin(theta) * (vesselRadius - 0.6);
 
-            const cellTile = new THREE.Mesh(new THREE.BoxGeometry(7, 0.8, 4), endoMat);
+        for (let i = 0; i < 34; i++) {
+            const theta = (i / 34) * Math.PI * 2;
+            const x = (Math.random() - 0.5) * vesselLength * 0.9;
+            const y = Math.cos(theta) * (vesselRadius - 0.5);
+            const z = Math.sin(theta) * (vesselRadius - 0.5);
+
+            const cellTile = new THREE.Mesh(new THREE.BoxGeometry(8, 0.8, 5), endoMat);
             cellTile.position.set(x, y, z);
             cellTile.rotation.x = theta;
             sceneVessel.add(cellTile);
         }
 
-        const rbcCount = 38;
+        // Trans-endothelial Fenestrations / EPR Pores (~150nm scaled gaps)
+        const poreMat = new THREE.MeshBasicMaterial({ color: 0x22d3ee, wireframe: true });
+        for (let i = 0; i < 6; i++) {
+            const pore = new THREE.Mesh(new THREE.TorusGeometry(3.2, 0.5, 8, 16), poreMat);
+            pore.position.set((i - 2.5) * 14, -vesselRadius + 0.6, 6);
+            pore.rotation.x = Math.PI / 2;
+            sceneVessel.add(pore);
+        }
+
+        // Extravascular Tumor Stroma Collagen Network outside vessel
+        const stromaMat = new THREE.MeshBasicMaterial({ color: 0xf43f5e, transparent: true, opacity: 0.2 });
+        for (let i = 0; i < 12; i++) {
+            const fiber = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 25, 6), stromaMat);
+            fiber.position.set((Math.random() - 0.5) * vesselLength * 0.8, -vesselRadius - 8, (Math.random() - 0.5) * 20);
+            fiber.rotation.set(Math.random(), Math.random(), Math.random());
+            sceneVessel.add(fiber);
+        }
+
+        // Parametric Biconcave Erythrocytes (RBCs)
+        const rbcGeo = createBiconcaveRbcGeometry();
         const rbcMat = new THREE.MeshStandardMaterial({
             color: 0xdc2626,
-            roughness: 0.3,
-            metalness: 0.1
+            roughness: 0.25,
+            metalness: 0.15
         });
 
+        const rbcCount = 42;
         for (let i = 0; i < rbcCount; i++) {
-            const rbcMesh = new THREE.Mesh(new THREE.CylinderGeometry(3.6, 3.6, 1.4, 20), rbcMat);
-            rbcMesh.scale.set(1, 0.7, 1);
+            const rbcMesh = new THREE.Mesh(rbcGeo, rbcMat);
             rbcMesh.position.set(
                 (Math.random() - 0.5) * vesselLength,
                 (Math.random() - 0.5) * (vesselRadius * 1.3),
@@ -962,93 +1373,139 @@
             );
             rbcMesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
             rbcMesh.userData = {
-                vx: 0.6 + Math.random() * 0.8,
-                rotSpeed: (Math.random() - 0.5) * 0.04
+                vx: 0.7 + Math.random() * 0.9,
+                rotSpeedX: (Math.random() - 0.5) * 0.04,
+                rotSpeedY: (Math.random() - 0.5) * 0.05
             };
             sceneVessel.add(rbcMesh);
             rbcParticles.push(rbcMesh);
         }
 
-        const npVesselCount = 75;
-        const npVesselMat = new THREE.MeshStandardMaterial({
+        // Circulating Nanoparticles with PEG Corona Halos
+        const npVesselCount = 85;
+        const npCoreMat = new THREE.MeshStandardMaterial({
             color: 0x22d3ee,
             emissive: 0x0891b2,
-            emissiveIntensity: 0.6
+            emissiveIntensity: 0.85
+        });
+        const npCoronaMat = new THREE.MeshBasicMaterial({
+            color: 0x38bdf8,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.45
         });
 
         for (let i = 0; i < npVesselCount; i++) {
-            const np = new THREE.Mesh(new THREE.SphereGeometry(1.2, 12, 12), npVesselMat);
-            np.position.set(
+            const npGroup = new THREE.Group();
+            const core = new THREE.Mesh(new THREE.SphereGeometry(1.2, 12, 12), npCoreMat);
+            const corona = new THREE.Mesh(new THREE.SphereGeometry(1.8, 8, 8), npCoronaMat);
+            npGroup.add(core);
+            npGroup.add(corona);
+
+            npGroup.position.set(
                 (Math.random() - 0.5) * vesselLength,
-                (Math.random() - 0.5) * (vesselRadius * 1.6),
-                (Math.random() - 0.5) * (vesselRadius * 1.6)
+                (Math.random() - 0.5) * (vesselRadius * 1.5),
+                (Math.random() - 0.5) * (vesselRadius * 1.5)
             );
-            np.userData = {
-                vx: 0.8 + Math.random() * 1.2,
+            npGroup.userData = {
+                vx: 0.9 + Math.random() * 1.3,
                 vy: (Math.random() - 0.5) * 0.2,
-                vz: (Math.random() - 0.5) * 0.2,
-                targetRadius: vesselRadius * (0.6 + Math.random() * 0.35)
+                vz: (Math.random() - 0.5) * 0.2
             };
-            sceneVessel.add(np);
-            nanoParticles.push(np);
+            sceneVessel.add(npGroup);
+            nanoParticles.push(npGroup);
         }
     }
 
     function buildCellularUptakeModel() {
-        const memGeo = new THREE.PlaneGeometry(90, 70, 32, 28);
-        const memMat = new THREE.MeshStandardMaterial({
-            color: 0x4f46e5,
-            emissive: 0x312e81,
-            side: THREE.DoubleSide,
-            transparent: true,
-            opacity: 0.75,
-            roughness: 0.5
-        });
-        const membrane = new THREE.Mesh(memGeo, memMat);
-        membrane.rotation.x = -Math.PI / 2.6;
-        membrane.position.set(0, -14, 0);
-        sceneCellular.add(membrane);
+        // 1. Dual-Layer Phospholipid Bilayer Array
+        const bilayerGroup = new THREE.Group();
+        const headGeo = new THREE.SphereGeometry(1.2, 8, 8);
+        const topHeadMat = new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x0891b2, emissiveIntensity: 0.4 });
+        const bottomHeadMat = new THREE.MeshStandardMaterial({ color: 0x4f46e5, emissive: 0x3730a3, emissiveIntensity: 0.3 });
 
-        const pitGeo = new THREE.SphereGeometry(11, 24, 24, 0, Math.PI * 2, 0, Math.PI / 1.8);
-        const pitMat = new THREE.MeshStandardMaterial({
-            color: 0x7c3aed,
+        for (let x = -36; x <= 36; x += 3.6) {
+            for (let z = -26; z <= 26; z += 3.6) {
+                // Outer leaflet (Extracellular)
+                const topHead = new THREE.Mesh(headGeo, topHeadMat);
+                topHead.position.set(x, -6, z);
+                bilayerGroup.add(topHead);
+
+                // Inner leaflet (Cytosolic)
+                const bottomHead = new THREE.Mesh(headGeo, bottomHeadMat);
+                bottomHead.position.set(x, -11, z);
+                bilayerGroup.add(bottomHead);
+            }
+        }
+        sceneCellular.add(bilayerGroup);
+
+        // 2. Transmembrane Receptor Proteins (Integrin / EGFR Dimers)
+        const receptorMat = new THREE.MeshStandardMaterial({
+            color: 0xf59e0b,
+            emissive: 0xd97706,
+            emissiveIntensity: 0.6
+        });
+        for (let i = 0; i < 8; i++) {
+            const rx = (i - 3.5) * 9;
+            const rGroup = new THREE.Group();
+            const stalk = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 0.8, 8, 8), receptorMat);
+            stalk.position.set(rx, -7, 0);
+            rGroup.add(stalk);
+
+            const pocket = new THREE.Mesh(new THREE.TorusGeometry(1.4, 0.5, 6, 12), receptorMat);
+            pocket.position.set(rx, -2.6, 0);
+            pocket.rotation.x = Math.PI / 2;
+            rGroup.add(pocket);
+
+            sceneCellular.add(rGroup);
+            receptorMeshes.push(rGroup);
+        }
+
+        // 3. Dynamic Clathrin Geodesic Cage (Invagination Basket)
+        const clathrinGeo = new THREE.IcosahedronGeometry(11, 1);
+        const clathrinMat = new THREE.MeshStandardMaterial({
+            color: 0x8b5cf6,
             wireframe: true,
             side: THREE.DoubleSide
         });
-        const pit = new THREE.Mesh(pitGeo, pitMat);
-        pit.position.set(0, -14, 0);
-        pit.rotation.x = Math.PI;
-        sceneCellular.add(pit);
+        clathrinBasket = new THREE.Mesh(clathrinGeo, clathrinMat);
+        clathrinBasket.position.set(0, -12, 0);
+        clathrinBasket.scale.set(1, 0.7, 1);
+        sceneCellular.add(clathrinBasket);
 
-        const vesicleGeo = new THREE.SphereGeometry(8.5, 24, 24);
+        // 4. Budding Endocytic Vesicle
+        const vesicleGeo = new THREE.SphereGeometry(8.5, 20, 20);
         const vesicleMat = new THREE.MeshStandardMaterial({
             color: 0x06b6d4,
             transparent: true,
-            opacity: 0.45,
+            opacity: 0.5,
             wireframe: true
         });
         membraneVesicle = new THREE.Mesh(vesicleGeo, vesicleMat);
         membraneVesicle.position.set(0, -28, 0);
         sceneCellular.add(membraneVesicle);
 
-        const lysoGeo = new THREE.SphereGeometry(12, 20, 20);
+        // 5. Intracellular Acidic Lysosome
+        const lysoGeo = new THREE.SphereGeometry(13, 20, 20);
         const lysoMat = new THREE.MeshStandardMaterial({
-            color: 0xf59e0b,
-            emissive: 0xb45309,
-            emissiveIntensity: 0.35,
+            color: 0xef4444,
+            emissive: 0xb91c1c,
+            emissiveIntensity: 0.45,
             transparent: true,
-            opacity: 0.38
+            opacity: 0.42
         });
         const lysosome = new THREE.Mesh(lysoGeo, lysoMat);
-        lysosome.position.set(24, -34, -10);
+        lysosome.position.set(26, -34, -10);
         sceneCellular.add(lysosome);
 
+        // 6. Targeted Nanoparticle Docking and Uptake
         const uptakingNp = new THREE.Mesh(
-            new THREE.SphereGeometry(4.2, 24, 24),
+            new THREE.SphereGeometry(4.4, 24, 24),
             new THREE.MeshStandardMaterial({
                 color: 0x22d3ee,
-                emissive: 0x0ea5e9,
-                emissiveIntensity: 0.6
+                emissive: 0x0891b2,
+                emissiveIntensity: 0.75,
+                metalness: 0.2
             })
         );
         uptakingNp.position.set(0, 16, 0);
@@ -1058,38 +1515,55 @@
     }
 
     function buildNanoparticleReleaseModel() {
-        const coreGeo = new THREE.SphereGeometry(16, 36, 36);
+        // 1. Degradable Polymeric / Liposomal Core Matrix
+        const coreGeo = new THREE.IcosahedronGeometry(16, 3);
         const coreMat = new THREE.MeshStandardMaterial({
             color: 0x6366f1,
-            emissive: 0x3730a3,
+            emissive: 0x4338ca,
+            emissiveIntensity: 0.5,
             roughness: 0.4,
             transparent: true,
-            opacity: 0.85
+            opacity: 0.82
         });
         coreMesh = new THREE.Mesh(coreGeo, coreMat);
         sceneRelease.add(coreMesh);
 
-        const pegHaloGeo = new THREE.SphereGeometry(19.5, 24, 24);
-        const pegHaloMat = new THREE.MeshBasicMaterial({
-            color: 0x38bdf8,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.35
-        });
-        const pegHalo = new THREE.Mesh(pegHaloGeo, pegHaloMat);
-        sceneRelease.add(pegHalo);
+        // 2. Exterior PEG Corona Brush Layer (Flexible Radiating Polymer Chains)
+        const pegGroup = new THREE.Group();
+        const brushMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.4 });
+        for (let i = 0; i < 90; i++) {
+            const u = Math.random();
+            const v = Math.random();
+            const theta = u * 2.0 * Math.PI;
+            const phi = Math.acos(2.0 * v - 1.0);
+            const r1 = 15.8;
+            const r2 = 21.5 + Math.random() * 3.5;
 
-        const drugCount = 120;
-        const drugGeo = new THREE.SphereGeometry(0.85, 10, 10);
+            const p1 = new THREE.Vector3(r1 * Math.sin(phi) * Math.cos(theta), r1 * Math.sin(phi) * Math.sin(theta), r1 * Math.cos(phi));
+            const p2 = new THREE.Vector3(r2 * Math.sin(phi) * Math.cos(theta), r2 * Math.sin(phi) * Math.sin(theta), r2 * Math.cos(phi));
+
+            const hairCurve = new THREE.CatmullRomCurve3([
+                p1,
+                new THREE.Vector3().lerpVectors(p1, p2, 0.5).add(new THREE.Vector3((Math.random() - 0.5) * 2, (Math.random() - 0.5) * 2, 0)),
+                p2
+            ]);
+            const hair = new THREE.Mesh(new THREE.TubeGeometry(hairCurve, 8, 0.25, 4, false), brushMat);
+            pegGroup.add(hair);
+        }
+        sceneRelease.add(pegGroup);
+
+        // 3. Encapsulated Drug Payload Crystals & Korsmeyer-Peppas Diffusion Cloud
+        const drugCount = 150;
+        const drugGeo = new THREE.SphereGeometry(0.95, 10, 10);
         const drugMat = new THREE.MeshStandardMaterial({
             color: 0xfbbf24,
             emissive: 0xd97706,
-            emissiveIntensity: 0.8
+            emissiveIntensity: 0.95
         });
 
         for (let i = 0; i < drugCount; i++) {
             const mol = new THREE.Mesh(drugGeo, drugMat);
-            const dist = 3 + Math.random() * 14;
+            const dist = 3.5 + Math.random() * 13.5;
             const u = Math.random();
             const v = Math.random();
             const theta = u * 2.0 * Math.PI;
@@ -1102,7 +1576,7 @@
             mol.userData = {
                 origDist: dist,
                 dir: new THREE.Vector3(x, y, z).normalize(),
-                speed: 0.12 + Math.random() * 0.25
+                speed: 0.15 + Math.random() * 0.3
             };
             sceneRelease.add(mol);
             drugMolecules.push(mol);
@@ -1126,19 +1600,9 @@
         if (sceneCellular) sceneCellular.visible = (mode === 'cellular');
         if (sceneRelease) sceneRelease.visible = (mode === 'release');
 
+        resetCamera();
         if (mode === 'body') {
-            desiredTarget = { x: 0, y: 0, z: 0 };
-            desiredRadius = 140;
             focusRegion(SimState.selectedRegionId);
-        } else if (mode === 'vessel') {
-            desiredTarget = { x: 0, y: 0, z: 0 };
-            desiredRadius = 70;
-        } else if (mode === 'cellular') {
-            desiredTarget = { x: 0, y: -12, z: 0 };
-            desiredRadius = 65;
-        } else if (mode === 'release') {
-            desiredTarget = { x: 0, y: 0, z: 0 };
-            desiredRadius = 55;
         }
     }
 
@@ -1165,12 +1629,25 @@
         animationFrameId = requestAnimationFrame(renderLoop);
 
         const delta = 0.016 * SimState.speed;
+
+        // Auto-Spin 360° if active
+        if (autoRotate) {
+            spherical.theta += 0.006 * SimState.speed;
+        }
+
         updateCameraPosition();
 
+        // 1. Human Body View Dynamics: Heartbeat pulse & vascular flow
         if (sceneBody && sceneBody.visible) {
+            heartPulseTime += delta * 6.0;
+            if (heartMesh) {
+                const s = 1.0 + Math.pow(Math.sin(heartPulseTime), 4) * 0.12;
+                heartMesh.scale.set(s, s, s);
+            }
+
             nanoParticles.forEach(np => {
                 if (!np.userData.curve) return;
-                np.userData.t = (np.userData.t + np.userData.speed * delta * 12) % 1.0;
+                np.userData.t = (np.userData.t + np.userData.speed * delta * 14) % 1.0;
                 const pt = np.userData.curve.getPointAt(np.userData.t);
                 np.position.set(pt.x + np.userData.jitter, pt.y, pt.z + np.userData.jitter);
             });
@@ -1183,58 +1660,62 @@
             });
         }
 
+        // 2. Capillary Vessel Flow: Biconcave RBC tumbling & shear flow
         if (sceneVessel && sceneVessel.visible) {
             rbcParticles.forEach(rbc => {
-                rbc.position.x += rbc.userData.vx * delta * 35;
-                rbc.rotation.x += rbc.userData.rotSpeed;
-                rbc.rotation.y += rbc.userData.rotSpeed;
-                if (rbc.position.x > 55) rbc.position.x = -55;
+                rbc.position.x += rbc.userData.vx * delta * 36;
+                if (rbc.userData.rotSpeedX) rbc.rotation.x += rbc.userData.rotSpeedX;
+                if (rbc.userData.rotSpeedY) rbc.rotation.y += rbc.userData.rotSpeedY;
+                if (rbc.position.x > 60) rbc.position.x = -60;
             });
 
             nanoParticles.forEach(np => {
                 if (!np.userData.vx) return;
-                np.position.x += np.userData.vx * delta * 45;
+                np.position.x += np.userData.vx * delta * 46;
                 np.position.y += (Math.random() - 0.5) * 0.4;
                 np.position.z += (Math.random() - 0.5) * 0.4;
-                if (np.position.x > 55) np.position.x = -55;
+                if (np.position.x > 60) np.position.x = -60;
             });
         }
 
+        // 3. Cellular Uptake: Endocytic invagination & trafficking
         if (sceneCellular && sceneCellular.visible && sceneCellular.userData.np) {
             const uNp = sceneCellular.userData.np;
-            uNp.userData.animPhase = (uNp.userData.animPhase + delta * 0.25) % 1.0;
+            uNp.userData.animPhase = (uNp.userData.animPhase + delta * 0.22) % 1.0;
             const p = uNp.userData.animPhase;
 
-            if (p < 0.2) {
-                const subP = p / 0.2;
-                uNp.position.set(0, 18 - subP * 14, 0);
+            if (p < 0.25) {
+                const subP = p / 0.25;
+                uNp.position.set(0, 16 - subP * 14, 0);
                 uNp.scale.set(1, 1, 1);
-            } else if (p < 0.4) {
-                uNp.position.set(0, 4, 0);
-            } else if (p < 0.65) {
-                const subP = (p - 0.4) / 0.25;
-                uNp.position.set(0, 4 - subP * 24, 0);
+                if (clathrinBasket) clathrinBasket.scale.set(1, 0.6 + subP * 0.4, 1);
+            } else if (p < 0.45) {
+                uNp.position.set(0, 2, 0); // Receptor docked state
+            } else if (p < 0.7) {
+                const subP = (p - 0.45) / 0.25;
+                uNp.position.set(0, 2 - subP * 24, 0);
                 if (membraneVesicle) {
-                    membraneVesicle.position.set(0, 4 - subP * 24, 0);
+                    membraneVesicle.position.set(0, 2 - subP * 24, 0);
                     membraneVesicle.scale.set(1 + subP * 0.2, 1 + subP * 0.2, 1 + subP * 0.2);
                 }
             } else {
-                const subP = (p - 0.65) / 0.35;
-                uNp.position.set(subP * 22, -20 - subP * 12, -subP * 8);
+                const subP = (p - 0.7) / 0.3;
+                uNp.position.set(subP * 24, -22 - subP * 12, -subP * 10);
                 uNp.scale.set(1 - subP * 0.4, 1 - subP * 0.4, 1 - subP * 0.4);
             }
         }
 
+        // 4. Drug Release: Korsmeyer-Peppas Diffusion plume
         if (sceneRelease && sceneRelease.visible) {
-            if (coreMesh) coreMesh.rotation.y += delta * 0.3;
+            if (coreMesh) coreMesh.rotation.y += delta * 0.25;
 
             const currentRelFraction = SimState.evaluationResult ?
                 (SimState.evaluationResult.model_results.drug_release_kinetics.final_release_pct / 100.0) : 0.4;
 
             drugMolecules.forEach((mol, idx) => {
                 if (idx / drugMolecules.length < currentRelFraction) {
-                    mol.position.addScaledVector(mol.userData.dir, mol.userData.speed * delta * 20);
-                    if (mol.position.length() > 38) {
+                    mol.position.addScaledVector(mol.userData.dir, mol.userData.speed * delta * 22);
+                    if (mol.position.length() > 42) {
                         mol.position.copy(mol.userData.dir).multiplyScalar(mol.userData.origDist);
                     }
                 } else {
@@ -1246,6 +1727,7 @@
         if (renderer && scene && camera) {
             renderer.render(scene, camera);
         }
+    }
     }
 
     function initFallbackCanvas() {
@@ -1833,6 +2315,11 @@
         evaluate: evaluateCurrentFormulation,
         applyPreset: applyPreset,
         predictZeta: predictZetaPotential,
+        setControlMode: setControlMode,
+        nudgeCamera: nudgeCamera,
+        zoomCamera: zoomCamera,
+        toggleAutoRotate: toggleAutoRotate,
+        resetCamera: resetCamera,
         activate: () => {
             initDomReferences();
             setTimeout(() => {
