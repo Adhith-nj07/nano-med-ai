@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NanoMedAI - Biophysical Simulation & ML Platform</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/human_body_sim.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -34,6 +35,7 @@
     <!-- FEATURE NAVIGATION (Clean, dark IDE aesthetic matching the design) -->
     <nav class="feature-nav-bar" aria-label="NanoMedAI Platform Modules">
         <button class="nav-tab-btn active" data-tab="simulation">🧪 Live Simulation</button>
+        <button class="nav-tab-btn" data-tab="human-body" id="tab-btn-human-body" style="border-color: rgba(34, 211, 238, 0.45); color: #38bdf8;">🫀 Human Body Simulator</button>
         <button class="nav-tab-btn" data-tab="prompt">🤖 Experiment Prompt AI</button>
         <button class="nav-tab-btn" data-tab="predictor">🔬 Model Predictor</button>
         <button class="nav-tab-btn" data-tab="explorer">📈 Sweep &amp; Heatmap</button>
@@ -761,6 +763,422 @@
         </div>
     </div>
 
+    <!-- ============================================================== -->
+    <!-- VIEW 8: HUMAN BODY INTERACTION & NANOMEDICINE SIMULATOR       -->
+    <!-- ============================================================== -->
+    <div class="view-container-single" id="view-human-body">
+        <div class="hbs-layout">
+            <!-- Header Banner -->
+            <header class="hbs-header">
+                <div class="hbs-title-row">
+                    <div>
+                        <h2>Human Body Interaction &amp; Nanomedicine Simulator</h2>
+                        <div class="hbs-subtitle">
+                            Scientifically inspired multi-scale 3D journey of drug-loaded nanoparticles across systemic circulation, vascular microenvironments, and intracellular pathways.
+                        </div>
+                    </div>
+                    <div class="hbs-integrity-tags">
+                        <span class="hbs-tag hbs-tag-ml">Active ML Inference</span>
+                        <span class="hbs-tag hbs-tag-ode">Korsmeyer-Peppas ODE</span>
+                        <span class="hbs-tag hbs-tag-bio">Conceptual Biological Illustration</span>
+                    </div>
+                </div>
+                <div class="hbs-research-disclaimer">
+                    <strong>RESEARCH NOTICE:</strong> This academic simulation couples trained machine learning models (colloidal stability, cytotoxicity) and mathematical kinetics ODEs with conceptual biological illustrations. It does not constitute a clinical digital twin or medical advice; experimental laboratory validation is required.
+                </div>
+            </header>
+
+            <!-- Simulation Controls & 8-Stage Progress Stepper -->
+            <section class="hbs-control-strip">
+                <div class="hbs-stepper-container">
+                    <div class="hbs-stepper-progress-bg">
+                        <div class="hbs-stepper-progress-fill" id="hbs-stage-progress-bar"></div>
+                    </div>
+                    <button class="hbs-stage-step active" data-stage="0" title="Stage 1: Administration">
+                        <div class="hbs-step-circle">1</div>
+                        <div class="hbs-step-label">💉 Administration</div>
+                    </button>
+                    <button class="hbs-stage-step" data-stage="1" title="Stage 2: Circulation">
+                        <div class="hbs-step-circle">2</div>
+                        <div class="hbs-step-label">🩸 Circulation</div>
+                    </button>
+                    <button class="hbs-stage-step" data-stage="2" title="Stage 3: Protein Corona">
+                        <div class="hbs-step-circle">3</div>
+                        <div class="hbs-step-label">🛡️ Protein Corona</div>
+                    </button>
+                    <button class="hbs-stage-step" data-stage="3" title="Stage 4: Target Tissue">
+                        <div class="hbs-step-circle">4</div>
+                        <div class="hbs-step-label">🎯 Target Tissue</div>
+                    </button>
+                    <button class="hbs-stage-step" data-stage="4" title="Stage 5: Cellular Uptake">
+                        <div class="hbs-step-circle">5</div>
+                        <div class="hbs-step-label">🧫 Cellular Uptake</div>
+                    </button>
+                    <button class="hbs-stage-step" data-stage="5" title="Stage 6: Drug Release">
+                        <div class="hbs-step-circle">6</div>
+                        <div class="hbs-step-label">💊 Drug Release</div>
+                    </button>
+                    <button class="hbs-stage-step" data-stage="6" title="Stage 7: Cytotoxicity">
+                        <div class="hbs-step-circle">7</div>
+                        <div class="hbs-step-label">⚠️ Cytotoxicity</div>
+                    </button>
+                    <button class="hbs-stage-step" data-stage="7" title="Stage 8: Clearance">
+                        <div class="hbs-step-circle">8</div>
+                        <div class="hbs-step-label">🧹 Clearance</div>
+                    </button>
+                </div>
+
+                <div class="hbs-controls-bar">
+                    <div class="hbs-btn-group">
+                        <button id="hbs-btn-start" class="btn btn-primary">▶ START JOURNEY</button>
+                        <button id="hbs-btn-pause" class="btn btn-secondary" disabled>⏸ PAUSE</button>
+                        <button id="hbs-btn-resume" class="btn btn-secondary" disabled>▶ RESUME</button>
+                        <button id="hbs-btn-reset" class="btn btn-secondary">🔄 RESET</button>
+                    </div>
+
+                    <div style="display:flex; gap:1.2rem; align-items:center; flex-wrap:wrap;">
+                        <div class="hbs-speed-group">
+                            <span style="font-size:0.7rem; color:var(--text-muted); margin-right:0.2rem;">SPEED:</span>
+                            <button class="hbs-speed-btn" data-speed="0.5">0.5x</button>
+                            <button class="hbs-speed-btn active" data-speed="1.0">1.0x</button>
+                            <button class="hbs-speed-btn" data-speed="2.0">2.0x</button>
+                            <button class="hbs-speed-btn" data-speed="5.0">5.0x</button>
+                        </div>
+
+                        <label class="hbs-auto-advance-label">
+                            <input type="checkbox" id="hbs-auto-advance" checked>
+                            <span>Auto-Camera Focus</span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Interactive 3D Arena & Side Intelligence -->
+            <div class="hbs-arena-grid">
+                <!-- 3D Visualization Arena -->
+                <div class="hbs-canvas-card">
+                    <div class="hbs-canvas-toolbar">
+                        <div class="hbs-view-switcher">
+                            <button class="hbs-view-btn active" data-view="body">🫀 Human Body (3D)</button>
+                            <button class="hbs-view-btn" data-view="vessel">🩸 Capillary Flow</button>
+                            <button class="hbs-view-btn" data-view="cellular">🧫 Cellular Uptake</button>
+                            <button class="hbs-view-btn" data-view="release">💊 NP Release</button>
+                        </div>
+                        <span class="hbs-canvas-stage-badge" id="hbs-hud-stage-badge">STAGE 1: ADMINISTRATION</span>
+                    </div>
+
+                    <div class="hbs-canvas-viewport" id="hbs-canvas-container">
+                        <canvas id="hbs-three-canvas"></canvas>
+                        <canvas id="hbs-fallback-canvas" style="display:none;"></canvas>
+
+                        <!-- HUD Floating Over 3D Scene -->
+                        <div class="hbs-hud-overlay">
+                            <div class="hbs-hud-top">
+                                <div class="hbs-hud-pill">
+                                    <span style="color:#22d3ee;">📍 REGION:</span>
+                                    <strong id="hbs-hud-region-badge">TARGET TISSUE</strong>
+                                </div>
+                                <div class="hbs-hud-pill">
+                                    <span style="color:#f59e0b;">⏳ SIM TIME:</span>
+                                    <strong id="hbs-hud-time-badge" style="font-family:var(--font-mono);">0.0 hrs</strong>
+                                </div>
+                            </div>
+                            <div class="hbs-hud-bottom">
+                                <div class="hbs-hud-pill">
+                                    <span style="color:#10b981;">● CIRCULATING:</span>
+                                    <strong id="hbs-hud-particles-badge" style="font-family:var(--font-mono);">180 NPs / mL</strong>
+                                </div>
+                                <div class="hbs-hud-instruction">
+                                    🖱️ Drag to rotate • Scroll to zoom • Select anatomical organ
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Intelligence Side Panels -->
+                <div class="hbs-side-panels">
+                    <!-- Biological Region Deep-Dive Panel -->
+                    <div class="hbs-panel-card">
+                        <div class="hbs-panel-header">
+                            <h3>📍 Selectable Biological Region</h3>
+                            <span class="badge badge-blue" id="hbs-region-nature-badge">ESTABLISHED ANATOMICAL KNOWLEDGE</span>
+                        </div>
+                        <div class="hbs-region-selector-row">
+                            <select id="hbs-region-select" class="demo-select">
+                                <option value="bloodstream">Bloodstream &amp; Systemic Circulation</option>
+                                <option value="liver">Liver (Hepatic Reticuloendothelial System)</option>
+                                <option value="kidneys">Kidneys (Renal Glomerular Filtration)</option>
+                                <option value="lungs">Lungs (Pulmonary Capillary Bed)</option>
+                                <option value="skin">Skin (Dermal Microvasculature)</option>
+                                <option value="target_tissue" selected>Target Tissue (Solid Tumor / Lesion)</option>
+                                <option value="cellular_environment">Cellular Environment &amp; Endocytic Pathway</option>
+                            </select>
+                        </div>
+                        <div style="font-size:0.95rem; font-weight:700; color:#fff; margin-bottom:0.3rem;" id="hbs-region-title">
+                            Target Tissue (Solid Tumor / Lesion)
+                        </div>
+                        <div style="font-size:0.75rem; color:#22d3ee; margin-bottom:0.6rem;" id="hbs-region-category">
+                            Extravasation &amp; Extracellular Penetration
+                        </div>
+                        <div class="hbs-text-block" id="hbs-region-interactions">
+                            Nanoparticles may exploit passive Enhanced Permeability and Retention (EPR) through defective tumor vessels. Targeting is never guaranteed; clinical delivery efficiency rarely exceeds 1-2% of injected dose.
+                        </div>
+                        <div class="hbs-barrier-callout" id="hbs-region-barrier">
+                            Elevated interstitial fluid pressure (IFP) and dense fibrous collagen matrix.
+                        </div>
+                        <ul class="hbs-prop-list" id="hbs-region-properties-list">
+                            <!-- Populated dynamically via JS -->
+                        </ul>
+                    </div>
+
+                    <!-- Active Stage Scientific Intelligence Panel -->
+                    <div class="hbs-panel-card">
+                        <div class="hbs-panel-header">
+                            <h3 id="hbs-stage-title">Stage 1: Administration &amp; Introduction</h3>
+                            <span class="badge badge-live" id="hbs-stage-badge">ESTABLISHED BIOPHYSICAL PROTOCOL</span>
+                        </div>
+                        <div class="hbs-text-block" id="hbs-stage-desc">
+                            Introduction of drug-loaded nanoparticles into the biological system.
+                        </div>
+                        <div style="font-size:0.78rem; font-weight:600; color:#c084fc; margin-bottom:0.3rem;">Scientific Mechanism:</div>
+                        <div class="hbs-text-block" id="hbs-stage-mechanisms" style="white-space:pre-line;">
+                            For IV administration, particles enter systemic circulation via a peripheral vein, undergoing rapid 1:1000 dilution in approximately 5 liters of blood within 1-2 minutes.
+                        </div>
+                        <div class="hbs-limitations-callout" id="hbs-stage-limitations">
+                            Route-specific pharmacokinetics for non-IV routes require specialized mucosal models.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Grid: Configuration Form, Telemetry KPIs, Chart & Event History -->
+            <div class="hbs-bottom-grid">
+                <!-- Nanoparticle & Environment Configuration -->
+                <div class="hbs-panel-card">
+                    <div class="hbs-panel-header">
+                        <h3>⚙️ Nanoparticle Formulation &amp; Environment</h3>
+                        <span class="badge badge-purple">MULTI-PARAMETER INPUT</span>
+                    </div>
+
+                    <div style="margin-bottom:0.8rem;">
+                        <label class="form-label" style="font-size:0.72rem; color:var(--text-secondary);">Benchmark Formulation Preset:</label>
+                        <select id="hbs-preset-select" class="demo-select">
+                            <option value="plga-paclitaxel" selected>PLGA + Paclitaxel (Oncology Benchmark)</option>
+                            <option value="doxorubicin-liposome">PEGylated Liposome + Doxorubicin (Doxil Analog)</option>
+                            <option value="mrna-lnp">mRNA Lipid Nanoparticle (LNP Formulation)</option>
+                            <option value="paracetamol-sln">Solid Lipid NP + Paracetamol (Analgesic)</option>
+                            <option value="vancomycin-plga">PLGA-PEG + Vancomycin (Anti-MRSA Antibiotic)</option>
+                            <option value="cuo-toxicity-model">Inorganic CuO Nanoparticle (Cytotoxicity Assay)</option>
+                        </select>
+                    </div>
+
+                    <div class="hbs-form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Material Core</label>
+                            <select id="hbs-cfg-material" class="demo-select">
+                                <option value="PLGA" selected>PLGA Polymer</option>
+                                <option value="Liposome">Liposome Lipid Bilayer</option>
+                                <option value="Silver">Silver (Ag)</option>
+                                <option value="Gold">Gold (Au)</option>
+                                <option value="Silica">Silica (SiO2)</option>
+                                <option value="CuO">Copper Oxide (CuO)</option>
+                                <option value="ZnO">Zinc Oxide (ZnO)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Surface Coating</label>
+                            <select id="hbs-cfg-coating" class="demo-select">
+                                <option value="PEG" selected>PEG (Polyethylene glycol)</option>
+                                <option value="PVA">PVA (Polyvinyl alcohol)</option>
+                                <option value="Citrate">Citric Acid (Citrate)</option>
+                                <option value="Chitosan">Chitosan Polysaccharide</option>
+                                <option value="Dextran">Dextran Polymer</option>
+                                <option value="Uncoated">Uncoated / Pristine</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Core Size (nm)</label>
+                            <input type="number" id="hbs-cfg-core-size" class="text-input" value="80" min="5" max="500">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Hydrodynamic Size (nm)</label>
+                            <input type="number" id="hbs-cfg-hydro-size" class="text-input" value="95" min="5" max="600">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Surface Zeta (mV)</label>
+                            <div style="display:flex; gap:0.3rem;">
+                                <input type="number" id="hbs-cfg-zeta" class="text-input" value="-24.5" step="0.5" style="flex:1;">
+                                <button id="hbs-btn-predict-zeta" class="btn btn-secondary" style="font-size:0.68rem; padding:0.3rem 0.5rem;" title="Predict Zeta potential via ML Ridge Regressor">⚡ ML</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Active Drug Name</label>
+                            <input type="text" id="hbs-cfg-drug" class="text-input" value="Paclitaxel">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Drug Loading (%)</label>
+                            <input type="number" id="hbs-cfg-loading" class="text-input" value="12.0" min="0" max="100" step="0.5">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Initial Dose (µg/mL)</label>
+                            <input type="number" id="hbs-cfg-dose" class="text-input" value="50.0" min="1" max="1000">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Release Rate Const (k)</label>
+                            <input type="number" id="hbs-cfg-k" class="text-input" value="0.18" min="0.001" max="2.0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Release Exponent (n)</label>
+                            <input type="number" id="hbs-cfg-n" class="text-input" value="0.55" min="0.1" max="1.5" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Target Tissue</label>
+                            <select id="hbs-cfg-target" class="demo-select">
+                                <option value="target_tissue" selected>Tumor / Oncological Lesion</option>
+                                <option value="lungs">Pulmonary / Lung Bed</option>
+                                <option value="liver">Hepatic Parenchyma</option>
+                                <option value="kidneys">Renal Cortex</option>
+                                <option value="skin">Dermal Capillaries</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Administration Route</label>
+                            <select id="hbs-cfg-route" class="demo-select">
+                                <option value="Intravenous" selected>Intravenous (IV Bolus/Infusion)</option>
+                                <option value="Oral">Oral (Gastrointestinal Absorption)</option>
+                                <option value="Inhalation">Inhalation (Pulmonary Aerosol)</option>
+                                <option value="Subcutaneous">Subcutaneous (Lymphatic Uptake)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Target Cell Line</label>
+                            <select id="hbs-cfg-cell" class="demo-select">
+                                <option value="A549" selected>A549 (Human Lung Carcinoma)</option>
+                                <option value="HaCaT">HaCaT (Human Keratinocyte)</option>
+                                <option value="HepG2">HepG2 (Human Hepatoma)</option>
+                                <option value="HeLa">HeLa (Epithelial Carcinoma)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Viability Assay</label>
+                            <select id="hbs-cfg-assay" class="demo-select">
+                                <option value="MTT" selected>MTT (Metabolic Activity)</option>
+                                <option value="LDH">LDH (Membrane Disruption)</option>
+                                <option value="WST-1">WST-1 (Tetrazolium Cleavage)</option>
+                            </select>
+                        </div>
+
+                        <!-- Range Sliders for Environmental Controls -->
+                        <div class="hbs-slider-row">
+                            <div class="hbs-slider-header">
+                                <span>Environmental pH (Physiological 7.4 vs Acidic 5.0):</span>
+                                <span id="hbs-val-ph">7.4</span>
+                            </div>
+                            <input type="range" id="hbs-cfg-ph" min="4.5" max="8.5" step="0.1" value="7.4">
+                        </div>
+
+                        <div class="hbs-slider-row">
+                            <div class="hbs-slider-header">
+                                <span>Temperature (Physiological 37.0°C):</span>
+                                <span id="hbs-val-temp">37.0 °C</span>
+                            </div>
+                            <input type="range" id="hbs-cfg-temp" min="20.0" max="45.0" step="0.5" value="37.0">
+                        </div>
+
+                        <div class="hbs-slider-row">
+                            <div class="hbs-slider-header">
+                                <span>Ionic Strength (Saline 0.154 M):</span>
+                                <span id="hbs-val-ionic">0.154 M</span>
+                            </div>
+                            <input type="range" id="hbs-cfg-ionic" min="0.01" max="0.5" step="0.01" value="0.154">
+                        </div>
+
+                        <div class="hbs-slider-row">
+                            <div class="hbs-slider-header">
+                                <span>Simulation Exposure Duration:</span>
+                                <span id="hbs-val-duration">48.0 h</span>
+                            </div>
+                            <input type="range" id="hbs-cfg-duration" min="6.0" max="168.0" step="6.0" value="48.0">
+                        </div>
+                    </div>
+
+                    <div style="margin-top:1rem;">
+                        <button id="hbs-btn-apply-config" class="btn btn-primary" style="width:100%;">
+                            Apply &amp; Evaluate Formulation
+                        </button>
+                    </div>
+
+                    <!-- Domain Warnings Card -->
+                    <div id="hbs-domain-warnings-card" class="hbs-domain-warnings-card" style="display:none; margin-top:1rem;">
+                        <strong style="font-size:0.75rem; color:#f59e0b;">⚠️ Model Boundary &amp; Domain Warnings:</strong>
+                        <ul id="hbs-domain-warnings-list" class="hbs-domain-warnings-list"></ul>
+                    </div>
+                </div>
+
+                <!-- Quantitative Results KPIs, Chart & Event History -->
+                <div class="hbs-panel-card">
+                    <div class="hbs-panel-header">
+                        <h3>📊 Quantitative Results &amp; Live Telemetry</h3>
+                        <span class="badge badge-live">REAL-TIME MULTI-MODEL METRICS</span>
+                    </div>
+
+                    <!-- KPI Cards Strip -->
+                    <div class="hbs-kpi-row">
+                        <div class="hbs-kpi-card">
+                            <span class="hbs-kpi-label">Surface Potential</span>
+                            <div class="hbs-kpi-val" id="hbs-kpi-zeta">-24.5 mV</div>
+                            <span class="hbs-kpi-sub" id="hbs-kpi-stability-class">Stable (|ζ| ≥ 20)</span>
+                        </div>
+                        <div class="hbs-kpi-card">
+                            <span class="hbs-kpi-label">Carrier Cytotoxicity</span>
+                            <div class="hbs-kpi-val text-accent" id="hbs-kpi-cytotox">Nontoxic</div>
+                            <span class="hbs-kpi-sub" id="hbs-kpi-cytotox-conf">92% conf</span>
+                        </div>
+                        <div class="hbs-kpi-card">
+                            <span class="hbs-kpi-label">Cumulative Release</span>
+                            <div class="hbs-kpi-val text-cyan" id="hbs-kpi-release-pct">0.0%</div>
+                            <span class="hbs-kpi-sub" id="hbs-kpi-release-mech">Anomalous Transport</span>
+                        </div>
+                        <div class="hbs-kpi-card">
+                            <span class="hbs-kpi-label">Release Rate</span>
+                            <div class="hbs-kpi-val" id="hbs-kpi-release-rate">0.00 %/h</div>
+                            <span class="hbs-kpi-sub">d(Mt/M∞)/dt ODE</span>
+                        </div>
+                        <div class="hbs-kpi-card">
+                            <span class="hbs-kpi-label">Remaining Payload</span>
+                            <div class="hbs-kpi-val" id="hbs-kpi-remaining-pct">100.0%</div>
+                            <span class="hbs-kpi-sub">Encapsulated in core</span>
+                        </div>
+                        <div class="hbs-kpi-card">
+                            <span class="hbs-kpi-label">Elapsed Journey</span>
+                            <div class="hbs-kpi-val" id="hbs-kpi-sim-time">0.0 h</div>
+                            <span class="hbs-kpi-sub">In vivo timescale</span>
+                        </div>
+                    </div>
+
+                    <!-- Drug Release Curve (Chart.js) -->
+                    <div class="hbs-panel-header" style="margin-bottom:0.4rem; padding-bottom:0.3rem;">
+                        <h4 style="font-size:0.82rem; color:#fff;">📈 Korsmeyer-Peppas ODE Drug Release Profile</h4>
+                        <span style="font-size:0.68rem; color:#948cb8; font-family:var(--font-mono);">Mt/M∞ = k · tⁿ (valid ≤ 60%)</span>
+                    </div>
+                    <div class="hbs-chart-container">
+                        <canvas id="hbs-release-chart"></canvas>
+                    </div>
+
+                    <!-- Event History Log -->
+                    <div class="hbs-panel-header" style="margin-bottom:0.4rem; padding-bottom:0.3rem;">
+                        <h4 style="font-size:0.82rem; color:#fff;">📜 Biophysical Event History &amp; Audit Trail</h4>
+                        <span style="font-size:0.68rem; color:#22d3ee;">TIMESTAMPS</span>
+                    </div>
+                    <div class="hbs-event-log" id="hbs-event-log">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- INTRO LOADING & DIAGNOSTICS MODAL -->
     <div id="intro-modal" class="intro-modal-overlay">
         <div class="intro-modal-card">
@@ -813,6 +1231,7 @@
 
     <!-- SCRIPTS -->
     <script src="/static/app.js"></script>
+    <script src="/static/human_body_sim.js"></script>
 
 <!-- ============================================================== -->
 <!-- SITEWIDE AI NANOMEDICINE ASSISTANT (Voice & Read-Out Engine)   -->

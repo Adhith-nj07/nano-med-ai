@@ -1,0 +1,620 @@
+/* ==========================================================================
+   NanoMedAI — Human Body Interaction and Nanomedicine Simulator Styles
+   Deep Oceanic Abyss & Cyber-Glassmorphic Aesthetic
+   ========================================================================== */
+
+/* -------------------------------------------------------------
+   Container & Layout
+   ------------------------------------------------------------- */
+#view-human-body {
+    padding: 1.5rem 2rem;
+    color: var(--text-primary);
+    overflow-y: auto;
+}
+
+.hbs-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+/* -------------------------------------------------------------
+   Header & Integrity Banner
+   ------------------------------------------------------------- */
+.hbs-header {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: var(--radius-md);
+    padding: 1.4rem 1.8rem;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+.hbs-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 0.6rem;
+}
+
+.hbs-title-row h2 {
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+    background: linear-gradient(90deg, #ffffff, #67e8f9 50%, #c084fc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hbs-integrity-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.hbs-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+}
+
+.hbs-tag-ml {
+    background: rgba(14, 165, 233, 0.15);
+    border: 1px solid rgba(14, 165, 233, 0.45);
+    color: #38bdf8;
+}
+
+.hbs-tag-ode {
+    background: rgba(168, 85, 247, 0.15);
+    border: 1px solid rgba(168, 85, 247, 0.45);
+    color: #c084fc;
+}
+
+.hbs-tag-bio {
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.45);
+    color: #fbbf24;
+}
+
+.hbs-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 0.8rem;
+}
+
+.hbs-research-disclaimer {
+    font-size: 0.74rem;
+    color: #948cb8;
+    background: rgba(8, 5, 24, 0.6);
+    border-left: 3px solid #22d3ee;
+    padding: 0.5rem 0.8rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+/* -------------------------------------------------------------
+   Simulation Control & Stepper Strip
+   ------------------------------------------------------------- */
+.hbs-control-strip {
+    background: var(--panel-bg-alt);
+    border: 1px solid var(--panel-border);
+    backdrop-filter: blur(14px);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.hbs-stepper-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 0.5rem 0.2rem;
+}
+
+.hbs-stepper-progress-bg {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    right: 20px;
+    height: 3px;
+    background: rgba(139, 120, 255, 0.2);
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.hbs-stepper-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #22d3ee, #7c3aed);
+    transition: width 0.4s ease;
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+}
+
+.hbs-stage-step {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
+    transition: transform 0.2s ease;
+}
+
+.hbs-stage-step:hover {
+    transform: translateY(-2px);
+}
+
+.hbs-step-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #0d0b24;
+    border: 2px solid rgba(139, 120, 255, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+}
+
+.hbs-stage-step.active .hbs-step-circle {
+    background: #22d3ee;
+    border-color: #ffffff;
+    color: #030712;
+    box-shadow: 0 0 16px rgba(34, 211, 238, 0.8);
+    font-weight: 700;
+}
+
+.hbs-stage-step.completed .hbs-step-circle {
+    background: rgba(124, 58, 237, 0.3);
+    border-color: #a855f7;
+    color: #f1efff;
+}
+
+.hbs-step-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+}
+
+.hbs-stage-step.active .hbs-step-label {
+    color: #22d3ee;
+    font-weight: 700;
+}
+
+.hbs-controls-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(139, 120, 255, 0.12);
+}
+
+.hbs-btn-group {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+.hbs-speed-group {
+    display: flex;
+    gap: 0.2rem;
+    align-items: center;
+}
+
+.hbs-speed-btn {
+    padding: 0.28rem 0.55rem;
+    font-size: 0.72rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(139, 120, 255, 0.2);
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.hbs-speed-btn.active, .hbs-speed-btn:hover {
+    background: rgba(34, 211, 238, 0.15);
+    border-color: #22d3ee;
+    color: #22d3ee;
+}
+
+.hbs-auto-advance-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+/* -------------------------------------------------------------
+   Main Visualization Arena (3D & Panels)
+   ------------------------------------------------------------- */
+.hbs-arena-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+    .hbs-arena-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.hbs-canvas-card {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    backdrop-filter: blur(16px);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 520px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.hbs-canvas-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.1rem;
+    background: rgba(8, 5, 24, 0.75);
+    border-bottom: 1px solid var(--panel-border);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.hbs-view-switcher {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.hbs-view-btn {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(139, 120, 255, 0.25);
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.hbs-view-btn.active {
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.25), rgba(124, 58, 237, 0.25));
+    border-color: #22d3ee;
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(34, 211, 238, 0.35);
+}
+
+.hbs-canvas-stage-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+    background: rgba(34, 211, 238, 0.15);
+    border: 1px solid rgba(34, 211, 238, 0.4);
+    color: #22d3ee;
+}
+
+.hbs-canvas-viewport {
+    position: relative;
+    flex: 1;
+    min-height: 460px;
+    background: radial-gradient(circle at 50% 50%, #0a0628 0%, #03020c 100%);
+    overflow: hidden;
+}
+
+#hbs-three-canvas, #hbs-fallback-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Floating HUD on 3D Canvas */
+.hbs-hud-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hbs-hud-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.hbs-hud-pill {
+    pointer-events: auto;
+    background: rgba(14, 10, 38, 0.85);
+    border: 1px solid rgba(139, 120, 255, 0.3);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius-sm);
+    padding: 0.35rem 0.7rem;
+    font-size: 0.72rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.hbs-hud-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.hbs-hud-instruction {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    background: rgba(8, 5, 24, 0.65);
+    padding: 0.3rem 0.6rem;
+    border-radius: var(--radius-sm);
+}
+
+/* -------------------------------------------------------------
+   Right Intelligence Panels (Region & Stage Deep Dive)
+   ------------------------------------------------------------- */
+.hbs-side-panels {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.hbs-panel-card {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    backdrop-filter: blur(16px);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.hbs-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(139, 120, 255, 0.15);
+}
+
+.hbs-panel-header h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.hbs-region-selector-row {
+    margin-bottom: 0.9rem;
+}
+
+.hbs-prop-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem 0.8rem;
+    margin: 0.8rem 0;
+    padding: 0.6rem;
+    background: rgba(8, 5, 24, 0.5);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(139, 120, 255, 0.12);
+}
+
+.hbs-prop-list li {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+}
+
+.hbs-prop-list strong {
+    color: #22d3ee;
+    font-weight: 600;
+}
+
+.hbs-text-block {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin-bottom: 0.7rem;
+}
+
+.hbs-barrier-callout {
+    background: rgba(124, 58, 237, 0.1);
+    border-left: 3px solid #a855f7;
+    padding: 0.55rem 0.75rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 0.75rem;
+    color: #e9d5ff;
+    line-height: 1.45;
+}
+
+.hbs-limitations-callout {
+    background: rgba(245, 158, 11, 0.08);
+    border-left: 3px solid #f59e0b;
+    padding: 0.55rem 0.75rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 0.74rem;
+    color: #fde68a;
+    line-height: 1.45;
+    margin-top: 0.6rem;
+}
+
+/* -------------------------------------------------------------
+   Bottom Grid: Configuration, KPIs, Chart & Audit Log
+   ------------------------------------------------------------- */
+.hbs-bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.35fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+    .hbs-bottom-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.hbs-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+}
+
+.hbs-slider-row {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.hbs-slider-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+}
+
+.hbs-slider-header span:last-child {
+    color: #22d3ee;
+    font-family: var(--font-mono);
+    font-weight: 600;
+}
+
+/* KPI Cards Strip */
+.hbs-kpi-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+}
+
+.hbs-kpi-card {
+    background: rgba(8, 5, 24, 0.65);
+    border: 1px solid rgba(139, 120, 255, 0.18);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.hbs-kpi-label {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.hbs-kpi-val {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: var(--font-mono);
+}
+
+.hbs-kpi-sub {
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+}
+
+.text-danger { color: #f43f5e !important; }
+.text-accent { color: #10b981 !important; }
+
+/* Chart Container */
+.hbs-chart-container {
+    height: 220px;
+    position: relative;
+    margin-bottom: 1.2rem;
+}
+
+/* Event Log */
+.hbs-event-log {
+    max-height: 180px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding-right: 0.4rem;
+}
+
+.hbs-event-item {
+    background: rgba(8, 5, 24, 0.55);
+    border: 1px solid rgba(139, 120, 255, 0.12);
+    border-radius: var(--radius-sm);
+    padding: 0.45rem 0.75rem;
+    font-size: 0.72rem;
+}
+
+.hbs-event-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.2rem;
+}
+
+.hbs-event-time {
+    color: #22d3ee;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+}
+
+.hbs-event-msg {
+    color: var(--text-secondary);
+    line-height: 1.35;
+}
+
+/* Domain Warnings */
+.hbs-domain-warnings-card {
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.4rem;
+}
+
+.hbs-domain-warnings-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+}
+
+.alert-item {
+    font-size: 0.75rem;
+    color: #fde68a;
+    line-height: 1.4;
+}

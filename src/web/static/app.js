@@ -938,6 +938,9 @@ function switchTab(tabKey) {
     
     if (tabKey === 'viewer') open3D();
     else stop3D();
+    if (tabKey === 'human-body' && window.NanoMedHumanBodySim) {
+        window.NanoMedHumanBodySim.activate();
+    }
     if (tabKey === 'data') {
         loadModelRegistry();
         loadNanoDrugRecords();

@@ -32,6 +32,12 @@ from src.api.prompt_workflow import (
 )
 from src.feature_registry import list_features
 from src.dataset_catalog import get_dataset, list_datasets
+from src.api.human_body_sim import (
+    BIOLOGICAL_REGIONS,
+    SIMULATION_STAGES,
+    HumanBodySimRequest,
+    evaluate_human_body_simulation,
+)
 
 app = FastAPI(
     title="NanoMedAI Platform",
@@ -726,6 +732,31 @@ def update_simulation_environment(simulation_id: str, req: SimEnvUpdateRequest):
         return sim_manager.update_environment(simulation_id, data)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+
+# -------------------------------------------------------------
+# Human Body Interaction & Nanomedicine Simulation Endpoints
+# -------------------------------------------------------------
+@app.get("/api/human_body_sim/regions")
+def get_human_body_regions():
+    """Returns anatomical and biophysical profiles for selectable biological regions."""
+    return {"regions": BIOLOGICAL_REGIONS}
+
+
+@app.get("/api/human_body_sim/stages")
+def get_human_body_stages():
+    """Returns the 8-stage journey specifications, mechanisms, and integrity classifications."""
+    return {"stages": SIMULATION_STAGES}
+
+
+@app.post("/api/human_body_sim/evaluate")
+def evaluate_human_body_sim(req: HumanBodySimRequest):
+    """
+    Evaluates nanoparticle formulation across multi-scale biological journey:
+    ML stability inference, ML cytotoxicity classification, Korsmeyer-Peppas ODE kinetics,
+    DLVO colloidal stability, and stage-by-stage biophysical breakdowns.
+    """
+    return evaluate_human_body_simulation(req)
 
 
 # -------------------------------------------------------------
